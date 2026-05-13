@@ -1,0 +1,8 @@
+/* style.css — Kirby Website */
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  margin: 0;
+  padding: 2rem;
+  background: #fdf2f8;
+  color: #1e293b;
+}
