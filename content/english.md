@@ -51,14 +51,14 @@
 ### grammar | provide to others collgues → provide it to my other colleagues / share it with my colleagues
 規則：修正拼寫 (colleagues) 並補上受詞。
 
-### grammar | makes work conveniently $\rightarrow$ makes work more convenient / makes work easier
+### grammar | makes work conveniently → makes work more convenient / makes work easier
 規則：使役動詞 make + 受詞 + 形容詞 (convenient)，而非副詞 (conveniently)。
 
-### grammar | write a letter with English $\rightarrow$ write a letter in English
+### grammar | write a letter with English → write a letter in English
 規則：語言介質一律使用介系詞 "in"。
 
-### grammar | meet the formal mail's format $\rightarrow$ follow a formal email format / match the required formal format
+### grammar | meet the formal mail's format → follow a formal email format / match the required formal format
 規則：格式建議使用 "follow" 或 "match"，而非 "meet"。
 
-### grammar | The key to make presentation better is streamline $\rightarrow$ The key to making a presentation better is to streamline the content / streamlining
+### grammar | The key to make presentation better is streamline → The key to making a presentation better is to streamline the content / streamlining
 規則：'The key to' 後方必須接 V-ing 或名詞。

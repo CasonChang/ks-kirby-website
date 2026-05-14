@@ -7,32 +7,155 @@
 .fade-1{animation-delay:.1s}.fade-2{animation-delay:.2s}.fade-3{animation-delay:.3s}.fade-4{animation-delay:.4s}.fade-5{animation-delay:.5s}.fade-6{animation-delay:.6s}.fade-7{animation-delay:.7s}.fade-8{animation-delay:.8s}.fade-9{animation-delay:.9s}
 .badge{display:inline-block;padding:4px 16px;border-radius:9999px;font-size:.75rem;font-weight:700;margin-bottom:1rem}
 .incorrect{text-decoration:line-through;color:#E06C84}.correct{color:#2d8a56;font-weight:600}
+.cat-btn{transition:all .2s}.cat-btn.active{background-color:#FF8FAB!important;color:#fff!important}
+select:focus{outline:none;border-color:#FF8FAB!important;box-shadow:0 0 0 2px rgba(255,143,171,.3)}
+.nav-btn:disabled{opacity:.3;cursor:not-allowed}.nav-btn:not(:disabled):hover{opacity:1;background-color:#FFB7C5}
 </style></head>
 <body class="bg-kirby-bg text-kirby-pink-dark font-sans min-h-screen flex flex-col">
 <nav class="w-full max-w-4xl mx-auto px-6 py-4 flex flex-wrap justify-center gap-3 md:justify-start"><a class="px-4 py-2 rounded-full text-sm md:text-base font-medium transition-all bg-kirby-white/60 text-kirby-pink-dark hover:bg-kirby-pink-light/40" href="/ks-kirby-website/">🏠 首頁</a><a class="px-4 py-2 rounded-full text-sm md:text-base font-medium transition-all bg-kirby-white/60 text-kirby-pink-dark hover:bg-kirby-pink-light/40" href="/ks-kirby-website/milestones">🏆 里程碑</a><a class="px-4 py-2 rounded-full text-sm md:text-base font-medium transition-all bg-kirby-pink-main text-white shadow-md" href="/ks-kirby-website/dev-notes">📝 開發筆記</a><a class="px-4 py-2 rounded-full text-sm md:text-base font-medium transition-all bg-kirby-white/60 text-kirby-pink-dark hover:bg-kirby-pink-light/40" href="/ks-kirby-website/english">🇬🇧 英文學習</a></nav>
-<main class="max-w-4xl mx-auto px-6 py-12 w-full"><header class="text-center mb-12 fade-in fade-1"><h1 class="text-4xl md:text-5xl font-bold text-kirby-pink-main mb-4">📝 開發筆記</h1><p class="text-kirby-pink-dark/60 text-lg">記錄寫程式時的點點滴滴</p></header><div class="space-y-8"><div class="bg-kirby-white/60 rounded-2xl p-6 shadow-sm border border-kirby-pink-light/30 fade-in fade-2">
-<div class="flex items-start justify-between mb-3"><span class="text-xs font-semibold text-kirby-pink-main bg-kirby-pink-main/10 px-2 py-1 rounded">#nextjs</span><span class="text-xs text-kirby-pink-dark/40">2026-05-13</span></div>
-<h3 class="text-xl font-bold text-kirby-pink-dark mb-3">🏗️ Next.js + Tailwind CSS 專案初始化</h3>
-<p class="text-kirby-pink-dark/70 text-sm leading-relaxed mb-3">使用 create-next-app 建立專案（TypeScript + Tailwind + App Router）。發現 Tailwind CSS 已升級到 v4，最大的變化是：不再使用 tailwind.config.ts 設定檔。</p>
-<p class="text-kirby-pink-dark/70 text-sm leading-relaxed">🎯 學到的事：v4 改在 globals.css 裡用 @theme 語法定義自訂顏色，更直覺也更集中。</p></div><div class="bg-kirby-white/60 rounded-2xl p-6 shadow-sm border border-kirby-pink-light/30 fade-in fade-3">
-<div class="flex items-start justify-between mb-3"><span class="text-xs font-semibold text-kirby-pink-main bg-kirby-pink-main/10 px-2 py-1 rounded">#css</span><span class="text-xs text-kirby-pink-dark/40">2026-05-13</span></div>
-<h3 class="text-xl font-bold text-kirby-pink-dark mb-3">🎨 卡比專屬粉色系色盤設計</h3>
-<p class="text-kirby-pink-dark/70 text-sm leading-relaxed mb-3">定義了一套 5 階粉色色盤（kirby-bg → kirby-pink-light → kirby-pink-main → kirby-pink-dark → kirby-white），讓整個網站擁有統一的視覺語言。限制色階數量讓整體配色更協調。</p>
-<p class="text-kirby-pink-dark/70 text-sm leading-relaxed">🎯 學到的事：少即是多，5 階色足夠覆蓋所有 UI 需求。</p></div><div class="bg-kirby-white/60 rounded-2xl p-6 shadow-sm border border-kirby-pink-light/30 fade-in fade-4">
-<div class="flex items-start justify-between mb-3"><span class="text-xs font-semibold text-kirby-pink-main bg-kirby-pink-main/10 px-2 py-1 rounded">#animation</span><span class="text-xs text-kirby-pink-dark/40">2026-05-13</span></div>
-<h3 class="text-xl font-bold text-kirby-pink-dark mb-3">✨ Framer Motion 動畫整合</h3>
-<p class="text-kirby-pink-dark/70 text-sm leading-relaxed mb-3">引入 framer-motion 為頁面加入流暢的進入/離開動畫與 hover 效果。安裝時遇到大坑：npm install framer-motion 意外移除了 337 個相依套件（包含 Tailwind CSS！）。</p>
-<p class="text-kirby-pink-dark/70 text-sm leading-relaxed">🎯 學到的事：這個環境必須用 npm install --include=dev 來強制安裝 devDependencies，標準行為不一樣。</p></div><div class="bg-kirby-white/60 rounded-2xl p-6 shadow-sm border border-kirby-pink-light/30 fade-in fade-5">
-<div class="flex items-start justify-between mb-3"><span class="text-xs font-semibold text-kirby-pink-main bg-kirby-pink-main/10 px-2 py-1 rounded">#deployment</span><span class="text-xs text-kirby-pink-dark/40">2026-05-13</span></div>
-<h3 class="text-xl font-bold text-kirby-pink-dark mb-3">🚀 GitHub Pages 部署踩坑全記錄</h3>
-<p class="text-kirby-pink-dark/70 text-sm leading-relaxed mb-3">連續踩了三個大坑：(1) Push 了 Next.js 原始碼，Zeabur 當成純靜態檔，顯示 README.md (2) 靜態匯出後忘記設 basePath，CSS 和連結全 404 (3) GitHub Pages 對 _next 開頭的資料夾有特殊處理，CSS 仍無法載入。</p>
-<p class="text-kirby-pink-dark/70 text-sm leading-relaxed">🎯 學到的事：在 GitHub Pages 環境下，直接引入 cdn.tailwindcss.com 比依賴 Next.js 的編譯路徑更穩定可靠。</p></div><div class="bg-kirby-white/60 rounded-2xl p-6 shadow-sm border border-kirby-pink-light/30 fade-in fade-6">
-<div class="flex items-start justify-between mb-3"><span class="text-xs font-semibold text-kirby-pink-main bg-kirby-pink-main/10 px-2 py-1 rounded">#architecture</span><span class="text-xs text-kirby-pink-dark/40">2026-05-13</span></div>
-<h3 class="text-xl font-bold text-kirby-pink-dark mb-3">📊 資料驅動架構設計</h3>
-<p class="text-kirby-pink-dark/70 text-sm leading-relaxed mb-3">建立了 src/data/ 資料層，將里程碑、筆記、英文學習內容用 JSON 管理，並規劃了 md → JSON → HTML 的自動化流程。</p>
-<p class="text-kirby-pink-dark/70 text-sm leading-relaxed">🎯 學到的事：把「內容」和「呈現」分離，後續無論技術棧怎麼換，內容都不會遺失。</p></div><div class="bg-kirby-white/60 rounded-2xl p-6 shadow-sm border border-kirby-pink-light/30 fade-in fade-7">
-<div class="flex items-start justify-between mb-3"><span class="text-xs font-semibold text-kirby-pink-main bg-kirby-pink-main/10 px-2 py-1 rounded">#architecture</span><span class="text-xs text-kirby-pink-dark/40">2026-05-13</span></div>
-<h3 class="text-xl font-bold text-kirby-pink-dark mb-3">🔄 md → 網頁自動化藍圖</h3>
-<p class="text-kirby-pink-dark/70 text-sm leading-relaxed mb-3">設計了一套完整的自動化方案：workspace md 檔 → cron 定時同步到 content/ → GitHub Actions 偵測變更 → 解析 md → 生成 HTML → 自動部署。核心關鍵在於「嚴格統一的格式」。</p>
-<p class="text-kirby-pink-dark/70 text-sm leading-relaxed">🎯 學到的事：格式一致是自動化的命脈，只要源頭格式統一，後面的解析腳本就能穩定運作。</p></div></div></main>
+<main class="max-w-4xl mx-auto px-6 py-12 w-full">
+<header class="text-center mb-8 fade-in fade-1">
+  <h1 class="text-4xl md:text-5xl font-bold text-kirby-pink-main mb-4">📝 開發筆記</h1>
+  <p class="text-kirby-pink-dark/60 text-lg">記錄寫程式時的點點滴滴</p>
+</header>
+
+<div class="flex flex-wrap items-center justify-center gap-3 mb-8">
+  <div class="flex items-center gap-2">
+    <label class="text-sm font-semibold text-kirby-pink-dark">📅 月份</label>
+    <select id="month-select" class="bg-kirby-white/60 border border-kirby-pink-light/50 rounded-lg px-3 py-2 text-sm text-kirby-pink-dark">
+      <option value="all">全部月份</option>
+      <option value="2026-05">2026-05</option>
+    </select>
+  </div>
+  <div class="flex items-center gap-2">
+    <label class="text-sm font-semibold text-kirby-pink-dark">📆 日期</label>
+    <select id="date-select" class="bg-kirby-white/60 border border-kirby-pink-light/50 rounded-lg px-3 py-2 text-sm text-kirby-pink-dark">
+      <option value="all">全部日期</option>
+      <option value="2026-05-13">2026-05-13</option>
+    </select>
+  </div>
+  <div class="flex items-center gap-1">
+    <button id="prev-btn" class="nav-btn bg-kirby-pink-light/40 text-kirby-pink-dark px-3 py-2 rounded-full text-sm font-bold transition-all" title="上一頁">←</button>
+    <span id="nav-info" class="text-xs text-kirby-pink-dark/40 min-w-[60px] text-center"></span>
+    <button id="next-btn" class="nav-btn bg-kirby-pink-light/40 text-kirby-pink-dark px-3 py-2 rounded-full text-sm font-bold transition-all" title="下一頁">→</button>
+  </div>
+</div>
+
+<div id="dev-notes-list" class="space-y-8"></div>
+
+<script>
+(function(){
+  var _D = {"notes":[{"date":"2026-05-13","title":"🏗️ Next.js + Tailwind CSS 專案初始化","cat":"nextjs","desc":"使用 create-next-app 建立專案（TypeScript + Tailwind + App Router）。發現 Tailwind CSS 已升級到 v4，最大的變化是：不再使用 tailwind.config.ts 設定檔。","tip":"🎯 學到的事：v4 改在 globals.css 裡用 @theme 語法定義自訂顏色，更直覺也更集中。","tags":["#Setup","#Tailwind"]},{"date":"2026-05-13","title":"🎨 卡比專屬粉色系色盤設計","cat":"css","desc":"定義了一套 5 階粉色色盤（kirby-bg → kirby-pink-light → kirby-pink-main → kirby-pink-dark → kirby-white），讓整個網站擁有統一的視覺語言。限制色階數量讓整體配色更協調。","tip":"🎯 學到的事：少即是多，5 階色足夠覆蓋所有 UI 需求。","tags":["#Design","#ColorPalette"]},{"date":"2026-05-13","title":"✨ Framer Motion 動畫整合","cat":"animation","desc":"引入 framer-motion 為頁面加入流暢的進入/離開動畫與 hover 效果。安裝時遇到大坑：npm install framer-motion 意外移除了 337 個相依套件（包含 Tailwind CSS！）。","tip":"🎯 學到的事：這個環境必須用 npm install --include=dev 來強制安裝 devDependencies，標準行為不一樣。","tags":["#Animation","#npm"]},{"date":"2026-05-13","title":"🚀 GitHub Pages 部署踩坑全記錄","cat":"deployment","desc":"連續踩了三個大坑：(1) Push 了 Next.js 原始碼，Zeabur 當成純靜態檔，顯示 README.md (2) 靜態匯出後忘記設 basePath，CSS 和連結全 404 (3) GitHub Pages 對 _next 開頭的資料夾有特殊處理，CSS 仍無法載入。","tip":"🎯 學到的事：在 GitHub Pages 環境下，直接引入 cdn.tailwindcss.com 比依賴 Next.js 的編譯路徑更穩定可靠。","tags":["#Deployment","#GitHubPages","#Debugging"]},{"date":"2026-05-13","title":"📊 資料驅動架構設計","cat":"architecture","desc":"建立了 src/data/ 資料層，將里程碑、筆記、英文學習內容用 JSON 管理，並規劃了 md → JSON → HTML 的自動化流程。","tip":"🎯 學到的事：把「內容」和「呈現」分離，後續無論技術棧怎麼換，內容都不會遺失。","tags":["#Architecture","#DataDriven"]},{"date":"2026-05-13","title":"🔄 md → 網頁自動化藍圖","cat":"architecture","desc":"設計了一套完整的自動化方案：workspace md 檔 → cron 定時同步到 content/ → GitHub Actions 偵測變更 → 解析 md → 生成 HTML → 自動部署。核心關鍵在於「嚴格統一的格式」。","tip":"🎯 學到的事：格式一致是自動化的命脈，只要源頭格式統一，後面的解析腳本就能穩定運作。","tags":["#Automation","#CI/CD","#GitHubActions"]}],"byDate":{"2026-05-13":[{"date":"2026-05-13","title":"🏗️ Next.js + Tailwind CSS 專案初始化","cat":"nextjs","desc":"使用 create-next-app 建立專案（TypeScript + Tailwind + App Router）。發現 Tailwind CSS 已升級到 v4，最大的變化是：不再使用 tailwind.config.ts 設定檔。","tip":"🎯 學到的事：v4 改在 globals.css 裡用 @theme 語法定義自訂顏色，更直覺也更集中。","tags":["#Setup","#Tailwind"]},{"date":"2026-05-13","title":"🎨 卡比專屬粉色系色盤設計","cat":"css","desc":"定義了一套 5 階粉色色盤（kirby-bg → kirby-pink-light → kirby-pink-main → kirby-pink-dark → kirby-white），讓整個網站擁有統一的視覺語言。限制色階數量讓整體配色更協調。","tip":"🎯 學到的事：少即是多，5 階色足夠覆蓋所有 UI 需求。","tags":["#Design","#ColorPalette"]},{"date":"2026-05-13","title":"✨ Framer Motion 動畫整合","cat":"animation","desc":"引入 framer-motion 為頁面加入流暢的進入/離開動畫與 hover 效果。安裝時遇到大坑：npm install framer-motion 意外移除了 337 個相依套件（包含 Tailwind CSS！）。","tip":"🎯 學到的事：這個環境必須用 npm install --include=dev 來強制安裝 devDependencies，標準行為不一樣。","tags":["#Animation","#npm"]},{"date":"2026-05-13","title":"🚀 GitHub Pages 部署踩坑全記錄","cat":"deployment","desc":"連續踩了三個大坑：(1) Push 了 Next.js 原始碼，Zeabur 當成純靜態檔，顯示 README.md (2) 靜態匯出後忘記設 basePath，CSS 和連結全 404 (3) GitHub Pages 對 _next 開頭的資料夾有特殊處理，CSS 仍無法載入。","tip":"🎯 學到的事：在 GitHub Pages 環境下，直接引入 cdn.tailwindcss.com 比依賴 Next.js 的編譯路徑更穩定可靠。","tags":["#Deployment","#GitHubPages","#Debugging"]},{"date":"2026-05-13","title":"📊 資料驅動架構設計","cat":"architecture","desc":"建立了 src/data/ 資料層，將里程碑、筆記、英文學習內容用 JSON 管理，並規劃了 md → JSON → HTML 的自動化流程。","tip":"🎯 學到的事：把「內容」和「呈現」分離，後續無論技術棧怎麼換，內容都不會遺失。","tags":["#Architecture","#DataDriven"]},{"date":"2026-05-13","title":"🔄 md → 網頁自動化藍圖","cat":"architecture","desc":"設計了一套完整的自動化方案：workspace md 檔 → cron 定時同步到 content/ → GitHub Actions 偵測變更 → 解析 md → 生成 HTML → 自動部署。核心關鍵在於「嚴格統一的格式」。","tip":"🎯 學到的事：格式一致是自動化的命脈，只要源頭格式統一，後面的解析腳本就能穩定運作。","tags":["#Automation","#CI/CD","#GitHubActions"]}]},"dateKeys":["2026-05-13"],"months":["2026-05"]};
+  var notes = _D.notes;
+  var byDate = _D.byDate;
+  var dateKeys = _D.dateKeys;
+  var months = _D.months;
+  var currentIdx = 0; // position in whichever list we're navigating
+
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  function getVisibleDates(){
+    var m = document.getElementById('month-select').value;
+    return m === 'all' ? dateKeys : dateKeys.filter(function(d){ return d.substring(0,7) === m; });
+  }
+
+  function render(){
+    var monthVal = document.getElementById('month-select').value;
+    var dateVal = document.getElementById('date-select').value;
+    var list = document.getElementById('dev-notes-list');
+    var info = document.getElementById('nav-info');
+
+    var visible;
+
+    if(dateVal !== 'all'){
+      visible = byDate[dateVal] || [];
+    } else if(monthVal !== 'all'){
+      visible = [];
+      for(var i=0; i<dateKeys.length; i++){
+        if(dateKeys[i].substring(0,7) === monthVal){
+          for(var j=0; j<(byDate[dateKeys[i]]||[]).length; j++) visible.push(byDate[dateKeys[i]][j]);
+        }
+      }
+    } else {
+      visible = notes;
+    }
+
+    // Update nav info
+    var vdates = getVisibleDates();
+    if(dateVal !== 'all' && vdates.length > 0){
+      currentIdx = vdates.indexOf(dateVal);
+      if(currentIdx < 0) currentIdx = 0;
+      info.textContent = (currentIdx+1)+' / '+vdates.length;
+    } else {
+      info.textContent = '';
+    }
+
+    // Update button states
+    var prevBtn = document.getElementById('prev-btn');
+    var nextBtn = document.getElementById('next-btn');
+    if(dateVal !== 'all'){
+      prevBtn.disabled = (currentIdx >= vdates.length - 1);
+      nextBtn.disabled = (currentIdx <= 0);
+    } else {
+      prevBtn.disabled = true;
+      nextBtn.disabled = true;
+    }
+
+    if(visible.length === 0){
+      list.innerHTML = '<p class="text-center text-kirby-pink-dark/40 py-12">尚無筆記 🩷</p>';
+      return;
+    }
+
+    var parts = [];
+    for(var i=0; i<visible.length; i++){
+      var n = visible[i];
+      parts.push(
+        '<div class="bg-kirby-white/60 rounded-2xl p-6 shadow-sm border border-kirby-pink-light/30 fade-in">',
+        '<div class="flex items-start justify-between mb-3"><span class="text-xs font-semibold text-kirby-pink-main bg-kirby-pink-main/10 px-2 py-1 rounded">#'+esc(n.cat)+'</span><span class="text-xs text-kirby-pink-dark/40">'+n.date+'</span></div>',
+        '<h3 class="text-xl font-bold text-kirby-pink-dark mb-3">'+esc(n.title)+'</h3>',
+        '<p class="text-kirby-pink-dark/70 text-sm leading-relaxed mb-3">'+esc(n.desc)+'</p>',
+        n.tip ? '<p class="text-kirby-pink-dark/70 text-sm leading-relaxed">'+esc(n.tip)+'</p>' : '',
+        n.tags.length ? '<div class="flex flex-wrap gap-2 mt-3">'+n.tags.map(function(t){ return '<span class="text-xs font-semibold text-kirby-pink-dark/50 bg-kirby-pink-light/10 px-2 py-1 rounded">'+t+'</span>'; }).join('')+'</div>' : '',
+        '</div>'
+      );
+    }
+    list.innerHTML = parts.join('');
+  }
+
+  function goPrev(){
+    var vdates = getVisibleDates();
+    if(currentIdx < vdates.length - 1){
+      currentIdx++;
+      document.getElementById('date-select').value = vdates[currentIdx];
+      render();
+    }
+  }
+
+  function goNext(){
+    if(currentIdx > 0){
+      currentIdx--;
+      document.getElementById('date-select').value = getVisibleDates()[currentIdx];
+      render();
+    }
+  }
+
+  document.getElementById('prev-btn').addEventListener('click', goPrev);
+  document.getElementById('next-btn').addEventListener('click', goNext);
+
+  document.getElementById('month-select').addEventListener('change', function(){
+    currentIdx = 0;
+    document.getElementById('date-select').value = 'all';
+    render();
+  });
+
+  document.getElementById('date-select').addEventListener('change', function(){
+    var vdates = getVisibleDates();
+    var dv = this.value;
+    currentIdx = dv === 'all' ? 0 : vdates.indexOf(dv);
+    render();
+  });
+
+  render();
+})();
+</script></main>
 </body></html>
