@@ -36,7 +36,7 @@ category: architecture
 🎯 學到的事：把「內容」和「呈現」分離，後續無論技術棧怎麼換，內容都不會遺失。
 tags: #Architecture #DataDriven
 
-## 2026-05-13 | 🔄 md → 網頁自動化藍圖
+## 2026-05-14 | 🔄 md → 網頁自動化藍圖
 category: architecture
 設計了一套完整的自動化方案：workspace md 檔 → cron 定時同步到 content/ → GitHub Actions 偵測變更 → 解析 md → 生成 HTML → 自動部署。核心關鍵在於「嚴格統一的格式」。
 🎯 學到的事：格式一致是自動化的命脈，只要源頭格式統一，後面的解析腳本就能穩定運作。
