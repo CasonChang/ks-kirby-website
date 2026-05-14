@@ -41,3 +41,9 @@ category: architecture
 設計了一套完整的自動化方案：workspace md 檔 → cron 定時同步到 content/ → GitHub Actions 偵測變更 → 解析 md → 生成 HTML → 自動部署。核心關鍵在於「嚴格統一的格式」。
 🎯 學到的事：格式一致是自動化的命脈，只要源頭格式統一，後面的解析腳本就能穩定運作。
 tags: #Automation #CI/CD #GitHubActions
+
+## 2026-05-14 | 🎛️ 互動式篩選系統實作
+category: data
+將三個主要頁面從純靜態 HTML 重構為 data-driven 互動式篩選：里程碑加入 category pill 選單、開發筆記加入月份/日期雙層導航與 prev/next 切換、英文學習加入類別與日期複合篩選。核心做法是在 build.js 中把 markdown 解析後的資料嵌入為 JSON，再由 client-side JS 動態渲染。
+🎯 學到的事：靜態網站不等於沒有互動，把資料 embed 成 JSON + vanilla JS 就能在不依賴任何框架的情況下實現完整的篩選/導航功能。
+tags: #InteractiveUI #StaticSite #JavaScript

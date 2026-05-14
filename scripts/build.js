@@ -25,7 +25,7 @@ function nav(active) {
     ["/", "🏠 首頁"],
     ["/milestones", "🏆 里程碑"],
     ["/dev-notes", "📝 開發筆記"],
-    ["/english", "🇬🇧 英文學習"],
+    ["/english", "📖 英文學習"],
   ];
   return `<nav class="w-full max-w-4xl mx-auto px-6 py-4 flex flex-wrap justify-center gap-3 md:justify-start">${links
     .map(
@@ -384,7 +384,7 @@ function buildDevNotes(blocks) {
 }
 
 // =====================================================================
-//  STEP 5: ENGLISH — Category + Date Filters
+//  STEP 5: ENGLISH — Month/Date + Category Filters + Prev/Next
 // =====================================================================
 function buildEnglish() {
   const file = path.join(__dirname, "..", "content", "english.md");
@@ -419,29 +419,49 @@ function buildEnglish() {
   }
   if (currentDate) dates.push(currentDate);
 
-  const dateKeys = dates.map((d) => d.date);
-  const dataJSON = JSON.stringify(dates);
+  // Sort by date descending
+  dates.sort((a, b) => b.date.localeCompare(a.date));
 
+  const dateKeys = dates.map((d) => d.date);
+  const months = [...new Set(dateKeys.map((d) => d.substring(0, 7)))].sort((a, b) => b.localeCompare(a));
+
+  const dataJSON = JSON.stringify(dates);
+  const monthOpts = months.map((m) => `<option value="${m}">${m}</option>`).join("\n");
   const dateOpts = dateKeys.map((d) => `<option value="${d}">${d}</option>`).join("\n");
 
   const html = `
 <header class="text-center mb-8 fade-in fade-1">
-  <h1 class="text-4xl md:text-5xl font-bold text-kirby-pink-main mb-4">🇬🇧 英文學習</h1>
+  <h1 class="text-4xl md:text-5xl font-bold text-kirby-pink-main mb-4">📖 英文學習</h1>
   <p class="text-kirby-pink-dark/60 text-lg">Let's learn English together! — 每日學習記錄</p>
 </header>
 
-<div class="flex flex-wrap items-center justify-center gap-4 mb-8">
+<div class="flex flex-wrap items-center justify-center gap-3 mb-8">
   <div id="english-filters" class="flex flex-wrap gap-2">
     <button class="cat-btn active bg-kirby-pink-main text-white px-5 py-2 rounded-full text-sm font-semibold transition-all" data-cat="all">All</button>
     <button class="cat-btn bg-kirby-white/60 text-kirby-pink-dark px-5 py-2 rounded-full text-sm font-semibold transition-all" data-cat="vocab">🌟 單字 / 表達</button>
     <button class="cat-btn bg-kirby-white/60 text-kirby-pink-dark px-5 py-2 rounded-full text-sm font-semibold transition-all" data-cat="grammar">🛠️ 文法</button>
   </div>
+</div>
+
+<div class="flex flex-wrap items-center justify-center gap-3 mb-8">
   <div class="flex items-center gap-2">
-    <label class="text-sm font-semibold text-kirby-pink-dark">📅</label>
+    <label class="text-sm font-semibold text-kirby-pink-dark">📅 月份</label>
+    <select id="english-month" class="bg-kirby-white/60 border border-kirby-pink-light/50 rounded-lg px-3 py-2 text-sm text-kirby-pink-dark">
+      <option value="all">全部月份</option>
+      ${monthOpts}
+    </select>
+  </div>
+  <div class="flex items-center gap-2">
+    <label class="text-sm font-semibold text-kirby-pink-dark">📆 日期</label>
     <select id="english-date" class="bg-kirby-white/60 border border-kirby-pink-light/50 rounded-lg px-3 py-2 text-sm text-kirby-pink-dark">
       <option value="all">全部日期</option>
       ${dateOpts}
     </select>
+  </div>
+  <div class="flex items-center gap-1">
+    <button id="en-prev-btn" class="nav-btn bg-kirby-pink-light/40 text-kirby-pink-dark px-3 py-2 rounded-full text-sm font-bold transition-all" title="上一頁">←</button>
+    <span id="en-nav-info" class="text-xs text-kirby-pink-dark/40 min-w-[60px] text-center"></span>
+    <button id="en-next-btn" class="nav-btn bg-kirby-pink-light/40 text-kirby-pink-dark px-3 py-2 rounded-full text-sm font-bold transition-all" title="下一頁">→</button>
   </div>
 </div>
 
@@ -460,17 +480,27 @@ function buildEnglish() {
 (function(){
   var dates = ${dataJSON};
   var currentCat = 'all';
+  var currentIdx = 0;
 
   function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
+  function getVisibleDates(){
+    var m = document.getElementById('english-month').value;
+    var allDates = dates.map(function(d){ return d.date; });
+    return m === 'all' ? allDates : allDates.filter(function(d){ return d.substring(0,7) === m; });
+  }
+
   function render(){
+    var monthVal = document.getElementById('english-month').value;
     var dateVal = document.getElementById('english-date').value;
     var list = document.getElementById('english-list');
+    var info = document.getElementById('en-nav-info');
 
     var parts = [];
     for(var di=0; di<dates.length; di++){
       var d = dates[di];
       if(dateVal !== 'all' && d.date !== dateVal) continue;
+      if(monthVal !== 'all' && d.date.substring(0,7) !== monthVal) continue;
 
       var vocab = [];
       var grammars = [];
@@ -521,6 +551,26 @@ function buildEnglish() {
       parts.push('</section>');
     }
 
+    // Nav info & button states
+    var vdates = getVisibleDates();
+    if(dateVal !== 'all' && vdates.length > 0){
+      currentIdx = vdates.indexOf(dateVal);
+      if(currentIdx < 0) currentIdx = 0;
+      info.textContent = (currentIdx+1)+' / '+vdates.length;
+    } else {
+      info.textContent = '';
+    }
+
+    var prevBtn = document.getElementById('en-prev-btn');
+    var nextBtn = document.getElementById('en-next-btn');
+    if(dateVal !== 'all'){
+      prevBtn.disabled = (currentIdx >= vdates.length - 1);
+      nextBtn.disabled = (currentIdx <= 0);
+    } else {
+      prevBtn.disabled = true;
+      nextBtn.disabled = true;
+    }
+
     if(parts.length === 0){
       list.innerHTML = '<p class="text-center text-kirby-pink-dark/40 py-12">尚無符合條件的學習記錄 🩷</p>';
     } else {
@@ -528,6 +578,7 @@ function buildEnglish() {
     }
   }
 
+  // Category filter buttons
   var btns = document.querySelectorAll('#english-filters .cat-btn');
   for(var i=0; i<btns.length; i++){
     btns[i].addEventListener('click', function(){
@@ -539,7 +590,34 @@ function buildEnglish() {
     });
   }
 
-  document.getElementById('english-date').addEventListener('change', function(){ render(); });
+  // Prev/Next navigation
+  document.getElementById('en-prev-btn').addEventListener('click', function(){
+    var vdates = getVisibleDates();
+    if(currentIdx < vdates.length - 1){
+      currentIdx++;
+      document.getElementById('english-date').value = vdates[currentIdx];
+      render();
+    }
+  });
+  document.getElementById('en-next-btn').addEventListener('click', function(){
+    if(currentIdx > 0){
+      currentIdx--;
+      document.getElementById('english-date').value = getVisibleDates()[currentIdx];
+      render();
+    }
+  });
+
+  document.getElementById('english-month').addEventListener('change', function(){
+    currentIdx = 0;
+    document.getElementById('english-date').value = 'all';
+    render();
+  });
+  document.getElementById('english-date').addEventListener('change', function(){
+    var vdates = getVisibleDates();
+    var dv = this.value;
+    currentIdx = dv === 'all' ? 0 : vdates.indexOf(dv);
+    render();
+  });
 
   render();
 })();

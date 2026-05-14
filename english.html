@@ -12,26 +12,41 @@ select:focus{outline:none;border-color:#FF8FAB!important;box-shadow:0 0 0 2px rg
 .nav-btn:disabled{opacity:.3;cursor:not-allowed}.nav-btn:not(:disabled):hover{opacity:1;background-color:#FFB7C5}
 </style></head>
 <body class="bg-kirby-bg text-kirby-pink-dark font-sans min-h-screen flex flex-col">
-<nav class="w-full max-w-4xl mx-auto px-6 py-4 flex flex-wrap justify-center gap-3 md:justify-start"><a class="px-4 py-2 rounded-full text-sm md:text-base font-medium transition-all bg-kirby-white/60 text-kirby-pink-dark hover:bg-kirby-pink-light/40" href="/ks-kirby-website/">🏠 首頁</a><a class="px-4 py-2 rounded-full text-sm md:text-base font-medium transition-all bg-kirby-white/60 text-kirby-pink-dark hover:bg-kirby-pink-light/40" href="/ks-kirby-website/milestones">🏆 里程碑</a><a class="px-4 py-2 rounded-full text-sm md:text-base font-medium transition-all bg-kirby-white/60 text-kirby-pink-dark hover:bg-kirby-pink-light/40" href="/ks-kirby-website/dev-notes">📝 開發筆記</a><a class="px-4 py-2 rounded-full text-sm md:text-base font-medium transition-all bg-kirby-pink-main text-white shadow-md" href="/ks-kirby-website/english">🇬🇧 英文學習</a></nav>
+<nav class="w-full max-w-4xl mx-auto px-6 py-4 flex flex-wrap justify-center gap-3 md:justify-start"><a class="px-4 py-2 rounded-full text-sm md:text-base font-medium transition-all bg-kirby-white/60 text-kirby-pink-dark hover:bg-kirby-pink-light/40" href="/ks-kirby-website/">🏠 首頁</a><a class="px-4 py-2 rounded-full text-sm md:text-base font-medium transition-all bg-kirby-white/60 text-kirby-pink-dark hover:bg-kirby-pink-light/40" href="/ks-kirby-website/milestones">🏆 里程碑</a><a class="px-4 py-2 rounded-full text-sm md:text-base font-medium transition-all bg-kirby-white/60 text-kirby-pink-dark hover:bg-kirby-pink-light/40" href="/ks-kirby-website/dev-notes">📝 開發筆記</a><a class="px-4 py-2 rounded-full text-sm md:text-base font-medium transition-all bg-kirby-pink-main text-white shadow-md" href="/ks-kirby-website/english">📖 英文學習</a></nav>
 <main class="max-w-4xl mx-auto px-6 py-12 w-full">
 <header class="text-center mb-8 fade-in fade-1">
-  <h1 class="text-4xl md:text-5xl font-bold text-kirby-pink-main mb-4">🇬🇧 英文學習</h1>
+  <h1 class="text-4xl md:text-5xl font-bold text-kirby-pink-main mb-4">📖 英文學習</h1>
   <p class="text-kirby-pink-dark/60 text-lg">Let's learn English together! — 每日學習記錄</p>
 </header>
 
-<div class="flex flex-wrap items-center justify-center gap-4 mb-8">
+<div class="flex flex-wrap items-center justify-center gap-3 mb-8">
   <div id="english-filters" class="flex flex-wrap gap-2">
     <button class="cat-btn active bg-kirby-pink-main text-white px-5 py-2 rounded-full text-sm font-semibold transition-all" data-cat="all">All</button>
     <button class="cat-btn bg-kirby-white/60 text-kirby-pink-dark px-5 py-2 rounded-full text-sm font-semibold transition-all" data-cat="vocab">🌟 單字 / 表達</button>
     <button class="cat-btn bg-kirby-white/60 text-kirby-pink-dark px-5 py-2 rounded-full text-sm font-semibold transition-all" data-cat="grammar">🛠️ 文法</button>
   </div>
+</div>
+
+<div class="flex flex-wrap items-center justify-center gap-3 mb-8">
   <div class="flex items-center gap-2">
-    <label class="text-sm font-semibold text-kirby-pink-dark">📅</label>
+    <label class="text-sm font-semibold text-kirby-pink-dark">📅 月份</label>
+    <select id="english-month" class="bg-kirby-white/60 border border-kirby-pink-light/50 rounded-lg px-3 py-2 text-sm text-kirby-pink-dark">
+      <option value="all">全部月份</option>
+      <option value="2026-05">2026-05</option>
+    </select>
+  </div>
+  <div class="flex items-center gap-2">
+    <label class="text-sm font-semibold text-kirby-pink-dark">📆 日期</label>
     <select id="english-date" class="bg-kirby-white/60 border border-kirby-pink-light/50 rounded-lg px-3 py-2 text-sm text-kirby-pink-dark">
       <option value="all">全部日期</option>
-      <option value="2026-05-11">2026-05-11</option>
-<option value="2026-05-13">2026-05-13</option>
+      <option value="2026-05-13">2026-05-13</option>
+<option value="2026-05-11">2026-05-11</option>
     </select>
+  </div>
+  <div class="flex items-center gap-1">
+    <button id="en-prev-btn" class="nav-btn bg-kirby-pink-light/40 text-kirby-pink-dark px-3 py-2 rounded-full text-sm font-bold transition-all" title="上一頁">←</button>
+    <span id="en-nav-info" class="text-xs text-kirby-pink-dark/40 min-w-[60px] text-center"></span>
+    <button id="en-next-btn" class="nav-btn bg-kirby-pink-light/40 text-kirby-pink-dark px-3 py-2 rounded-full text-sm font-bold transition-all" title="下一頁">→</button>
   </div>
 </div>
 
@@ -48,19 +63,29 @@ select:focus{outline:none;border-color:#FF8FAB!important;box-shadow:0 0 0 2px rg
 
 <script>
 (function(){
-  var dates = [{"date":"2026-05-11","entries":[{"type":"expression","title":"To be perfectly candid","desc":"坦白地說...（在可能尷尬的情境中表達完全的誠實）","example":"\"To be perfectly candid, the food is a bit too salty for my taste.\""},{"type":"vocabulary","title":"candid (adj.)","desc":"意思：坦率的、直白的","example":"記憶技巧：聯想 \"candid photo\"（偷拍照）— 沒有擺姿勢、呈現真實的一面。"},{"type":"grammar","title":"Don't need to posing → You don't need to pose","desc":"規則：need to 後面接原形動詞 (base verb)，不是動名詞","example":""},{"type":"grammar","title":"Be perfectly candid, I think... → To be perfectly candid, I think...","desc":"規則：開頭引導語要用不定詞片語 (infinitive phrase)，不是原形","example":""},{"type":"grammar","title":"it's really close → Oh, it's so close! / That was almost it!","desc":"規則：表達「差一點點」時，母語者會用更生動的反應句，而不是直譯","example":""},{"type":"grammar","title":"I have an example to using → I have an example of how to use","desc":"規則：example 後面接 of + how to + 動詞，不能直接用 to + V-ing","example":""},{"type":"grammar","title":"It conbine → It combines","desc":"規則：第三人稱單數 (it) 後面動詞要加 s / es","example":""},{"type":"grammar","title":"I'd go to sleep → I'm going to go to sleep / I'm heading to bed","desc":"規則：I'd 是 I would 的縮寫（表示假設或過去習慣），不是「我將要」的意思","example":""}]},{"date":"2026-05-13","entries":[{"type":"vocabulary","title":"streamline (v.)","desc":"意思：簡化/優化流程","example":"記憶技巧：想像流線型設計，讓流程像水流一樣順暢。例句: \"I want to build a tool to streamline the weekly reporting process.\""},{"type":"grammar","title":"pioneer of the AI → pioneers in AI / a pioneer in the field of AI","desc":"規則：修正搭配詞，使用 \"pioneer in [field]\" 更為自然。","example":""},{"type":"grammar","title":"study AI topics during working → study AI topics during work hours / while working","desc":"規則：修正時間表達，\"during working\" 並非標準用法。","example":""},{"type":"grammar","title":"it's ok to me → it's okay with me / I'm fine with it","desc":"規則：表達同意或沒問題時，慣用 \"okay with me\"。","example":""},{"type":"grammar","title":"provide to others collgues → provide it to my other colleagues / share it with my colleagues","desc":"規則：修正拼寫 (colleagues) 並補上受詞。","example":""},{"type":"grammar","title":"makes work conveniently → makes work more convenient / makes work easier","desc":"規則：使役動詞 make + 受詞 + 形容詞 (convenient)，而非副詞 (conveniently)。","example":""},{"type":"grammar","title":"write a letter with English → write a letter in English","desc":"規則：語言介質一律使用介系詞 \"in\"。","example":""},{"type":"grammar","title":"meet the formal mail's format → follow a formal email format / match the required formal format","desc":"規則：格式建議使用 \"follow\" 或 \"match\"，而非 \"meet\"。","example":""},{"type":"grammar","title":"The key to make presentation better is streamline → The key to making a presentation better is to streamline the content / streamlining","desc":"規則：'The key to' 後方必須接 V-ing 或名詞。","example":""}]}];
+  var dates = [{"date":"2026-05-13","entries":[{"type":"vocabulary","title":"streamline (v.)","desc":"意思：簡化/優化流程","example":"記憶技巧：想像流線型設計，讓流程像水流一樣順暢。例句: \"I want to build a tool to streamline the weekly reporting process.\""},{"type":"grammar","title":"pioneer of the AI → pioneers in AI / a pioneer in the field of AI","desc":"規則：修正搭配詞，使用 \"pioneer in [field]\" 更為自然。","example":""},{"type":"grammar","title":"study AI topics during working → study AI topics during work hours / while working","desc":"規則：修正時間表達，\"during working\" 並非標準用法。","example":""},{"type":"grammar","title":"it's ok to me → it's okay with me / I'm fine with it","desc":"規則：表達同意或沒問題時，慣用 \"okay with me\"。","example":""},{"type":"grammar","title":"provide to others collgues → provide it to my other colleagues / share it with my colleagues","desc":"規則：修正拼寫 (colleagues) 並補上受詞。","example":""},{"type":"grammar","title":"makes work conveniently → makes work more convenient / makes work easier","desc":"規則：使役動詞 make + 受詞 + 形容詞 (convenient)，而非副詞 (conveniently)。","example":""},{"type":"grammar","title":"write a letter with English → write a letter in English","desc":"規則：語言介質一律使用介系詞 \"in\"。","example":""},{"type":"grammar","title":"meet the formal mail's format → follow a formal email format / match the required formal format","desc":"規則：格式建議使用 \"follow\" 或 \"match\"，而非 \"meet\"。","example":""},{"type":"grammar","title":"The key to make presentation better is streamline → The key to making a presentation better is to streamline the content / streamlining","desc":"規則：'The key to' 後方必須接 V-ing 或名詞。","example":""}]},{"date":"2026-05-11","entries":[{"type":"expression","title":"To be perfectly candid","desc":"坦白地說...（在可能尷尬的情境中表達完全的誠實）","example":"\"To be perfectly candid, the food is a bit too salty for my taste.\""},{"type":"vocabulary","title":"candid (adj.)","desc":"意思：坦率的、直白的","example":"記憶技巧：聯想 \"candid photo\"（偷拍照）— 沒有擺姿勢、呈現真實的一面。"},{"type":"grammar","title":"Don't need to posing → You don't need to pose","desc":"規則：need to 後面接原形動詞 (base verb)，不是動名詞","example":""},{"type":"grammar","title":"Be perfectly candid, I think... → To be perfectly candid, I think...","desc":"規則：開頭引導語要用不定詞片語 (infinitive phrase)，不是原形","example":""},{"type":"grammar","title":"it's really close → Oh, it's so close! / That was almost it!","desc":"規則：表達「差一點點」時，母語者會用更生動的反應句，而不是直譯","example":""},{"type":"grammar","title":"I have an example to using → I have an example of how to use","desc":"規則：example 後面接 of + how to + 動詞，不能直接用 to + V-ing","example":""},{"type":"grammar","title":"It conbine → It combines","desc":"規則：第三人稱單數 (it) 後面動詞要加 s / es","example":""},{"type":"grammar","title":"I'd go to sleep → I'm going to go to sleep / I'm heading to bed","desc":"規則：I'd 是 I would 的縮寫（表示假設或過去習慣），不是「我將要」的意思","example":""}]}];
   var currentCat = 'all';
+  var currentIdx = 0;
 
   function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
+  function getVisibleDates(){
+    var m = document.getElementById('english-month').value;
+    var allDates = dates.map(function(d){ return d.date; });
+    return m === 'all' ? allDates : allDates.filter(function(d){ return d.substring(0,7) === m; });
+  }
+
   function render(){
+    var monthVal = document.getElementById('english-month').value;
     var dateVal = document.getElementById('english-date').value;
     var list = document.getElementById('english-list');
+    var info = document.getElementById('en-nav-info');
 
     var parts = [];
     for(var di=0; di<dates.length; di++){
       var d = dates[di];
       if(dateVal !== 'all' && d.date !== dateVal) continue;
+      if(monthVal !== 'all' && d.date.substring(0,7) !== monthVal) continue;
 
       var vocab = [];
       var grammars = [];
@@ -111,6 +136,26 @@ select:focus{outline:none;border-color:#FF8FAB!important;box-shadow:0 0 0 2px rg
       parts.push('</section>');
     }
 
+    // Nav info & button states
+    var vdates = getVisibleDates();
+    if(dateVal !== 'all' && vdates.length > 0){
+      currentIdx = vdates.indexOf(dateVal);
+      if(currentIdx < 0) currentIdx = 0;
+      info.textContent = (currentIdx+1)+' / '+vdates.length;
+    } else {
+      info.textContent = '';
+    }
+
+    var prevBtn = document.getElementById('en-prev-btn');
+    var nextBtn = document.getElementById('en-next-btn');
+    if(dateVal !== 'all'){
+      prevBtn.disabled = (currentIdx >= vdates.length - 1);
+      nextBtn.disabled = (currentIdx <= 0);
+    } else {
+      prevBtn.disabled = true;
+      nextBtn.disabled = true;
+    }
+
     if(parts.length === 0){
       list.innerHTML = '<p class="text-center text-kirby-pink-dark/40 py-12">尚無符合條件的學習記錄 🩷</p>';
     } else {
@@ -118,6 +163,7 @@ select:focus{outline:none;border-color:#FF8FAB!important;box-shadow:0 0 0 2px rg
     }
   }
 
+  // Category filter buttons
   var btns = document.querySelectorAll('#english-filters .cat-btn');
   for(var i=0; i<btns.length; i++){
     btns[i].addEventListener('click', function(){
@@ -129,7 +175,34 @@ select:focus{outline:none;border-color:#FF8FAB!important;box-shadow:0 0 0 2px rg
     });
   }
 
-  document.getElementById('english-date').addEventListener('change', function(){ render(); });
+  // Prev/Next navigation
+  document.getElementById('en-prev-btn').addEventListener('click', function(){
+    var vdates = getVisibleDates();
+    if(currentIdx < vdates.length - 1){
+      currentIdx++;
+      document.getElementById('english-date').value = vdates[currentIdx];
+      render();
+    }
+  });
+  document.getElementById('en-next-btn').addEventListener('click', function(){
+    if(currentIdx > 0){
+      currentIdx--;
+      document.getElementById('english-date').value = getVisibleDates()[currentIdx];
+      render();
+    }
+  });
+
+  document.getElementById('english-month').addEventListener('change', function(){
+    currentIdx = 0;
+    document.getElementById('english-date').value = 'all';
+    render();
+  });
+  document.getElementById('english-date').addEventListener('change', function(){
+    var vdates = getVisibleDates();
+    var dv = this.value;
+    currentIdx = dv === 'all' ? 0 : vdates.indexOf(dv);
+    render();
+  });
 
   render();
 })();
