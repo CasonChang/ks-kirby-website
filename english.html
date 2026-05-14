@@ -1,115 +1,57 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>英文學習 - 森之卡比</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'kirby-bg': '#FFF0F3',
-                        'kirby-pink-light': '#FFB7C5',
-                        'kirby-pink-main': '#FF8FAB',
-                        'kirby-pink-dark': '#E06C84',
-                        'kirby-white': '#FFFFFF',
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .fade-in { animation: fadeIn 0.5s ease-out forwards; }
-        .fade-in-1 { animation-delay: 0.1s; opacity: 0; }
-        .fade-in-2 { animation-delay: 0.2s; opacity: 0; }
-        .fade-in-3 { animation-delay: 0.3s; opacity: 0; }
-        .incorrect { text-decoration: line-through; color: #E06C84; }
-        .correct { color: #2d8a56; font-weight: 600; }
-    </style>
-</head>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>英文學習 - 森之卡比</title><script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={theme:{extend:{colors:{'kirby-bg':'#FFF0F3','kirby-pink-light':'#FFB7C5','kirby-pink-main':'#FF8FAB','kirby-pink-dark':'#E06C84','kirby-white':'#FFFFFF'}}}}</script><style>
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fadeIn .5s ease-out forwards;opacity:0}
+.fade-1{animation-delay:.1s}.fade-2{animation-delay:.2s}.fade-3{animation-delay:.3s}.fade-4{animation-delay:.4s}.fade-5{animation-delay:.5s}.fade-6{animation-delay:.6s}.fade-7{animation-delay:.7s}.fade-8{animation-delay:.8s}.fade-9{animation-delay:.9s}
+.badge{display:inline-block;padding:4px 16px;border-radius:9999px;font-size:.75rem;font-weight:700;margin-bottom:1rem}
+.incorrect{text-decoration:line-through;color:#E06C84}.correct{color:#2d8a56;font-weight:600}
+</style></head>
 <body class="bg-kirby-bg text-kirby-pink-dark font-sans min-h-screen flex flex-col">
-    <nav class="w-full max-w-4xl mx-auto px-6 py-4 flex flex-wrap justify-center gap-3 md:justify-start">
-        <a class="px-4 py-2 rounded-full text-sm md:text-base font-medium transition-all bg-kirby-white/60 text-kirby-pink-dark hover:bg-kirby-pink-light/40" href="/ks-kirby-website/">🏠 首頁</a>
-        <a class="px-4 py-2 rounded-full text-sm md:text-base font-medium transition-all bg-kirby-white/60 text-kirby-pink-dark hover:bg-kirby-pink-light/40" href="/ks-kirby-website/milestones">🏆 里程碑</a>
-        <a class="px-4 py-2 rounded-full text-sm md:text-base font-medium transition-all bg-kirby-white/60 text-kirby-pink-dark hover:bg-kirby-pink-light/40" href="/ks-kirby-website/dev-notes">📝 開發筆記</a>
-        <a class="px-4 py-2 rounded-full text-sm md:text-base font-medium transition-all bg-kirby-pink-main text-white shadow-md" href="/ks-kirby-website/english">🇬🇧 英文學習</a>
-    </nav>
-    <main class="max-w-4xl mx-auto px-6 py-12 w-full">
-        <header class="text-center mb-12 fade-in">
-            <h1 class="text-4xl md:text-5xl font-bold text-kirby-pink-main mb-4">🇬🇧 英文學習</h1>
-            <p class="text-kirby-pink-dark/60 text-lg">Let's learn English together! — 每日學習記錄</p>
-        </header>
-
-        <!-- 2026-05-11 Session -->
-        <section class="mb-12 fade-in fade-in-1">
-            <div class="flex items-center gap-3 mb-6">
-                <span class="text-sm font-bold text-kirby-white bg-kirby-pink-main px-3 py-1 rounded-full">📅 2026-05-11</span>
-                <span class="text-kirby-pink-dark/40 text-sm">英文學習日誌</span>
-            </div>
-
-            <!-- Expressions -->
-            <div class="bg-kirby-white/60 rounded-2xl p-6 shadow-sm border border-kirby-pink-light/30 mb-6">
-                <h2 class="text-lg font-bold text-kirby-pink-main mb-4">🌟 關鍵表達 (Key Expressions & Idioms)</h2>
-                <div class="space-y-4">
-                    <div class="p-4 bg-kirby-bg rounded-xl">
-                        <h3 class="font-bold text-kirby-pink-dark mb-2">"To be perfectly candid..."</h3>
-                        <p class="text-kirby-pink-dark/70 text-sm mb-2">💡 <strong>意思</strong>：坦白地說... (在可能尷尬的情境中表達完全的誠實)</p>
-                        <p class="text-kirby-pink-dark/70 text-sm italic pl-3 border-l-2 border-kirby-pink-light/50">
-                            "To be perfectly candid, the food is a bit too salty for my taste."
-                        </p>
-                    </div>
-                    <div class="p-4 bg-kirby-bg rounded-xl">
-                        <h3 class="font-bold text-kirby-pink-dark mb-2">candid (adj.)</h3>
-                        <p class="text-kirby-pink-dark/70 text-sm mb-1">💡 <strong>意思</strong>：坦率的、直白的</p>
-                        <p class="text-kirby-pink-dark/70 text-sm">🧠 <strong>記憶技巧</strong>：聯想 "candid photo" (偷拍照) — 沒有擺姿勢、呈現真實的一面。</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Grammar Corrections -->
-            <div class="bg-kirby-white/60 rounded-2xl p-6 shadow-sm border border-kirby-pink-light/30">
-                <h2 class="text-lg font-bold text-kirby-pink-main mb-4">🛠️ 文法修正筆記 (Grammar & Natural Phrasing)</h2>
-                <div class="space-y-3">
-                    <div class="flex flex-col gap-1 p-3 bg-kirby-bg rounded-xl">
-                        <p><span class="incorrect">Don't need to posing</span> → <span class="correct">You don't need to pose / No need to pose</span></p>
-                        <p class="text-xs text-kirby-pink-dark/50">規則：need to + 原形動詞 (base verb)</p>
-                    </div>
-                    <div class="flex flex-col gap-1 p-3 bg-kirby-bg rounded-xl">
-                        <p><span class="incorrect">Be perfectly candid, I think...</span> → <span class="correct">To be perfectly candid, I think...</span></p>
-                        <p class="text-xs text-kirby-pink-dark/50">規則：不定詞片語 (infinitive phrase) 作為開頭引導語</p>
-                    </div>
-                    <div class="flex flex-col gap-1 p-3 bg-kirby-bg rounded-xl">
-                        <p><span class="incorrect">it's really close</span> → <span class="correct">Oh, it's so close! / That was almost it!</span></p>
-                        <p class="text-xs text-kirby-pink-dark/50">規則：更自然的反應用語 — "差一點點！"</p>
-                    </div>
-                    <div class="flex flex-col gap-1 p-3 bg-kirby-bg rounded-xl">
-                        <p><span class="incorrect">I have an example to using</span> → <span class="correct">I have an example of how to use</span></p>
-                        <p class="text-xs text-kirby-pink-dark/50">規則：example of + how to + 動詞</p>
-                    </div>
-                    <div class="flex flex-col gap-1 p-3 bg-kirby-bg rounded-xl">
-                        <p><span class="incorrect">It conbine</span> → <span class="correct">It combines</span></p>
-                        <p class="text-xs text-kirby-pink-dark/50">規則：第三人稱單數 (it) + 動詞加 s</p>
-                    </div>
-                    <div class="flex flex-col gap-1 p-3 bg-kirby-bg rounded-xl">
-                        <p><span class="incorrect">I'd go to sleep</span> → <span class="correct">I'm going to go to sleep / I'm heading to bed</span></p>
-                        <p class="text-xs text-kirby-pink-dark/50">規則：I'd = I would（過去/假設），不是 I am going to</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Tips Box -->
-        <div class="bg-gradient-to-r from-kirby-pink-main/10 to-kirby-pink-light/20 rounded-2xl p-6 border border-kirby-pink-light/50 fade-in fade-in-2">
-            <h3 class="text-lg font-bold text-kirby-pink-dark mb-3">💡 學習小技巧</h3>
-            <ul class="text-kirby-pink-dark/70 space-y-2">
-                <li>📝 每次練習後記下 <strong class="text-kirby-pink-main">實際被糾正的句子</strong>，比背 100 個單字更有用</li>
-                <li>🗣️ 把新學的表達 <strong class="text-kirby-pink-main">大聲說出來</strong>，讓嘴巴習慣英文的發音節奏</li>
-                <li>🔄 <strong class="text-kirby-pink-main">間隔複習</strong>：今天學的，明天、三天後、一週後各複習一次</li>
-            </ul>
-        </div>
-    </main>
-</body>
-</html>
+<nav class="w-full max-w-4xl mx-auto px-6 py-4 flex flex-wrap justify-center gap-3 md:justify-start"><a class="px-4 py-2 rounded-full text-sm md:text-base font-medium transition-all bg-kirby-white/60 text-kirby-pink-dark hover:bg-kirby-pink-light/40" href="/ks-kirby-website/">🏠 首頁</a><a class="px-4 py-2 rounded-full text-sm md:text-base font-medium transition-all bg-kirby-white/60 text-kirby-pink-dark hover:bg-kirby-pink-light/40" href="/ks-kirby-website/milestones">🏆 里程碑</a><a class="px-4 py-2 rounded-full text-sm md:text-base font-medium transition-all bg-kirby-white/60 text-kirby-pink-dark hover:bg-kirby-pink-light/40" href="/ks-kirby-website/dev-notes">📝 開發筆記</a><a class="px-4 py-2 rounded-full text-sm md:text-base font-medium transition-all bg-kirby-pink-main text-white shadow-md" href="/ks-kirby-website/english">🇬🇧 英文學習</a></nav>
+<main class="max-w-4xl mx-auto px-6 py-12 w-full"><header class="text-center mb-12 fade-in fade-1"><h1 class="text-4xl md:text-5xl font-bold text-kirby-pink-main mb-4">🇬🇧 英文學習</h1><p class="text-kirby-pink-dark/60 text-lg">Let's learn English together! — 每日學習記錄</p></header><section class="mb-12 fade-in fade-2">
+<div class="flex items-center gap-3 mb-6"><span class="text-sm font-bold text-kirby-white bg-kirby-pink-main px-3 py-1 rounded-full">📅 2026-05-11</span></div><div class="bg-kirby-white/60 rounded-2xl p-6 shadow-sm border border-kirby-pink-light/30 mb-6">
+<h2 class="text-lg font-bold text-kirby-pink-main mb-4">🌟 表達與單字</h2><div class="space-y-4"><div class="p-4 bg-kirby-bg rounded-xl">
+<h3 class="font-bold text-kirby-pink-dark mb-2">"To be perfectly candid"</h3>
+<p class="text-kirby-pink-dark/70 text-sm mb-2">坦白地說...（在可能尷尬的情境中表達完全的誠實）</p>
+<p class="text-kirby-pink-dark/70 text-sm italic pl-3 border-l-2 border-kirby-pink-light/50">"To be perfectly candid, the food is a bit too salty for my taste."</p></div><div class="p-4 bg-kirby-bg rounded-xl">
+<h3 class="font-bold text-kirby-pink-dark mb-2">"candid (adj.)"</h3>
+<p class="text-kirby-pink-dark/70 text-sm mb-2">意思：坦率的、直白的</p>
+<p class="text-kirby-pink-dark/70 text-sm italic pl-3 border-l-2 border-kirby-pink-light/50">記憶技巧：聯想 "candid photo"（偷拍照）— 沒有擺姿勢、呈現真實的一面。</p></div></div></div><div class="bg-kirby-white/60 rounded-2xl p-6 shadow-sm border border-kirby-pink-light/30">
+<h2 class="text-lg font-bold text-kirby-pink-main mb-4">🛠️ 文法修正筆記</h2><div class="space-y-3"><div class="flex flex-col gap-1 p-3 bg-kirby-bg rounded-xl">
+<p><span class="incorrect">Don't need to posing</span> → <span class="correct">You don't need to pose</span></p>
+<p class="text-xs text-kirby-pink-dark/50">規則：need to 後面接原形動詞 (base verb)，不是動名詞</p></div><div class="flex flex-col gap-1 p-3 bg-kirby-bg rounded-xl">
+<p><span class="incorrect">Be perfectly candid, I think...</span> → <span class="correct">To be perfectly candid, I think...</span></p>
+<p class="text-xs text-kirby-pink-dark/50">規則：開頭引導語要用不定詞片語 (infinitive phrase)，不是原形</p></div><div class="flex flex-col gap-1 p-3 bg-kirby-bg rounded-xl">
+<p><span class="incorrect">it's really close</span> → <span class="correct">Oh, it's so close! / That was almost it!</span></p>
+<p class="text-xs text-kirby-pink-dark/50">規則：表達「差一點點」時，母語者會用更生動的反應句，而不是直譯</p></div><div class="flex flex-col gap-1 p-3 bg-kirby-bg rounded-xl">
+<p><span class="incorrect">I have an example to using</span> → <span class="correct">I have an example of how to use</span></p>
+<p class="text-xs text-kirby-pink-dark/50">規則：example 後面接 of + how to + 動詞，不能直接用 to + V-ing</p></div><div class="flex flex-col gap-1 p-3 bg-kirby-bg rounded-xl">
+<p><span class="incorrect">It conbine</span> → <span class="correct">It combines</span></p>
+<p class="text-xs text-kirby-pink-dark/50">規則：第三人稱單數 (it) 後面動詞要加 s / es</p></div><div class="flex flex-col gap-1 p-3 bg-kirby-bg rounded-xl">
+<p><span class="incorrect">I'd go to sleep</span> → <span class="correct">I'm going to go to sleep / I'm heading to bed</span></p>
+<p class="text-xs text-kirby-pink-dark/50">規則：I'd 是 I would 的縮寫（表示假設或過去習慣），不是「我將要」的意思</p></div></div></div></section><section class="mb-12 fade-in fade-3">
+<div class="flex items-center gap-3 mb-6"><span class="text-sm font-bold text-kirby-white bg-kirby-pink-main px-3 py-1 rounded-full">📅 2026-05-13</span></div><div class="bg-kirby-white/60 rounded-2xl p-6 shadow-sm border border-kirby-pink-light/30 mb-6">
+<h2 class="text-lg font-bold text-kirby-pink-main mb-4">🌟 表達與單字</h2><div class="space-y-4"><div class="p-4 bg-kirby-bg rounded-xl">
+<h3 class="font-bold text-kirby-pink-dark mb-2">"streamline (v.)"</h3>
+<p class="text-kirby-pink-dark/70 text-sm mb-2">意思：簡化/優化流程</p>
+<p class="text-kirby-pink-dark/70 text-sm italic pl-3 border-l-2 border-kirby-pink-light/50">記憶技巧：想像流線型設計，讓流程像水流一樣順暢。例句: "I want to build a tool to streamline the weekly reporting process."</p></div></div></div><div class="bg-kirby-white/60 rounded-2xl p-6 shadow-sm border border-kirby-pink-light/30">
+<h2 class="text-lg font-bold text-kirby-pink-main mb-4">🛠️ 文法修正筆記</h2><div class="space-y-3"><div class="flex flex-col gap-1 p-3 bg-kirby-bg rounded-xl">
+<p><span class="incorrect">pioneer of the AI</span> → <span class="correct">pioneers in AI / a pioneer in the field of AI</span></p>
+<p class="text-xs text-kirby-pink-dark/50">規則：修正搭配詞，使用 "pioneer in [field]" 更為自然。</p></div><div class="flex flex-col gap-1 p-3 bg-kirby-bg rounded-xl">
+<p><span class="incorrect">study AI topics during working</span> → <span class="correct">study AI topics during work hours / while working</span></p>
+<p class="text-xs text-kirby-pink-dark/50">規則：修正時間表達，"during working" 並非標準用法。</p></div><div class="flex flex-col gap-1 p-3 bg-kirby-bg rounded-xl">
+<p><span class="incorrect">it's ok to me</span> → <span class="correct">it's okay with me / I'm fine with it</span></p>
+<p class="text-xs text-kirby-pink-dark/50">規則：表達同意或沒問題時，慣用 "okay with me"。</p></div><div class="flex flex-col gap-1 p-3 bg-kirby-bg rounded-xl">
+<p><span class="incorrect">provide to others collgues</span> → <span class="correct">provide it to my other colleagues / share it with my colleagues</span></p>
+<p class="text-xs text-kirby-pink-dark/50">規則：修正拼寫 (colleagues) 並補上受詞。</p></div><div class="flex flex-col gap-1 p-3 bg-kirby-bg rounded-xl">
+<p><span class="incorrect">makes work conveniently $\rightarrow$ makes work more convenient / makes work easier</span> → <span class="correct"></span></p>
+<p class="text-xs text-kirby-pink-dark/50">規則：使役動詞 make + 受詞 + 形容詞 (convenient)，而非副詞 (conveniently)。</p></div><div class="flex flex-col gap-1 p-3 bg-kirby-bg rounded-xl">
+<p><span class="incorrect">write a letter with English $\rightarrow$ write a letter in English</span> → <span class="correct"></span></p>
+<p class="text-xs text-kirby-pink-dark/50">規則：語言介質一律使用介系詞 "in"。</p></div><div class="flex flex-col gap-1 p-3 bg-kirby-bg rounded-xl">
+<p><span class="incorrect">meet the formal mail's format $\rightarrow$ follow a formal email format / match the required formal format</span> → <span class="correct"></span></p>
+<p class="text-xs text-kirby-pink-dark/50">規則：格式建議使用 "follow" 或 "match"，而非 "meet"。</p></div><div class="flex flex-col gap-1 p-3 bg-kirby-bg rounded-xl">
+<p><span class="incorrect">The key to make presentation better is streamline $\rightarrow$ The key to making a presentation better is to streamline the content / streamlining</span> → <span class="correct"></span></p>
+<p class="text-xs text-kirby-pink-dark/50">規則：'The key to' 後方必須接 V-ing 或名詞。</p></div></div></div></section><div class="bg-gradient-to-r from-kirby-pink-main/10 to-kirby-pink-light/20 rounded-2xl p-6 border border-kirby-pink-light/50 fade-in"><h3 class="text-lg font-bold text-kirby-pink-dark mb-3">💡 學習小技巧</h3><ul class="text-kirby-pink-dark/70 space-y-2"><li>📝 每次練習後記下 <strong class="text-kirby-pink-main">實際被糾正的句子</strong>，比背 100 個單字更有用</li><li>🗣️ 把新學的表達 <strong class="text-kirby-pink-main">大聲說出來</strong>，讓嘴巴習慣英文的發音節奏</li><li>🔄 <strong class="text-kirby-pink-main">間隔複習</strong>：今天學的，明天、三天後、一週後各複習一次</li></ul></div></main>
+</body></html>

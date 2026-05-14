@@ -1,164 +1,38 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>開發筆記 - 森之卡比</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'kirby-bg': '#FFF0F3',
-                        'kirby-pink-light': '#FFB7C5',
-                        'kirby-pink-main': '#FF8FAB',
-                        'kirby-pink-dark': '#E06C84',
-                        'kirby-white': '#FFFFFF',
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .fade-in { animation: fadeIn 0.5s ease-out forwards; }
-        .fade-in-1 { animation-delay: 0.1s; opacity: 0; }
-        .fade-in-2 { animation-delay: 0.2s; opacity: 0; }
-        .fade-in-3 { animation-delay: 0.3s; opacity: 0; }
-        .fade-in-4 { animation-delay: 0.4s; opacity: 0; }
-        .fade-in-5 { animation-delay: 0.5s; opacity: 0; }
-        .fade-in-6 { animation-delay: 0.6s; opacity: 0; }
-    </style>
-</head>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>開發筆記 - 森之卡比</title><script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={theme:{extend:{colors:{'kirby-bg':'#FFF0F3','kirby-pink-light':'#FFB7C5','kirby-pink-main':'#FF8FAB','kirby-pink-dark':'#E06C84','kirby-white':'#FFFFFF'}}}}</script><style>
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fadeIn .5s ease-out forwards;opacity:0}
+.fade-1{animation-delay:.1s}.fade-2{animation-delay:.2s}.fade-3{animation-delay:.3s}.fade-4{animation-delay:.4s}.fade-5{animation-delay:.5s}.fade-6{animation-delay:.6s}.fade-7{animation-delay:.7s}.fade-8{animation-delay:.8s}.fade-9{animation-delay:.9s}
+.badge{display:inline-block;padding:4px 16px;border-radius:9999px;font-size:.75rem;font-weight:700;margin-bottom:1rem}
+.incorrect{text-decoration:line-through;color:#E06C84}.correct{color:#2d8a56;font-weight:600}
+</style></head>
 <body class="bg-kirby-bg text-kirby-pink-dark font-sans min-h-screen flex flex-col">
-    <nav class="w-full max-w-4xl mx-auto px-6 py-4 flex flex-wrap justify-center gap-3 md:justify-start">
-        <a class="px-4 py-2 rounded-full text-sm md:text-base font-medium transition-all bg-kirby-white/60 text-kirby-pink-dark hover:bg-kirby-pink-light/40" href="/ks-kirby-website/">🏠 首頁</a>
-        <a class="px-4 py-2 rounded-full text-sm md:text-base font-medium transition-all bg-kirby-white/60 text-kirby-pink-dark hover:bg-kirby-pink-light/40" href="/ks-kirby-website/milestones">🏆 里程碑</a>
-        <a class="px-4 py-2 rounded-full text-sm md:text-base font-medium transition-all bg-kirby-pink-main text-white shadow-md" href="/ks-kirby-website/dev-notes">📝 開發筆記</a>
-        <a class="px-4 py-2 rounded-full text-sm md:text-base font-medium transition-all bg-kirby-white/60 text-kirby-pink-dark hover:bg-kirby-pink-light/40" href="/ks-kirby-website/english">🇬🇧 英文學習</a>
-    </nav>
-    <main class="max-w-4xl mx-auto px-6 py-12 w-full">
-        <header class="text-center mb-12 fade-in">
-            <h1 class="text-4xl md:text-5xl font-bold text-kirby-pink-main mb-4">📝 開發筆記</h1>
-            <p class="text-kirby-pink-dark/60 text-lg">記錄寫程式時的點點滴滴 — 2026-05-13 網站開發日誌</p>
-        </header>
-
-        <div class="space-y-8">
-            <!-- Note 1 -->
-            <div class="bg-kirby-white/60 rounded-2xl p-6 shadow-sm border border-kirby-pink-light/30 fade-in fade-in-1">
-                <div class="flex items-start justify-between mb-3">
-                    <span class="text-xs font-semibold text-kirby-pink-main bg-kirby-pink-main/10 px-2 py-1 rounded">#nextjs</span>
-                    <span class="text-xs text-kirby-pink-dark/40">2026-05-13</span>
-                </div>
-                <h3 class="text-xl font-bold text-kirby-pink-dark mb-3">🏗️ Next.js + Tailwind CSS 專案初始化</h3>
-                <p class="text-kirby-pink-dark/70 text-sm leading-relaxed mb-3">
-                    使用 <code class="bg-kirby-pink-light/20 px-1 rounded">npx create-next-app@latest</code> 建立專案。選擇 TypeScript + Tailwind + App Router 組合。
-                    注意到 Tailwind CSS 已經升級到 <strong class="text-kirby-pink-main">v4</strong>，最大的變化是：不再使用 <code class="bg-kirby-pink-light/20 px-1 rounded">tailwind.config.ts</code> 設定檔！
-                </p>
-                <p class="text-kirby-pink-dark/70 text-sm leading-relaxed">
-                    🎯 <strong>學到的事</strong>：v4 改在 <code class="bg-kirby-pink-light/20 px-1 rounded">globals.css</code> 裡用 <code class="bg-kirby-pink-light/20 px-1 rounded">@theme</code> 語法定義自訂顏色，更直覺也更集中。
-                </p>
-            </div>
-
-            <!-- Note 2 -->
-            <div class="bg-kirby-white/60 rounded-2xl p-6 shadow-sm border border-kirby-pink-light/30 fade-in fade-in-2">
-                <div class="flex items-start justify-between mb-3">
-                    <span class="text-xs font-semibold text-kirby-pink-main bg-kirby-pink-main/10 px-2 py-1 rounded">#css</span>
-                    <span class="text-xs text-kirby-pink-dark/40">2026-05-13</span>
-                </div>
-                <h3 class="text-xl font-bold text-kirby-pink-dark mb-3">🎨 卡比專屬粉色系色盤設計</h3>
-                <p class="text-kirby-pink-dark/70 text-sm leading-relaxed mb-3">
-                    定義了一套 5 階粉色色盤，讓整個網站擁有統一的、柔和的視覺語言：
-                </p>
-                <ul class="text-kirby-pink-dark/70 text-sm space-y-1 mb-3 pl-4 list-disc">
-                    <li><strong class="text-kirby-pink-main">kirby-bg</strong> (#FFF0F3)：極淺粉，網站基底</li>
-                    <li><strong class="text-kirby-pink-main">kirby-pink-light</strong> (#FFB7C5)：柔和粉，卡片背景</li>
-                    <li><strong class="text-kirby-pink-main">kirby-pink-main</strong> (#FF8FAB)：主題粉，核心視覺</li>
-                    <li><strong class="text-kirby-pink-main">kirby-pink-dark</strong> (#E06C84)：深玫瑰粉，文字與對比</li>
-                    <li><strong class="text-kirby-pink-main">kirby-white</strong> (#FFFFFF)：純白，內容卡片</li>
-                </ul>
-                <p class="text-kirby-pink-dark/70 text-sm leading-relaxed">
-                    🎯 <strong>心得</strong>：限制色階數量（只定義 5 級）讓整體配色更協調，不會出現過多混亂的粉紅色。
-                </p>
-            </div>
-
-            <!-- Note 3 -->
-            <div class="bg-kirby-white/60 rounded-2xl p-6 shadow-sm border border-kirby-pink-light/30 fade-in fade-in-3">
-                <div class="flex items-start justify-between mb-3">
-                    <span class="text-xs font-semibold text-kirby-pink-main bg-kirby-pink-main/10 px-2 py-1 rounded">#animation</span>
-                    <span class="text-xs text-kirby-pink-dark/40">2026-05-13</span>
-                </div>
-                <h3 class="text-xl font-bold text-kirby-pink-dark mb-3">✨ Framer Motion 動畫整合</h3>
-                <p class="text-kirby-pink-dark/70 text-sm leading-relaxed mb-3">
-                    引入 <strong class="text-kirby-pink-main">framer-motion</strong> 為頁面加入流暢的進入/離開動畫。
-                    安裝時遇到一個大坑：<code class="bg-kirby-pink-light/20 px-1 rounded">npm install framer-motion</code> 意外移除了 337 個相依套件（包含 Tailwind CSS！）。
-                </p>
-                <p class="text-kirby-pink-dark/70 text-sm leading-relaxed">
-                    🔧 <strong>解決方案</strong>：發現必須使用 <code class="bg-kirby-pink-light/20 px-1 rounded">npm install --include=dev</code> 來強制安裝 devDependencies。
-                    這是這個環境的特殊行為，一般開發者不太會遇到。
-                </p>
-            </div>
-
-            <!-- Note 4 -->
-            <div class="bg-kirby-white/60 rounded-2xl p-6 shadow-sm border border-kirby-pink-light/30 fade-in fade-in-4">
-                <div class="flex items-start justify-between mb-3">
-                    <span class="text-xs font-semibold text-kirby-pink-main bg-kirby-pink-main/10 px-2 py-1 rounded">#deployment</span>
-                    <span class="text-xs text-kirby-pink-dark/40">2026-05-13</span>
-                </div>
-                <h3 class="text-xl font-bold text-kirby-pink-dark mb-3">🚀 GitHub Pages 部署踩坑全記錄</h3>
-                <p class="text-kirby-pink-dark/70 text-sm leading-relaxed mb-3">
-                    這是今天最痛苦但也最有收穫的部分。連續踩了三個大坑：
-                </p>
-                <ol class="text-kirby-pink-dark/70 text-sm space-y-2 mb-3 pl-4 list-decimal">
-                    <li><strong>坑 1：READ ME 顯示</strong> — 第一次 push 了 Next.js 原始碼，Zeabur 當成純靜態檔，直接顯示 README.md 內容。</li>
-                    <li><strong>坑 2：路徑迷路</strong> — 改用 <code class="bg-kirby-pink-light/20 px-1 rounded">output: 'export'</code> 靜態匯出後，忘記設 <code class="bg-kirby-pink-light/20 px-1 rounded">basePath: '/ks-kirby-website'</code>，導致所有 CSS 和連結 404。</li>
-                    <li><strong>坑 3：_next 資料夾被封鎖</strong> — 即使設了 basePath，GitHub Pages 對 <code class="bg-kirby-pink-light/20 px-1 rounded">_next</code> 開頭的資料夾有特殊處理，CSS 仍無法載入。</li>
-                </ol>
-                <p class="text-kirby-pink-dark/70 text-sm leading-relaxed">
-                    💡 <strong>終極解法</strong>：放棄 Next.js 的複雜編譯路徑，直接在 HTML 中引入 <code class="bg-kirby-pink-light/20 px-1 rounded">cdn.tailwindcss.com</code>，所有樣式 100% 可控。
-                    雖然不是最佳實踐，但在 GitHub Pages 環境下是最穩定的方案。
-                </p>
-            </div>
-
-            <!-- Note 5 -->
-            <div class="bg-kirby-white/60 rounded-2xl p-6 shadow-sm border border-kirby-pink-light/30 fade-in fade-in-5">
-                <div class="flex items-start justify-between mb-3">
-                    <span class="text-xs font-semibold text-kirby-pink-main bg-kirby-pink-main/10 px-2 py-1 rounded">#data</span>
-                    <span class="text-xs text-kirby-pink-dark/40">2026-05-13</span>
-                </div>
-                <h3 class="text-xl font-bold text-kirby-pink-dark mb-3">📊 資料驅動架構設計</h3>
-                <p class="text-kirby-pink-dark/70 text-sm leading-relaxed mb-3">
-                    建立了 <code class="bg-kirby-pink-light/20 px-1 rounded">src/data/</code> 資料層，將里程碑、筆記、英文學習內容全部用 JSON 檔案管理。
-                    這個設計的好處是：以後老闆想新增內容，只需要編輯 JSON 檔案，不用碰到 React 程式碼。
-                </p>
-                <p class="text-kirby-pink-dark/70 text-sm leading-relaxed">
-                    🎯 <strong>未來計畫</strong>：可以寫一個簡單的 Node.js 腳本，自動從 <code class="bg-kirby-pink-light/20 px-1 rounded">MEMORY.md</code> 和 <code class="bg-kirby-pink-light/20 px-1 rounded">.md</code> 筆記檔轉換成 JSON，實現「寫 Markdown → 自動更新網站」的 workflow。
-                </p>
-            </div>
-
-            <!-- Note 6 -->
-            <div class="bg-kirby-white/60 rounded-2xl p-6 shadow-sm border border-kirby-pink-light/30 fade-in fade-in-6">
-                <div class="flex items-start justify-between mb-3">
-                    <span class="text-xs font-semibold text-kirby-pink-main bg-kirby-pink-main/10 px-2 py-1 rounded">#architecture</span>
-                    <span class="text-xs text-kirby-pink-dark/40">2026-05-13</span>
-                </div>
-                <h3 class="text-xl font-bold text-kirby-pink-dark mb-3">🔄 下一步：md → 網頁自動化</h3>
-                <p class="text-kirby-pink-dark/70 text-sm leading-relaxed">
-                    老闆提出了一個很好的問題：「能不能自動把 md 內容轉成網頁畫面？」
-                    答案是 <strong class="text-kirby-pink-main">完全可以</strong>！可以透過以下方式實現：
-                </p>
-                <div class="mt-3 p-4 bg-kirby-bg rounded-xl text-sm text-kirby-pink-dark/70">
-                    <p>📋 <strong>技術方案</strong>：</p>
-                    <ul class="space-y-1 pl-4 list-disc">
-                        <li>用 GitHub Actions 定時檢查 <code class="bg-kirby-pink-light/20 px-1 rounded">.md</code> 檔案是否有變更</li>
-                        <li>使用 Node.js 腳本解析 Markdown → JSON / HTML</li>
-                        <li>自動重新 build 並部署到 GitHub Pages</li>
-                    </ul>
-                    <p class="mt-2">這樣老闆只需要在本機或後台更新 <code class="bg-kirby-pink-light/20 px-1 rounded">MEMORY.md</code>，網站就會自動同步最新內容！</p>
-                </div>
-            </div>
-        </div>
-    </main>
-</body>
-</html>
+<nav class="w-full max-w-4xl mx-auto px-6 py-4 flex flex-wrap justify-center gap-3 md:justify-start"><a class="px-4 py-2 rounded-full text-sm md:text-base font-medium transition-all bg-kirby-white/60 text-kirby-pink-dark hover:bg-kirby-pink-light/40" href="/ks-kirby-website/">🏠 首頁</a><a class="px-4 py-2 rounded-full text-sm md:text-base font-medium transition-all bg-kirby-white/60 text-kirby-pink-dark hover:bg-kirby-pink-light/40" href="/ks-kirby-website/milestones">🏆 里程碑</a><a class="px-4 py-2 rounded-full text-sm md:text-base font-medium transition-all bg-kirby-pink-main text-white shadow-md" href="/ks-kirby-website/dev-notes">📝 開發筆記</a><a class="px-4 py-2 rounded-full text-sm md:text-base font-medium transition-all bg-kirby-white/60 text-kirby-pink-dark hover:bg-kirby-pink-light/40" href="/ks-kirby-website/english">🇬🇧 英文學習</a></nav>
+<main class="max-w-4xl mx-auto px-6 py-12 w-full"><header class="text-center mb-12 fade-in fade-1"><h1 class="text-4xl md:text-5xl font-bold text-kirby-pink-main mb-4">📝 開發筆記</h1><p class="text-kirby-pink-dark/60 text-lg">記錄寫程式時的點點滴滴</p></header><div class="space-y-8"><div class="bg-kirby-white/60 rounded-2xl p-6 shadow-sm border border-kirby-pink-light/30 fade-in fade-2">
+<div class="flex items-start justify-between mb-3"><span class="text-xs font-semibold text-kirby-pink-main bg-kirby-pink-main/10 px-2 py-1 rounded">#nextjs</span><span class="text-xs text-kirby-pink-dark/40">2026-05-13</span></div>
+<h3 class="text-xl font-bold text-kirby-pink-dark mb-3">🏗️ Next.js + Tailwind CSS 專案初始化</h3>
+<p class="text-kirby-pink-dark/70 text-sm leading-relaxed mb-3">使用 create-next-app 建立專案（TypeScript + Tailwind + App Router）。發現 Tailwind CSS 已升級到 v4，最大的變化是：不再使用 tailwind.config.ts 設定檔。</p>
+<p class="text-kirby-pink-dark/70 text-sm leading-relaxed">🎯 學到的事：v4 改在 globals.css 裡用 @theme 語法定義自訂顏色，更直覺也更集中。</p></div><div class="bg-kirby-white/60 rounded-2xl p-6 shadow-sm border border-kirby-pink-light/30 fade-in fade-3">
+<div class="flex items-start justify-between mb-3"><span class="text-xs font-semibold text-kirby-pink-main bg-kirby-pink-main/10 px-2 py-1 rounded">#css</span><span class="text-xs text-kirby-pink-dark/40">2026-05-13</span></div>
+<h3 class="text-xl font-bold text-kirby-pink-dark mb-3">🎨 卡比專屬粉色系色盤設計</h3>
+<p class="text-kirby-pink-dark/70 text-sm leading-relaxed mb-3">定義了一套 5 階粉色色盤（kirby-bg → kirby-pink-light → kirby-pink-main → kirby-pink-dark → kirby-white），讓整個網站擁有統一的視覺語言。限制色階數量讓整體配色更協調。</p>
+<p class="text-kirby-pink-dark/70 text-sm leading-relaxed">🎯 學到的事：少即是多，5 階色足夠覆蓋所有 UI 需求。</p></div><div class="bg-kirby-white/60 rounded-2xl p-6 shadow-sm border border-kirby-pink-light/30 fade-in fade-4">
+<div class="flex items-start justify-between mb-3"><span class="text-xs font-semibold text-kirby-pink-main bg-kirby-pink-main/10 px-2 py-1 rounded">#animation</span><span class="text-xs text-kirby-pink-dark/40">2026-05-13</span></div>
+<h3 class="text-xl font-bold text-kirby-pink-dark mb-3">✨ Framer Motion 動畫整合</h3>
+<p class="text-kirby-pink-dark/70 text-sm leading-relaxed mb-3">引入 framer-motion 為頁面加入流暢的進入/離開動畫與 hover 效果。安裝時遇到大坑：npm install framer-motion 意外移除了 337 個相依套件（包含 Tailwind CSS！）。</p>
+<p class="text-kirby-pink-dark/70 text-sm leading-relaxed">🎯 學到的事：這個環境必須用 npm install --include=dev 來強制安裝 devDependencies，標準行為不一樣。</p></div><div class="bg-kirby-white/60 rounded-2xl p-6 shadow-sm border border-kirby-pink-light/30 fade-in fade-5">
+<div class="flex items-start justify-between mb-3"><span class="text-xs font-semibold text-kirby-pink-main bg-kirby-pink-main/10 px-2 py-1 rounded">#deployment</span><span class="text-xs text-kirby-pink-dark/40">2026-05-13</span></div>
+<h3 class="text-xl font-bold text-kirby-pink-dark mb-3">🚀 GitHub Pages 部署踩坑全記錄</h3>
+<p class="text-kirby-pink-dark/70 text-sm leading-relaxed mb-3">連續踩了三個大坑：(1) Push 了 Next.js 原始碼，Zeabur 當成純靜態檔，顯示 README.md (2) 靜態匯出後忘記設 basePath，CSS 和連結全 404 (3) GitHub Pages 對 _next 開頭的資料夾有特殊處理，CSS 仍無法載入。</p>
+<p class="text-kirby-pink-dark/70 text-sm leading-relaxed">🎯 學到的事：在 GitHub Pages 環境下，直接引入 cdn.tailwindcss.com 比依賴 Next.js 的編譯路徑更穩定可靠。</p></div><div class="bg-kirby-white/60 rounded-2xl p-6 shadow-sm border border-kirby-pink-light/30 fade-in fade-6">
+<div class="flex items-start justify-between mb-3"><span class="text-xs font-semibold text-kirby-pink-main bg-kirby-pink-main/10 px-2 py-1 rounded">#architecture</span><span class="text-xs text-kirby-pink-dark/40">2026-05-13</span></div>
+<h3 class="text-xl font-bold text-kirby-pink-dark mb-3">📊 資料驅動架構設計</h3>
+<p class="text-kirby-pink-dark/70 text-sm leading-relaxed mb-3">建立了 src/data/ 資料層，將里程碑、筆記、英文學習內容用 JSON 管理，並規劃了 md → JSON → HTML 的自動化流程。</p>
+<p class="text-kirby-pink-dark/70 text-sm leading-relaxed">🎯 學到的事：把「內容」和「呈現」分離，後續無論技術棧怎麼換，內容都不會遺失。</p></div><div class="bg-kirby-white/60 rounded-2xl p-6 shadow-sm border border-kirby-pink-light/30 fade-in fade-7">
+<div class="flex items-start justify-between mb-3"><span class="text-xs font-semibold text-kirby-pink-main bg-kirby-pink-main/10 px-2 py-1 rounded">#architecture</span><span class="text-xs text-kirby-pink-dark/40">2026-05-13</span></div>
+<h3 class="text-xl font-bold text-kirby-pink-dark mb-3">🔄 md → 網頁自動化藍圖</h3>
+<p class="text-kirby-pink-dark/70 text-sm leading-relaxed mb-3">設計了一套完整的自動化方案：workspace md 檔 → cron 定時同步到 content/ → GitHub Actions 偵測變更 → 解析 md → 生成 HTML → 自動部署。核心關鍵在於「嚴格統一的格式」。</p>
+<p class="text-kirby-pink-dark/70 text-sm leading-relaxed">🎯 學到的事：格式一致是自動化的命脈，只要源頭格式統一，後面的解析腳本就能穩定運作。</p></div></div></main>
+</body></html>
