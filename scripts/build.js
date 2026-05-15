@@ -373,6 +373,13 @@ function buildDevNotes(blocks) {
     render();
   });
 
+  // Default to latest
+  if (data.months && data.months.length > 0) {
+    document.getElementById('month-select').value = data.months[0];
+  }
+  if (data.dateKeys && data.dateKeys.length > 0) {
+    document.getElementById('date-select').value = data.dateKeys[0];
+  }
   render();
 })();
 </script>`;
@@ -610,8 +617,13 @@ function buildEnglish() {
     render();
   });
 
-  document.getElementById('english-month').value = months[0] || 'all';
-  document.getElementById('english-date').value = dates.length > 0 ? dates[0].date : 'all';
+  // Default to latest
+  if (months && months.length > 0) {
+    document.getElementById('english-month').value = months[0];
+  }
+  if (dates && dates.length > 0) {
+    document.getElementById('english-date').value = dates[0].date;
+  }
   render();
 })();
 </script>`;

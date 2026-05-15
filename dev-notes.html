@@ -152,6 +152,13 @@ select:focus{outline:none;border-color:#FF8FAB!important;box-shadow:0 0 0 2px rg
     render();
   });
 
+  // Default to latest
+  if (data.months && data.months.length > 0) {
+    document.getElementById('month-select').value = data.months[0];
+  }
+  if (data.dateKeys && data.dateKeys.length > 0) {
+    document.getElementById('date-select').value = data.dateKeys[0];
+  }
   render();
 })();
 </script></main>

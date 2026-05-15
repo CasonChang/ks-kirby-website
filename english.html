@@ -200,8 +200,13 @@ select:focus{outline:none;border-color:#FF8FAB!important;box-shadow:0 0 0 2px rg
     render();
   });
 
-  document.getElementById('english-month').value = months[0] || 'all';
-  document.getElementById('english-date').value = dates.length > 0 ? dates[0].date : 'all';
+  // Default to latest
+  if (months && months.length > 0) {
+    document.getElementById('english-month').value = months[0];
+  }
+  if (dates && dates.length > 0) {
+    document.getElementById('english-date').value = dates[0].date;
+  }
   render();
 })();
 </script></main>
