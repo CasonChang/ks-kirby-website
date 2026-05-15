@@ -140,10 +140,9 @@ select:focus{outline:none;border-color:#FF8FAB!important;box-shadow:0 0 0 2px rg
 
   document.getElementById('month-select').addEventListener('change', function(){
     currentIdx = 0;
-  document.getElementById('month-select').value = data.months[0] || 'all';
-  document.getElementById('date-select').value = data.dateKeys[0] || 'all';
-  render();
-})();
+    document.getElementById('date-select').value = 'all';
+    render();
+  });
 
   document.getElementById('date-select').addEventListener('change', function(){
     var vdates = getVisibleDates();

@@ -200,6 +200,7 @@ select:focus{outline:none;border-color:#FF8FAB!important;box-shadow:0 0 0 2px rg
     render();
   });
 
+  var months = [...new Set(dates.map(function(d){ return d.date.substring(0,7); }))].sort(function(a,b){ return b.localeCompare(a); });
   // Default to latest
   if (months && months.length > 0) {
     document.getElementById('english-month').value = months[0];

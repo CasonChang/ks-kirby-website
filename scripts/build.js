@@ -361,10 +361,9 @@ function buildDevNotes(blocks) {
 
   document.getElementById('month-select').addEventListener('change', function(){
     currentIdx = 0;
-  document.getElementById('month-select').value = data.months[0] || 'all';
-  document.getElementById('date-select').value = data.dateKeys[0] || 'all';
-  render();
-})();
+    document.getElementById('date-select').value = 'all';
+    render();
+  });
 
   document.getElementById('date-select').addEventListener('change', function(){
     var vdates = getVisibleDates();
@@ -617,6 +616,7 @@ function buildEnglish() {
     render();
   });
 
+  var months = [...new Set(dates.map(function(d){ return d.date.substring(0,7); }))].sort(function(a,b){ return b.localeCompare(a); });
   // Default to latest
   if (months && months.length > 0) {
     document.getElementById('english-month').value = months[0];
