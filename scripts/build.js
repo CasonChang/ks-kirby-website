@@ -27,10 +27,10 @@ function nav(active) {
     ["/dev-notes", "📝 開發筆記"],
     ["/english", "📖 英文學習"],
   ];
-  return `<nav class="w-full max-w-4xl mx-auto px-6 py-4 flex flex-wrap justify-center gap-3 md:justify-start">${links
+  return `<nav class="w-full max-w-4xl mx-auto px-6 py-4 flex justify-start md:justify-center gap-3 overflow-x-auto no-scrollbar whitespace-nowrap">${links
     .map(
       ([href, label]) =>
-        `<a class="px-4 py-2 rounded-full text-sm md:text-base font-medium transition-all ${
+        `<a class="px-4 py-2 rounded-full text-sm md:text-base font-medium transition-all shrink-0 ${
           href === active
             ? "bg-kirby-pink-main text-white shadow-md"
             : "bg-kirby-white/60 text-kirby-pink-dark hover:bg-kirby-pink-light/40"
@@ -366,7 +366,7 @@ function buildDevNotes(blocks) {
 
   document.getElementById('month-select').addEventListener('change', function(){
     currentIdx = 0;
-    document.getElementById('date-select').value = 'all';
+    document.getElementById('date-select').value = dateKeys[0] || 'all';
     render();
   });
 
@@ -619,6 +619,7 @@ function buildEnglish() {
     render();
   });
 
+  document.getElementById('english-date').value = dateKeys[0] || 'all';
   render();
 })();
 </script>`;
