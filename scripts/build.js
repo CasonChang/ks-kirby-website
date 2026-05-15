@@ -241,25 +241,23 @@ function buildDevNotes(blocks) {
   <p class="text-kirby-pink-dark/60 text-lg">記錄寫程式時的點點滴滴</p>
 </header>
 
-<div class="flex flex-wrap items-center justify-center gap-3 mb-8">
-  <div class="flex items-center gap-2">
-    <label class="text-sm font-semibold text-kirby-pink-dark">📅 月份</label>
+<div class="flex items-center justify-start md:justify-center gap-3 mb-8 overflow-x-auto no-scrollbar whitespace-nowrap px-2">
+  <button id="prev-btn" class="nav-btn bg-kirby-pink-light/40 text-kirby-pink-dark px-3 py-2 rounded-full text-sm font-bold transition-all shrink-0" title="上一頁">←</button>
+  <div class="flex items-center gap-2 shrink-0">
+    <label class="text-sm font-semibold text-kirby-pink-dark whitespace-nowrap">📅 月份</label>
     <select id="month-select" class="bg-kirby-white/60 border border-kirby-pink-light/50 rounded-lg px-3 py-2 text-sm text-kirby-pink-dark">
       <option value="all">全部月份</option>
       ${monthOpts}
     </select>
   </div>
-  <div class="flex items-center gap-1">
-    <button id="prev-btn" class="nav-btn bg-kirby-pink-light/40 text-kirby-pink-dark px-3 py-2 rounded-full text-sm font-bold transition-all" title="上一頁">←</button>
-    <div class="flex items-center gap-2">
-      <label class="text-sm font-semibold text-kirby-pink-dark">📆 日期</label>
-      <select id="date-select" class="bg-kirby-white/60 border border-kirby-pink-light/50 rounded-lg px-3 py-2 text-sm text-kirby-pink-dark">
-        <option value="all">全部日期</option>
-        ${dateOpts}
-      </select>
-    </div>
-    <button id="next-btn" class="nav-btn bg-kirby-pink-light/40 text-kirby-pink-dark px-3 py-2 rounded-full text-sm font-bold transition-all" title="下一頁">→</button>
+  <div class="flex items-center gap-2 shrink-0">
+    <label class="text-sm font-semibold text-kirby-pink-dark whitespace-nowrap">📆 日期</label>
+    <select id="date-select" class="bg-kirby-white/60 border border-kirby-pink-light/50 rounded-lg px-3 py-2 text-sm text-kirby-pink-dark">
+      <option value="all">全部日期</option>
+      ${dateOpts}
+    </select>
   </div>
+  <button id="next-btn" class="nav-btn bg-kirby-pink-light/40 text-kirby-pink-dark px-3 py-2 rounded-full text-sm font-bold transition-all shrink-0" title="下一頁">→</button>
 </div>
 
 <div id="dev-notes-list" class="space-y-8"></div>
@@ -363,7 +361,7 @@ function buildDevNotes(blocks) {
 
   document.getElementById('month-select').addEventListener('change', function(){
     currentIdx = 0;
-    document.getElementById('date-select').value = _D.dateKeys[0] || 'all';
+    document.getElementById('date-select').value = data.dateKeys[0] || 'all';
     render();
   });
 
@@ -440,25 +438,23 @@ function buildEnglish() {
   </div>
 </div>
 
-<div class="flex flex-wrap items-center justify-center gap-3 mb-8">
-  <div class="flex items-center gap-2">
-    <label class="text-sm font-semibold text-kirby-pink-dark">📅 月份</label>
+<div class="flex items-center justify-start md:justify-center gap-3 mb-8 overflow-x-auto no-scrollbar whitespace-nowrap px-2">
+  <button id="en-prev-btn" class="nav-btn bg-kirby-pink-light/40 text-kirby-pink-dark px-3 py-2 rounded-full text-sm font-bold transition-all shrink-0" title="上一頁">←</button>
+  <div class="flex items-center gap-2 shrink-0">
+    <label class="text-sm font-semibold text-kirby-pink-dark whitespace-nowrap">📅 月份</label>
     <select id="english-month" class="bg-kirby-white/60 border border-kirby-pink-light/50 rounded-lg px-3 py-2 text-sm text-kirby-pink-dark">
       <option value="all">全部月份</option>
       ${monthOpts}
     </select>
   </div>
-  <div class="flex items-center gap-1">
-    <button id="en-prev-btn" class="nav-btn bg-kirby-pink-light/40 text-kirby-pink-dark px-3 py-2 rounded-full text-sm font-bold transition-all" title="上一頁">←</button>
-    <div class="flex items-center gap-2">
-      <label class="text-sm font-semibold text-kirby-pink-dark">📆 日期</label>
-      <select id="english-date" class="bg-kirby-white/60 border border-kirby-pink-light/50 rounded-lg px-3 py-2 text-sm text-kirby-pink-dark">
-        <option value="all">全部日期</option>
-        ${dateOpts}
-      </select>
-    </div>
-    <button id="en-next-btn" class="nav-btn bg-kirby-pink-light/40 text-kirby-pink-dark px-3 py-2 rounded-full text-sm font-bold transition-all" title="下一頁">→</button>
+  <div class="flex items-center gap-2 shrink-0">
+    <label class="text-sm font-semibold text-kirby-pink-dark whitespace-nowrap">📆 日期</label>
+    <select id="english-date" class="bg-kirby-white/60 border border-kirby-pink-light/50 rounded-lg px-3 py-2 text-sm text-kirby-pink-dark">
+      <option value="all">全部日期</option>
+      ${dateOpts}
+    </select>
   </div>
+  <button id="en-next-btn" class="nav-btn bg-kirby-pink-light/40 text-kirby-pink-dark px-3 py-2 rounded-full text-sm font-bold transition-all shrink-0" title="下一頁">→</button>
 </div>
 
 <div id="english-list"></div>

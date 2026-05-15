@@ -27,27 +27,25 @@ select:focus{outline:none;border-color:#FF8FAB!important;box-shadow:0 0 0 2px rg
   </div>
 </div>
 
-<div class="flex flex-wrap items-center justify-center gap-3 mb-8">
-  <div class="flex items-center gap-2">
-    <label class="text-sm font-semibold text-kirby-pink-dark">📅 月份</label>
+<div class="flex items-center justify-start md:justify-center gap-3 mb-8 overflow-x-auto no-scrollbar whitespace-nowrap px-2">
+  <button id="en-prev-btn" class="nav-btn bg-kirby-pink-light/40 text-kirby-pink-dark px-3 py-2 rounded-full text-sm font-bold transition-all shrink-0" title="上一頁">←</button>
+  <div class="flex items-center gap-2 shrink-0">
+    <label class="text-sm font-semibold text-kirby-pink-dark whitespace-nowrap">📅 月份</label>
     <select id="english-month" class="bg-kirby-white/60 border border-kirby-pink-light/50 rounded-lg px-3 py-2 text-sm text-kirby-pink-dark">
       <option value="all">全部月份</option>
       <option value="2026-05">2026-05</option>
     </select>
   </div>
-  <div class="flex items-center gap-1">
-    <button id="en-prev-btn" class="nav-btn bg-kirby-pink-light/40 text-kirby-pink-dark px-3 py-2 rounded-full text-sm font-bold transition-all" title="上一頁">←</button>
-    <div class="flex items-center gap-2">
-      <label class="text-sm font-semibold text-kirby-pink-dark">📆 日期</label>
-      <select id="english-date" class="bg-kirby-white/60 border border-kirby-pink-light/50 rounded-lg px-3 py-2 text-sm text-kirby-pink-dark">
-        <option value="all">全部日期</option>
-        <option value="2026-05-14">2026-05-14</option>
+  <div class="flex items-center gap-2 shrink-0">
+    <label class="text-sm font-semibold text-kirby-pink-dark whitespace-nowrap">📆 日期</label>
+    <select id="english-date" class="bg-kirby-white/60 border border-kirby-pink-light/50 rounded-lg px-3 py-2 text-sm text-kirby-pink-dark">
+      <option value="all">全部日期</option>
+      <option value="2026-05-14">2026-05-14</option>
 <option value="2026-05-13">2026-05-13</option>
 <option value="2026-05-11">2026-05-11</option>
-      </select>
-    </div>
-    <button id="en-next-btn" class="nav-btn bg-kirby-pink-light/40 text-kirby-pink-dark px-3 py-2 rounded-full text-sm font-bold transition-all" title="下一頁">→</button>
+    </select>
   </div>
+  <button id="en-next-btn" class="nav-btn bg-kirby-pink-light/40 text-kirby-pink-dark px-3 py-2 rounded-full text-sm font-bold transition-all shrink-0" title="下一頁">→</button>
 </div>
 
 <div id="english-list"></div>
