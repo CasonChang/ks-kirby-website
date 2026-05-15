@@ -116,7 +116,7 @@ function buildMilestones(blocks) {
   }
 
   const pillsHTML = Object.entries(catMeta)
-    .map(([key, m]) => `<button class="cat-btn bg-kirby-white/60 text-kirby-pink-dark px-5 py-2 rounded-full text-sm font-semibold" data-cat="${key}">${m.emoji} ${m.label}</button>`)
+    .map(([key, m]) => `<button class="cat-btn shrink-0 bg-kirby-white/60 text-kirby-pink-dark px-5 py-2 rounded-full text-sm font-semibold" data-cat="${key}">${m.emoji} ${m.label}</button>`)
     .join("\n");
 
   const dataJSON = JSON.stringify(milestones);
@@ -130,7 +130,7 @@ function buildMilestones(blocks) {
 
 <div id="milestone-filters" class="flex justify-start md:justify-center gap-2 overflow-x-auto no-scrollbar whitespace-nowrap mb-10">
   <button class="cat-btn active bg-kirby-pink-main text-white px-5 py-2 rounded-full text-sm font-semibold transition-all shrink-0" data-cat="all">All</button>
-  ${pillsHTML.replace(/<button/g, '<button class="shrink-0')}
+  ${pillsHTML}
 </div>
 
 <div id="milestone-list" class="space-y-6"></div>
@@ -249,16 +249,15 @@ function buildDevNotes(blocks) {
       ${monthOpts}
     </select>
   </div>
-  <div class="flex items-center gap-2">
-    <label class="text-sm font-semibold text-kirby-pink-dark">📆 日期</label>
-    <select id="date-select" class="bg-kirby-white/60 border border-kirby-pink-light/50 rounded-lg px-3 py-2 text-sm text-kirby-pink-dark">
-      <option value="all">全部日期</option>
-      ${dateOpts}
-    </select>
-  </div>
   <div class="flex items-center gap-1">
     <button id="prev-btn" class="nav-btn bg-kirby-pink-light/40 text-kirby-pink-dark px-3 py-2 rounded-full text-sm font-bold transition-all" title="上一頁">←</button>
-    <span id="nav-info" class="text-xs text-kirby-pink-dark/40 min-w-[60px] text-center"></span>
+    <div class="flex items-center gap-2">
+      <label class="text-sm font-semibold text-kirby-pink-dark">📆 日期</label>
+      <select id="date-select" class="bg-kirby-white/60 border border-kirby-pink-light/50 rounded-lg px-3 py-2 text-sm text-kirby-pink-dark">
+        <option value="all">全部日期</option>
+        ${dateOpts}
+      </select>
+    </div>
     <button id="next-btn" class="nav-btn bg-kirby-pink-light/40 text-kirby-pink-dark px-3 py-2 rounded-full text-sm font-bold transition-all" title="下一頁">→</button>
   </div>
 </div>
@@ -285,7 +284,6 @@ function buildDevNotes(blocks) {
     var monthVal = document.getElementById('month-select').value;
     var dateVal = document.getElementById('date-select').value;
     var list = document.getElementById('dev-notes-list');
-    var info = document.getElementById('nav-info');
 
     var visible;
 
@@ -302,14 +300,13 @@ function buildDevNotes(blocks) {
       visible = notes;
     }
 
-    // Update nav info
+    // Update nav & button states
     var vdates = getVisibleDates();
     if(dateVal !== 'all' && vdates.length > 0){
       currentIdx = vdates.indexOf(dateVal);
       if(currentIdx < 0) currentIdx = 0;
-      info.textContent = (currentIdx+1)+' / '+vdates.length;
     } else {
-      info.textContent = '';
+      currentIdx = 0;
     }
 
     // Update button states
@@ -366,7 +363,7 @@ function buildDevNotes(blocks) {
 
   document.getElementById('month-select').addEventListener('change', function(){
     currentIdx = 0;
-    document.getElementById('date-select').value = dateKeys[0] || 'all';
+    document.getElementById('date-select').value = _D.dateKeys[0] || 'all';
     render();
   });
 
@@ -451,16 +448,15 @@ function buildEnglish() {
       ${monthOpts}
     </select>
   </div>
-  <div class="flex items-center gap-2">
-    <label class="text-sm font-semibold text-kirby-pink-dark">📆 日期</label>
-    <select id="english-date" class="bg-kirby-white/60 border border-kirby-pink-light/50 rounded-lg px-3 py-2 text-sm text-kirby-pink-dark">
-      <option value="all">全部日期</option>
-      ${dateOpts}
-    </select>
-  </div>
   <div class="flex items-center gap-1">
     <button id="en-prev-btn" class="nav-btn bg-kirby-pink-light/40 text-kirby-pink-dark px-3 py-2 rounded-full text-sm font-bold transition-all" title="上一頁">←</button>
-    <span id="en-nav-info" class="text-xs text-kirby-pink-dark/40 min-w-[60px] text-center"></span>
+    <div class="flex items-center gap-2">
+      <label class="text-sm font-semibold text-kirby-pink-dark">📆 日期</label>
+      <select id="english-date" class="bg-kirby-white/60 border border-kirby-pink-light/50 rounded-lg px-3 py-2 text-sm text-kirby-pink-dark">
+        <option value="all">全部日期</option>
+        ${dateOpts}
+      </select>
+    </div>
     <button id="en-next-btn" class="nav-btn bg-kirby-pink-light/40 text-kirby-pink-dark px-3 py-2 rounded-full text-sm font-bold transition-all" title="下一頁">→</button>
   </div>
 </div>
@@ -494,7 +490,6 @@ function buildEnglish() {
     var monthVal = document.getElementById('english-month').value;
     var dateVal = document.getElementById('english-date').value;
     var list = document.getElementById('english-list');
-    var info = document.getElementById('en-nav-info');
 
     var parts = [];
     for(var di=0; di<dates.length; di++){
@@ -556,9 +551,8 @@ function buildEnglish() {
     if(dateVal !== 'all' && vdates.length > 0){
       currentIdx = vdates.indexOf(dateVal);
       if(currentIdx < 0) currentIdx = 0;
-      info.textContent = (currentIdx+1)+' / '+vdates.length;
     } else {
-      info.textContent = '';
+      currentIdx = 0;
     }
 
     var prevBtn = document.getElementById('en-prev-btn');

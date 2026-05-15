@@ -27,17 +27,16 @@ select:focus{outline:none;border-color:#FF8FAB!important;box-shadow:0 0 0 2px rg
       <option value="2026-05">2026-05</option>
     </select>
   </div>
-  <div class="flex items-center gap-2">
-    <label class="text-sm font-semibold text-kirby-pink-dark">📆 日期</label>
-    <select id="date-select" class="bg-kirby-white/60 border border-kirby-pink-light/50 rounded-lg px-3 py-2 text-sm text-kirby-pink-dark">
-      <option value="all">全部日期</option>
-      <option value="2026-05-14">2026-05-14</option>
-<option value="2026-05-13">2026-05-13</option>
-    </select>
-  </div>
   <div class="flex items-center gap-1">
     <button id="prev-btn" class="nav-btn bg-kirby-pink-light/40 text-kirby-pink-dark px-3 py-2 rounded-full text-sm font-bold transition-all" title="上一頁">←</button>
-    <span id="nav-info" class="text-xs text-kirby-pink-dark/40 min-w-[60px] text-center"></span>
+    <div class="flex items-center gap-2">
+      <label class="text-sm font-semibold text-kirby-pink-dark">📆 日期</label>
+      <select id="date-select" class="bg-kirby-white/60 border border-kirby-pink-light/50 rounded-lg px-3 py-2 text-sm text-kirby-pink-dark">
+        <option value="all">全部日期</option>
+        <option value="2026-05-14">2026-05-14</option>
+<option value="2026-05-13">2026-05-13</option>
+      </select>
+    </div>
     <button id="next-btn" class="nav-btn bg-kirby-pink-light/40 text-kirby-pink-dark px-3 py-2 rounded-full text-sm font-bold transition-all" title="下一頁">→</button>
   </div>
 </div>
@@ -64,7 +63,6 @@ select:focus{outline:none;border-color:#FF8FAB!important;box-shadow:0 0 0 2px rg
     var monthVal = document.getElementById('month-select').value;
     var dateVal = document.getElementById('date-select').value;
     var list = document.getElementById('dev-notes-list');
-    var info = document.getElementById('nav-info');
 
     var visible;
 
@@ -81,14 +79,13 @@ select:focus{outline:none;border-color:#FF8FAB!important;box-shadow:0 0 0 2px rg
       visible = notes;
     }
 
-    // Update nav info
+    // Update nav & button states
     var vdates = getVisibleDates();
     if(dateVal !== 'all' && vdates.length > 0){
       currentIdx = vdates.indexOf(dateVal);
       if(currentIdx < 0) currentIdx = 0;
-      info.textContent = (currentIdx+1)+' / '+vdates.length;
     } else {
-      info.textContent = '';
+      currentIdx = 0;
     }
 
     // Update button states
@@ -145,7 +142,7 @@ select:focus{outline:none;border-color:#FF8FAB!important;box-shadow:0 0 0 2px rg
 
   document.getElementById('month-select').addEventListener('change', function(){
     currentIdx = 0;
-    document.getElementById('date-select').value = dateKeys[0] || 'all';
+    document.getElementById('date-select').value = _D.dateKeys[0] || 'all';
     render();
   });
 

@@ -35,18 +35,17 @@ select:focus{outline:none;border-color:#FF8FAB!important;box-shadow:0 0 0 2px rg
       <option value="2026-05">2026-05</option>
     </select>
   </div>
-  <div class="flex items-center gap-2">
-    <label class="text-sm font-semibold text-kirby-pink-dark">📆 日期</label>
-    <select id="english-date" class="bg-kirby-white/60 border border-kirby-pink-light/50 rounded-lg px-3 py-2 text-sm text-kirby-pink-dark">
-      <option value="all">全部日期</option>
-      <option value="2026-05-14">2026-05-14</option>
-<option value="2026-05-13">2026-05-13</option>
-<option value="2026-05-11">2026-05-11</option>
-    </select>
-  </div>
   <div class="flex items-center gap-1">
     <button id="en-prev-btn" class="nav-btn bg-kirby-pink-light/40 text-kirby-pink-dark px-3 py-2 rounded-full text-sm font-bold transition-all" title="上一頁">←</button>
-    <span id="en-nav-info" class="text-xs text-kirby-pink-dark/40 min-w-[60px] text-center"></span>
+    <div class="flex items-center gap-2">
+      <label class="text-sm font-semibold text-kirby-pink-dark">📆 日期</label>
+      <select id="english-date" class="bg-kirby-white/60 border border-kirby-pink-light/50 rounded-lg px-3 py-2 text-sm text-kirby-pink-dark">
+        <option value="all">全部日期</option>
+        <option value="2026-05-14">2026-05-14</option>
+<option value="2026-05-13">2026-05-13</option>
+<option value="2026-05-11">2026-05-11</option>
+      </select>
+    </div>
     <button id="en-next-btn" class="nav-btn bg-kirby-pink-light/40 text-kirby-pink-dark px-3 py-2 rounded-full text-sm font-bold transition-all" title="下一頁">→</button>
   </div>
 </div>
@@ -80,7 +79,6 @@ select:focus{outline:none;border-color:#FF8FAB!important;box-shadow:0 0 0 2px rg
     var monthVal = document.getElementById('english-month').value;
     var dateVal = document.getElementById('english-date').value;
     var list = document.getElementById('english-list');
-    var info = document.getElementById('en-nav-info');
 
     var parts = [];
     for(var di=0; di<dates.length; di++){
@@ -142,9 +140,8 @@ select:focus{outline:none;border-color:#FF8FAB!important;box-shadow:0 0 0 2px rg
     if(dateVal !== 'all' && vdates.length > 0){
       currentIdx = vdates.indexOf(dateVal);
       if(currentIdx < 0) currentIdx = 0;
-      info.textContent = (currentIdx+1)+' / '+vdates.length;
     } else {
-      info.textContent = '';
+      currentIdx = 0;
     }
 
     var prevBtn = document.getElementById('en-prev-btn');
