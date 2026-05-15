@@ -264,11 +264,11 @@ function buildDevNotes(blocks) {
 
 <script>
 (function(){
-  var _D = ${dataJSON};
-  var notes = _D.notes;
-  var byDate = _D.byDate;
-  var dateKeys = _D.dateKeys;
-  var months = _D.months;
+  const data = ${dataJSON};
+  const notes = data.notes;
+  const byDate = data.byDate;
+  const dateKeys = data.dateKeys;
+  const months = data.months;
   var currentIdx = 0; // position in whichever list we're navigating
 
   function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
@@ -361,9 +361,10 @@ function buildDevNotes(blocks) {
 
   document.getElementById('month-select').addEventListener('change', function(){
     currentIdx = 0;
-    document.getElementById('date-select').value = data.dateKeys[0] || 'all';
-    render();
-  });
+  document.getElementById('month-select').value = data.months[0] || 'all';
+  document.getElementById('date-select').value = data.dateKeys[0] || 'all';
+  render();
+})();
 
   document.getElementById('date-select').addEventListener('change', function(){
     var vdates = getVisibleDates();
@@ -609,6 +610,7 @@ function buildEnglish() {
     render();
   });
 
+  document.getElementById('english-month').value = months[0] || 'all';
   document.getElementById('english-date').value = dates.length > 0 ? dates[0].date : 'all';
   render();
 })();
