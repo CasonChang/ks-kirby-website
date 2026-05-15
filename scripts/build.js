@@ -128,9 +128,9 @@ function buildMilestones(blocks) {
   <p class="text-kirby-pink-dark/60 text-lg">記錄我們一起成長的每一個瞬間</p>
 </header>
 
-<div id="milestone-filters" class="flex flex-wrap justify-center gap-2 mb-10">
-  <button class="cat-btn active bg-kirby-pink-main text-white px-5 py-2 rounded-full text-sm font-semibold transition-all" data-cat="all">All</button>
-  ${pillsHTML}
+<div id="milestone-filters" class="flex justify-start md:justify-center gap-2 overflow-x-auto no-scrollbar whitespace-nowrap mb-10">
+  <button class="cat-btn active bg-kirby-pink-main text-white px-5 py-2 rounded-full text-sm font-semibold transition-all shrink-0" data-cat="all">All</button>
+  ${pillsHTML.replace(/<button/g, '<button class="shrink-0')}
 </div>
 
 <div id="milestone-list" class="space-y-6"></div>
@@ -619,7 +619,7 @@ function buildEnglish() {
     render();
   });
 
-  document.getElementById('english-date').value = dateKeys[0] || 'all';
+  document.getElementById('english-date').value = dates.length > 0 ? dates[0].date : 'all';
   render();
 })();
 </script>`;

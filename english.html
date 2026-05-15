@@ -205,7 +205,7 @@ select:focus{outline:none;border-color:#FF8FAB!important;box-shadow:0 0 0 2px rg
     render();
   });
 
-  document.getElementById('english-date').value = dateKeys[0] || 'all';
+  document.getElementById('english-date').value = dates.length > 0 ? dates[0].date : 'all';
   render();
 })();
 </script></main>
