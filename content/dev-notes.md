@@ -48,8 +48,26 @@ category: data
 🎯 學到的事：靜態網站不等於沒有互動，把資料 embed 成 JSON + vanilla JS 就能在不依賴任何框架的情況下實現完整的篩選/導航功能。
 tags: #InteractiveUI #StaticSite #JavaScript
 
+## 2026-05-15 | 📱 全站 RWD 響應式佈局實作
+category: css
+將整個網站從單一解析度重構為完整的 RWD 體系。透過 Tailwind CSS 的斷點設計，重新定義了行動端與桌面端的元件排列方式，確保在手機上也能擁有流暢的閱讀體驗。
+🎯 學到的事：RWD 不只是縮小元件，而是根據螢幕空間重新思考資訊優先級的排列（Content Prioritization）。
+tags: #RWD #ResponsiveDesign #TailwindCSS
+
+## 2026-05-15 | ⬅️➡️ 互動式日期導航系統實作
+category: data
+在開發筆記與英文學習頁面引入「左右箭頭」導航，允許使用者快速切換前後日期。實作過程中在靜態 JSON 索引的對應與邊界判定上踩了大量坑，經過多次邏輯重構才達成無縫切換。
+🎯 學到的事：在沒有後端 API 的靜態環境中，前端對資料索引（Index）的精準控制是實現動態導航的唯一手段。
+tags: #UX #JavaScript #Navigation #FrontendLogic
+
 ## 2026-05-15 | 😵‍💫 靜態頁面 JS 邏輯地獄與救贖
 category: data
 經歷了數次瘋狂嘗試，最終發現 build.js 生成的 JS 腳本中存在一個意外的 `})();` 提前結束了 IIFE，導致初始化邏輯完全失效。透過 Python 腳本進行精準的正則替換，成功恢復預設顯示最新日期的功能，並同步更新了首頁 Emoji。
 🎯 學到的事：在模板字串生成的 JS 中，一個微小的語法錯誤會導致整個邏輯失效且極難除錯；正則替換比手動 edit 工具在複雜模板中更可靠。
 tags: #JavaScript #Regex #Debugging #BuildProcess
+
+## 2026-05-16 | 🃏 文法複習卡系統實作
+category: data
+為網站新增複習卡頁面 (/review)，從 english_learning.md 萃取 36 張文法錯誤卡，實作隨機出題 + CSS 3D 翻牌動畫。建立 data/flashcards.json 資料層，未來可配合自動化腳本增量更新。
+🎯 學到的事：CSS 3D Transform (rotateY) + backface-visibility: hidden 能純前端實現流暢翻牌，無需依賴任何 JS 動畫庫。
+tags: #Flashcard #CSS #UX #EnglishLearning

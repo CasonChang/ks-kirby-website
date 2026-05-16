@@ -19,7 +19,10 @@ select:focus{outline:none;border-color:#FF8FAB!important;box-shadow:0 0 0 2px rg
   perspective: 1200px;
   width: 100%;
   max-width: 360px;
-  height: 220px;
+  height: 280px;
+}
+.flip-card-back {
+  justify-content: space-between;
 }
 .flip-card-inner {
   position: relative;
@@ -139,16 +142,16 @@ select:focus{outline:none;border-color:#FF8FAB!important;box-shadow:0 0 0 2px rg
       </div>
       <div class="flip-card-back">
         <span class="card-tag">✅ 修正</span>
-        <p id="correct-text" class="text-lg md:text-xl font-bold text-green-700 text-center leading-relaxed"></p>
-        <span class="card-date-tag" id="correct-date" style="color:#2d8a56;"></span>
+        <div class="flex-1 flex flex-col items-center justify-center">
+          <p id="correct-text" class="text-lg md:text-xl font-bold text-green-700 text-center leading-relaxed"></p>
+          <div class="mt-4 bg-green-50/80 rounded-xl px-4 py-3 border border-green-200 max-w-[280px]">
+            <p class="text-xs text-green-700/70 leading-relaxed" id="rule-text"></p>
+          </div>
+        </div>
+        <span class="card-date-tag" style="color:#2d8a56;" id="correct-date"></span>
       </div>
     </div>
   </div>
-</div>
-
-<!-- Rule Explanation -->
-<div id="rule-box" class="max-w-xl mx-auto bg-kirby-white/60 rounded-2xl p-5 border border-kirby-pink-light/40 text-center fade-in slide-in">
-  <p class="text-sm text-kirby-pink-dark/70 leading-relaxed" id="rule-text"></p>
 </div>
 
 <!-- Stats -->
@@ -191,11 +194,9 @@ select:focus{outline:none;border-color:#FF8FAB!important;box-shadow:0 0 0 2px rg
     // Animate with slide-in
     document.getElementById('wrong-card').classList.add('slide-in');
     document.getElementById('correct-card').classList.add('slide-in');
-    document.getElementById('rule-box').classList.add('slide-in');
     setTimeout(function(){
       document.getElementById('wrong-card').classList.remove('slide-in');
       document.getElementById('correct-card').classList.remove('slide-in');
-      document.getElementById('rule-box').classList.remove('slide-in');
     }, 350);
 
     // Reset flip (hide correction)
