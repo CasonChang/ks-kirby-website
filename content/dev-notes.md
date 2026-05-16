@@ -47,3 +47,9 @@ category: data
 將三個主要頁面從純靜態 HTML 重構為 data-driven 互動式篩選：里程碑加入 category pill 選單、開發筆記加入月份/日期雙層導航與 prev/next 切換、英文學習加入類別與日期複合篩選。核心做法是在 build.js 中把 markdown 解析後的資料嵌入為 JSON，再由 client-side JS 動態渲染。
 🎯 學到的事：靜態網站不等於沒有互動，把資料 embed 成 JSON + vanilla JS 就能在不依賴任何框架的情況下實現完整的篩選/導航功能。
 tags: #InteractiveUI #StaticSite #JavaScript
+
+## 2026-05-15 | 😵‍💫 靜態頁面 JS 邏輯地獄與救贖
+category: data
+經歷了數次瘋狂嘗試，最終發現 build.js 生成的 JS 腳本中存在一個意外的 `})();` 提前結束了 IIFE，導致初始化邏輯完全失效。透過 Python 腳本進行精準的正則替換，成功恢復預設顯示最新日期的功能，並同步更新了首頁 Emoji。
+🎯 學到的事：在模板字串生成的 JS 中，一個微小的語法錯誤會導致整個邏輯失效且極難除錯；正則替換比手動 edit 工具在複雜模板中更可靠。
+tags: #JavaScript #Regex #Debugging #BuildProcess
