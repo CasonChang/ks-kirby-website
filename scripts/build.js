@@ -26,6 +26,7 @@ function nav(active) {
     ["/milestones", "🏆 里程碑"],
     ["/dev-notes", "📝 開發筆記"],
     ["/english", "📖 英文學習"],
+    ["/review", "🃏 複習卡"],
   ];
   return `<nav class="w-full max-w-4xl mx-auto px-6 py-4 flex justify-start md:justify-center gap-3 overflow-x-auto no-scrollbar whitespace-nowrap">${links
     .map(
@@ -630,6 +631,232 @@ function buildEnglish() {
   return wrap("英文學習", "/english", html);
 }
 
+// =====================================================================
+//  STEP 6: REVIEW — Flashcard Flip-to-Reveal Page
+// =====================================================================
+function buildReview() {
+  const file = path.join(__dirname, "..", "data", "flashcards.json");
+  if (!fs.existsSync(file)) {
+    console.log("⚠️  data/flashcards.json not found, skipping review.html");
+    return "";
+  }
+  const cards = JSON.parse(fs.readFileSync(file, "utf-8"));
+  const total = cards.length;
+  const dataJSON = JSON.stringify(cards);
+
+  const html = `
+<style>
+.flip-card {
+  perspective: 1200px;
+  width: 100%;
+  max-width: 360px;
+  height: 220px;
+}
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+.flip-card.revealed .flip-card-inner {
+  transform: rotateY(180deg);
+}
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  box-shadow: 0 4px 20px rgba(224, 108, 132, 0.15);
+}
+.flip-card-front {
+  background: linear-gradient(135deg, #FFF0F3, #FFE4EC);
+  border: 2px solid #FFB7C5;
+}
+.flip-card-back {
+  background: linear-gradient(135deg, #f0faf4, #e0f5e8);
+  border: 2px solid #2d8a56;
+  transform: rotateY(180deg);
+}
+.card-tag {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  border-radius: 9999px;
+}
+.card-date-tag {
+  position: absolute;
+  bottom: 0.75rem;
+  right: 0.75rem;
+  font-size: 0.6rem;
+  color: #E06C84;
+  opacity: 0.5;
+}
+.flip-hint {
+  font-size: 0.9rem;
+  color: #E06C84;
+  opacity: 0.6;
+  letter-spacing: 0.05em;
+}
+.flip-card-back .card-tag {
+  background: #2d8a56;
+  color: #fff;
+}
+@keyframes pulseHint {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.05); opacity: 0.9; }
+}
+.pulse {
+  animation: pulseHint 2s ease-in-out infinite;
+}
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.slide-in {
+  animation: slideIn 0.35s ease-out;
+}
+</style>
+
+<header class="text-center mb-6 fade-in fade-1">
+  <h1 class="text-4xl md:text-5xl font-bold text-kirby-pink-main mb-2">🃏 複習卡</h1>
+  <p class="text-kirby-pink-dark/60 text-lg">點擊右邊卡片，檢查你的文法記憶！</p>
+</header>
+
+<!-- Controls -->
+<div class="flex items-center justify-center gap-4 mb-8">
+  <button id="shuffle-btn" class="bg-kirby-pink-main text-white px-6 py-2 rounded-full text-sm font-bold shadow-md hover:shadow-lg hover:bg-kirby-pink-dark transition-all flex items-center gap-2">
+    🎲 下一題
+  </button>
+  <span id="counter" class="text-sm text-kirby-pink-dark/50 font-medium min-w-[80px] text-center"></span>
+</div>
+
+<!-- Cards -->
+<div class="flex flex-col md:flex-row items-center justify-center gap-6 mb-8">
+  <!-- Wrong Card (always visible) -->
+  <div class="flip-card" id="wrong-card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front">
+        <span class="card-tag bg-kirby-pink-dark text-white">✏️ 請修正</span>
+        <p class="text-xs text-kirby-pink-dark/50 mb-1">需要被糾正的句子</p>
+        <p id="wrong-text" class="text-lg md:text-xl font-bold text-kirby-pink-dark text-center leading-relaxed"></p>
+        <span class="card-date-tag" id="wrong-date"></span>
+      </div>
+      <div class="flip-card-back">
+        <span class="card-tag">❌ 錯誤</span>
+        <p class="text-lg md:text-xl font-bold text-kirby-pink-dark text-center leading-relaxed"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Correct Card (flip to reveal) -->
+  <div class="flip-card cursor-pointer" id="correct-card" onclick="this.classList.toggle('revealed')">
+    <div class="flip-card-inner">
+      <div class="flip-card-front" style="background: linear-gradient(135deg, #ffe8ed, #ffd4de);">
+        <span class="card-tag bg-kirby-pink-light text-kirby-pink-dark">✅ 修正</span>
+        <div class="flex flex-col items-center gap-3">
+          <span class="flip-hint pulse">✋ Click to reveal</span>
+        </div>
+      </div>
+      <div class="flip-card-back">
+        <span class="card-tag">✅ 修正</span>
+        <p id="correct-text" class="text-lg md:text-xl font-bold text-green-700 text-center leading-relaxed"></p>
+        <span class="card-date-tag" id="correct-date" style="color:#2d8a56;"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Rule Explanation -->
+<div id="rule-box" class="max-w-xl mx-auto bg-kirby-white/60 rounded-2xl p-5 border border-kirby-pink-light/40 text-center fade-in slide-in">
+  <p class="text-sm text-kirby-pink-dark/70 leading-relaxed" id="rule-text"></p>
+</div>
+
+<!-- Stats -->
+<div class="mt-10 text-center text-xs text-kirby-pink-dark/30">
+  共 <span id="total-count">${total}</span> 張卡片 · 隨機出題
+</div>
+
+<script>
+(function(){
+  var cards = ${dataJSON};
+  var total = cards.length;
+  var currentId = null;
+
+  document.getElementById('total-count').textContent = total;
+
+  function pickRandom(){
+    var idx = Math.floor(Math.random() * cards.length);
+    return cards[idx];
+  }
+
+  function ensureDifferent(){
+    if(cards.length <= 1) return pickRandom();
+    var card = pickRandom();
+    while(card.id === currentId){
+      card = pickRandom();
+    }
+    return card;
+  }
+
+  function renderCard(card){
+    currentId = card.id;
+
+    var wrongText = document.getElementById('wrong-text');
+    var correctText = document.getElementById('correct-text');
+    var wrongDate = document.getElementById('wrong-date');
+    var correctDate = document.getElementById('correct-date');
+    var ruleText = document.getElementById('rule-text');
+    var counter = document.getElementById('counter');
+
+    // Animate with slide-in
+    document.getElementById('wrong-card').classList.add('slide-in');
+    document.getElementById('correct-card').classList.add('slide-in');
+    document.getElementById('rule-box').classList.add('slide-in');
+    setTimeout(function(){
+      document.getElementById('wrong-card').classList.remove('slide-in');
+      document.getElementById('correct-card').classList.remove('slide-in');
+      document.getElementById('rule-box').classList.remove('slide-in');
+    }, 350);
+
+    // Reset flip (hide correction)
+    var correctCard = document.getElementById('correct-card');
+    correctCard.classList.remove('revealed');
+
+    // Fill data
+    wrongText.textContent = card.wrong;
+    correctText.textContent = card.correct;
+    wrongDate.textContent = card.date;
+    correctDate.textContent = card.date;
+    ruleText.textContent = '💡 ' + card.rule;
+
+    // Counter
+    var idx = cards.findIndex(function(c){ return c.id === card.id; });
+    counter.textContent = '#' + (idx + 1) + ' / ' + total;
+  }
+
+  document.getElementById('shuffle-btn').addEventListener('click', function(){
+    var card = ensureDifferent();
+    renderCard(card);
+  });
+
+  // Initial random
+  renderCard(pickRandom());
+})();
+</script>`;
+  return wrap("複習卡", "/review", html);
+}
+
 // ─── Main ────────────────────────────────────────────────────────────
 console.log("🔨 Building site from content/*.md ...");
 
@@ -639,12 +866,17 @@ const devBlocks = parseLines(path.join(__dirname, "..", "content", "dev-notes.md
 const milestonesHTML = buildMilestones(milestoneBlocks);
 const devNotesHTML = buildDevNotes(devBlocks);
 const englishHTML = buildEnglish();
+const reviewHTML = buildReview();
 
 fs.writeFileSync(path.join(OUT, "milestones.html"), milestonesHTML);
 fs.writeFileSync(path.join(OUT, "dev-notes.html"), devNotesHTML);
 fs.writeFileSync(path.join(OUT, "english.html"), englishHTML);
+if (reviewHTML) {
+  fs.writeFileSync(path.join(OUT, "review.html"), reviewHTML);
+}
 
 console.log("✅ milestones.html");
 console.log("✅ dev-notes.html");
 console.log("✅ english.html");
+if (reviewHTML) console.log("✅ review.html");
 console.log("🎉 Build complete!");

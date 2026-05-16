@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>複習卡 - 森之卡比</title><script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={theme:{extend:{colors:{'kirby-bg':'#FFF0F3','kirby-pink-light':'#FFB7C5','kirby-pink-main':'#FF8FAB','kirby-pink-dark':'#E06C84','kirby-white':'#FFFFFF'}}}}</script><style>
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fadeIn .5s ease-out forwards;opacity:0}
+.fade-1{animation-delay:.1s}.fade-2{animation-delay:.2s}.fade-3{animation-delay:.3s}.fade-4{animation-delay:.4s}.fade-5{animation-delay:.5s}.fade-6{animation-delay:.6s}.fade-7{animation-delay:.7s}.fade-8{animation-delay:.8s}.fade-9{animation-delay:.9s}
+.badge{display:inline-block;padding:4px 16px;border-radius:9999px;font-size:.75rem;font-weight:700;margin-bottom:1rem}
+.incorrect{text-decoration:line-through;color:#E06C84}.correct{color:#2d8a56;font-weight:600}
+.cat-btn{transition:all .2s}.cat-btn.active{background-color:#FF8FAB!important;color:#fff!important}
+select:focus{outline:none;border-color:#FF8FAB!important;box-shadow:0 0 0 2px rgba(255,143,171,.3)}
+.nav-btn:disabled{opacity:.3;cursor:not-allowed}.nav-btn:not(:disabled):hover{opacity:1;background-color:#FFB7C5}
+</style></head>
+<body class="bg-kirby-bg text-kirby-pink-dark font-sans min-h-screen flex flex-col">
+<nav class="w-full max-w-4xl mx-auto px-6 py-4 flex justify-start md:justify-center gap-3 overflow-x-auto no-scrollbar whitespace-nowrap"><a class="px-4 py-2 rounded-full text-sm md:text-base font-medium transition-all shrink-0 bg-kirby-white/60 text-kirby-pink-dark hover:bg-kirby-pink-light/40" href="/ks-kirby-website/">🏠 首頁</a><a class="px-4 py-2 rounded-full text-sm md:text-base font-medium transition-all shrink-0 bg-kirby-white/60 text-kirby-pink-dark hover:bg-kirby-pink-light/40" href="/ks-kirby-website/milestones">🏆 里程碑</a><a class="px-4 py-2 rounded-full text-sm md:text-base font-medium transition-all shrink-0 bg-kirby-white/60 text-kirby-pink-dark hover:bg-kirby-pink-light/40" href="/ks-kirby-website/dev-notes">📝 開發筆記</a><a class="px-4 py-2 rounded-full text-sm md:text-base font-medium transition-all shrink-0 bg-kirby-white/60 text-kirby-pink-dark hover:bg-kirby-pink-light/40" href="/ks-kirby-website/english">📖 英文學習</a><a class="px-4 py-2 rounded-full text-sm md:text-base font-medium transition-all shrink-0 bg-kirby-pink-main text-white shadow-md" href="/ks-kirby-website/review">🃏 複習卡</a></nav>
+<main class="max-w-4xl mx-auto px-4 py-8 sm:px-6 sm:py-12 w-full overflow-x-hidden">
+<style>
+.flip-card {
+  perspective: 1200px;
+  width: 100%;
+  max-width: 360px;
+  height: 220px;
+}
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+.flip-card.revealed .flip-card-inner {
+  transform: rotateY(180deg);
+}
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  box-shadow: 0 4px 20px rgba(224, 108, 132, 0.15);
+}
+.flip-card-front {
+  background: linear-gradient(135deg, #FFF0F3, #FFE4EC);
+  border: 2px solid #FFB7C5;
+}
+.flip-card-back {
+  background: linear-gradient(135deg, #f0faf4, #e0f5e8);
+  border: 2px solid #2d8a56;
+  transform: rotateY(180deg);
+}
+.card-tag {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  border-radius: 9999px;
+}
+.card-date-tag {
+  position: absolute;
+  bottom: 0.75rem;
+  right: 0.75rem;
+  font-size: 0.6rem;
+  color: #E06C84;
+  opacity: 0.5;
+}
+.flip-hint {
+  font-size: 0.9rem;
+  color: #E06C84;
+  opacity: 0.6;
+  letter-spacing: 0.05em;
+}
+.flip-card-back .card-tag {
+  background: #2d8a56;
+  color: #fff;
+}
+@keyframes pulseHint {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.05); opacity: 0.9; }
+}
+.pulse {
+  animation: pulseHint 2s ease-in-out infinite;
+}
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.slide-in {
+  animation: slideIn 0.35s ease-out;
+}
+</style>
+
+<header class="text-center mb-6 fade-in fade-1">
+  <h1 class="text-4xl md:text-5xl font-bold text-kirby-pink-main mb-2">🃏 複習卡</h1>
+  <p class="text-kirby-pink-dark/60 text-lg">點擊右邊卡片，檢查你的文法記憶！</p>
+</header>
+
+<!-- Controls -->
+<div class="flex items-center justify-center gap-4 mb-8">
+  <button id="shuffle-btn" class="bg-kirby-pink-main text-white px-6 py-2 rounded-full text-sm font-bold shadow-md hover:shadow-lg hover:bg-kirby-pink-dark transition-all flex items-center gap-2">
+    🎲 下一題
+  </button>
+  <span id="counter" class="text-sm text-kirby-pink-dark/50 font-medium min-w-[80px] text-center"></span>
+</div>
+
+<!-- Cards -->
+<div class="flex flex-col md:flex-row items-center justify-center gap-6 mb-8">
+  <!-- Wrong Card (always visible) -->
+  <div class="flip-card" id="wrong-card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front">
+        <span class="card-tag bg-kirby-pink-dark text-white">✏️ 請修正</span>
+        <p class="text-xs text-kirby-pink-dark/50 mb-1">需要被糾正的句子</p>
+        <p id="wrong-text" class="text-lg md:text-xl font-bold text-kirby-pink-dark text-center leading-relaxed"></p>
+        <span class="card-date-tag" id="wrong-date"></span>
+      </div>
+      <div class="flip-card-back">
+        <span class="card-tag">❌ 錯誤</span>
+        <p class="text-lg md:text-xl font-bold text-kirby-pink-dark text-center leading-relaxed"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Correct Card (flip to reveal) -->
+  <div class="flip-card cursor-pointer" id="correct-card" onclick="this.classList.toggle('revealed')">
+    <div class="flip-card-inner">
+      <div class="flip-card-front" style="background: linear-gradient(135deg, #ffe8ed, #ffd4de);">
+        <span class="card-tag bg-kirby-pink-light text-kirby-pink-dark">✅ 修正</span>
+        <div class="flex flex-col items-center gap-3">
+          <span class="flip-hint pulse">✋ Click to reveal</span>
+        </div>
+      </div>
+      <div class="flip-card-back">
+        <span class="card-tag">✅ 修正</span>
+        <p id="correct-text" class="text-lg md:text-xl font-bold text-green-700 text-center leading-relaxed"></p>
+        <span class="card-date-tag" id="correct-date" style="color:#2d8a56;"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Rule Explanation -->
+<div id="rule-box" class="max-w-xl mx-auto bg-kirby-white/60 rounded-2xl p-5 border border-kirby-pink-light/40 text-center fade-in slide-in">
+  <p class="text-sm text-kirby-pink-dark/70 leading-relaxed" id="rule-text"></p>
+</div>
+
+<!-- Stats -->
+<div class="mt-10 text-center text-xs text-kirby-pink-dark/30">
+  共 <span id="total-count">36</span> 張卡片 · 隨機出題
+</div>
+
+<script>
+(function(){
+  var cards = [{"id":1,"wrong":"Don't need to posing","correct":"You don't need to pose","rule":"need to 後面接原形動詞 (base verb)，不是動名詞","date":"2026-05-11"},{"id":2,"wrong":"Be perfectly candid, I think...","correct":"To be perfectly candid, I think...","rule":"開頭引導語要用不定詞片語 (infinitive phrase)，不是原形動詞","date":"2026-05-11"},{"id":3,"wrong":"It's really close (直譯)","correct":"Oh, it's so close! / That was almost it!","rule":"表達「差一點點」時，母語者會用更生動的反應句","date":"2026-05-11"},{"id":4,"wrong":"I have an example to using","correct":"I have an example of how to use","rule":"example 後面接 of + how to + 動詞，不能直接用 to + V-ing","date":"2026-05-11"},{"id":5,"wrong":"It conbine","correct":"It combines","rule":"第三人稱單數 (it) 後面動詞要加 s / es","date":"2026-05-11"},{"id":6,"wrong":"I'd go to sleep (表示將要)","correct":"I'm going to go to sleep / I'm heading to bed","rule":"I'd 是 I would（假設語氣），不是「我將要」; 表達打算用 I'm going to","date":"2026-05-11"},{"id":7,"wrong":"Pioneer of the AI","correct":"Pioneers in AI / a pioneer in the field of AI","rule":"表示「某領域的先驅者」，慣用 pioneer in + 領域","date":"2026-05-13"},{"id":8,"wrong":"Study AI topics during working","correct":"Study AI topics during work hours / while working","rule":"during 後面接名詞 (work hours)，while 後面才接 V-ing","date":"2026-05-13"},{"id":9,"wrong":"It's ok to me","correct":"It's okay with me / I'm fine with it","rule":"表達「沒問題」時，慣用 okay with me","date":"2026-05-13"},{"id":10,"wrong":"Provide to others collgues","correct":"Provide it to my other colleagues / share it with my colleagues","rule":"修正拼寫 (colleagues) 並補上正確受詞","date":"2026-05-13"},{"id":11,"wrong":"Makes work conveniently","correct":"Makes work more convenient / makes work easier","rule":"使役動詞 make + 受詞 + 形容詞 (convenient)，而非副詞 (conveniently)","date":"2026-05-13"},{"id":12,"wrong":"Write a letter with English","correct":"Write a letter in English","rule":"語言介質一律使用介系詞 in","date":"2026-05-13"},{"id":13,"wrong":"Meet the formal mail's format","correct":"Follow a formal email format / match the required format","rule":"格式建議用 follow 或 match，而不是 meet","date":"2026-05-13"},{"id":14,"wrong":"The key to make presentation better is streamline","correct":"The key to making a presentation better is to streamline / streamlining","rule":"The key to 後方必須接 V-ing 或名詞","date":"2026-05-13"},{"id":15,"wrong":"It's so many things happen today","correct":"So many things happened today","rule":"描述今天發生的事，使用過去式 happened，不需要 It's 開頭","date":"2026-05-14"},{"id":16,"wrong":"I let my colleague do me a favor","correct":"I asked my colleague for a favor","rule":"請求幫忙慣用 ask someone for a favor","date":"2026-05-14"},{"id":17,"wrong":"I felt he is frustration","correct":"I could tell he was frustrated","rule":"描述感覺應使用形容詞 frustrated，而非名詞 frustration","date":"2026-05-14"},{"id":18,"wrong":"Asked him if he is sad","correct":"Asked him if he was upset","rule":"職場情境用 upset（不悅）比 sad（悲傷）更自然","date":"2026-05-14"},{"id":19,"wrong":"The word sounds not patience","correct":"The words sounded impatient","rule":"描述說話方式用形容詞 impatient（不耐煩的）","date":"2026-05-14"},{"id":20,"wrong":"I learned a class","correct":"I learned a lesson","rule":"學到「教訓」用 learn a lesson；class 僅指課程","date":"2026-05-14"},{"id":21,"wrong":"Then I use '~' in the end of the sentence","correct":"Now I use '~' at the end of my sentences","rule":"描述目前習慣用現在式，at the end of 是固定搭配","date":"2026-05-14"},{"id":22,"wrong":"The most challenge thing","correct":"The most challenging thing","rule":"形容「具挑戰性的事物」用形容詞 challenging","date":"2026-05-14"},{"id":23,"wrong":"The opposite team also have some statements","correct":"The opposing team also had some arguments","rule":"辯論對手用 opposing team；論點用 arguments 或 points","date":"2026-05-14"},{"id":24,"wrong":"Your family are not always by your side","correct":"Your family isn't always by your side","rule":"family 在此作為單數整體，搭配 isn't","date":"2026-05-14"},{"id":25,"wrong":"Convience apps","correct":"Convenient apps","rule":"使用形容詞 convenient 修飾名詞","date":"2026-05-14"},{"id":26,"wrong":"The most impress statement","correct":"The most impressive point / most impactful argument","rule":"用形容詞 impressive 描述令人印象深刻的內容","date":"2026-05-14"},{"id":27,"wrong":"If factory has some issue","correct":"If the factory has an issue","rule":"加上定冠詞 the，issue 是可數名詞，用 an issue","date":"2026-05-14"},{"id":28,"wrong":"I refute the statement that we are not slave","correct":"I refuted: 'We are not slaves!'","rule":"使用過去式 refuted；slave 應使用複數 slaves","date":"2026-05-14"},{"id":29,"wrong":"Pretend someone call me","correct":"Pretended someone was calling me","rule":"描述過去動作使用過去式 pretended","date":"2026-05-14"},{"id":30,"wrong":"Release the tense vibe","correct":"Break the tension / lighten the mood","rule":"慣用語為 break the tension 或 lighten the mood","date":"2026-05-14"},{"id":31,"wrong":"I just want to share the day to you","correct":"I just wanted to share my day with you","rule":"固定搭配 share ... with someone","date":"2026-05-14"},{"id":32,"wrong":"Hope the work is smoothly","correct":"I hope work goes smoothly / everything goes smoothly","rule":"smoothly 是副詞，必須接在動詞 (goes) 之後","date":"2026-05-14"},{"id":33,"wrong":"I got the acclaim by the colleague","correct":"My colleagues praised me today / I got some praise","rule":"acclaim 用於極大成就；日常讚美用 praise 更自然","date":"2026-05-15"},{"id":34,"wrong":"There was a issue","correct":"There was an issue","rule":"issue 以元音開頭，使用冠詞 an","date":"2026-05-15"},{"id":35,"wrong":"The text may shows error cause it's simpled Chinese","correct":"The text showed errors because it was in Simplified Chinese","rule":"修正時態 showed，正確術語 Simplified Chinese","date":"2026-05-15"},{"id":36,"wrong":"I share to my colleagues","correct":"I shared it with my colleagues","rule":"修正時態 shared，搭配介詞 with","date":"2026-05-15"}];
+  var total = cards.length;
+  var currentId = null;
+
+  document.getElementById('total-count').textContent = total;
+
+  function pickRandom(){
+    var idx = Math.floor(Math.random() * cards.length);
+    return cards[idx];
+  }
+
+  function ensureDifferent(){
+    if(cards.length <= 1) return pickRandom();
+    var card = pickRandom();
+    while(card.id === currentId){
+      card = pickRandom();
+    }
+    return card;
+  }
+
+  function renderCard(card){
+    currentId = card.id;
+
+    var wrongText = document.getElementById('wrong-text');
+    var correctText = document.getElementById('correct-text');
+    var wrongDate = document.getElementById('wrong-date');
+    var correctDate = document.getElementById('correct-date');
+    var ruleText = document.getElementById('rule-text');
+    var counter = document.getElementById('counter');
+
+    // Animate with slide-in
+    document.getElementById('wrong-card').classList.add('slide-in');
+    document.getElementById('correct-card').classList.add('slide-in');
+    document.getElementById('rule-box').classList.add('slide-in');
+    setTimeout(function(){
+      document.getElementById('wrong-card').classList.remove('slide-in');
+      document.getElementById('correct-card').classList.remove('slide-in');
+      document.getElementById('rule-box').classList.remove('slide-in');
+    }, 350);
+
+    // Reset flip (hide correction)
+    var correctCard = document.getElementById('correct-card');
+    correctCard.classList.remove('revealed');
+
+    // Fill data
+    wrongText.textContent = card.wrong;
+    correctText.textContent = card.correct;
+    wrongDate.textContent = card.date;
+    correctDate.textContent = card.date;
+    ruleText.textContent = '💡 ' + card.rule;
+
+    // Counter
+    var idx = cards.findIndex(function(c){ return c.id === card.id; });
+    counter.textContent = '#' + (idx + 1) + ' / ' + total;
+  }
+
+  document.getElementById('shuffle-btn').addEventListener('click', function(){
+    var card = ensureDifferent();
+    renderCard(card);
+  });
+
+  // Initial random
+  renderCard(pickRandom());
+})();
+</script></main>
+</body></html>
