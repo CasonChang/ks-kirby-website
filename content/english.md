@@ -147,4 +147,45 @@
 規則：修正時態 (showed) 以及正確的術語 (Simplified Chinese)。
 
 ### grammar | I share to my colleagues $\rightarrow$ I shared it with my colleagues
-規則：修正時態 (shared) 並使用 correct preposition (share with)。
+規則：修正時態 (shared) 並使用 correct preposition (share with).
+
+## 2026-05-16
+
+### expression | A feast for the eyes
+視覺盛宴 / 極其漂亮的景象
+> The colorful display of shrimp at the port was a feast for the eyes!
+
+### expression | A bit of a letdown
+令人失望 / 比預期差
+> The shrimp were a bit of a letdown, but the rest of the trip was great!
+
+### vocabulary | fish roe (n.)
+意思：魚卵
+> 記憶技巧：聯想 "Roe" 的發音像是排成一列的小卵子。
+
+### grammar | sweet shrimp that can be sashimi -> sweet shrimp that can be eaten as sashimi
+規則：澄清蝦子是被食用作為刺身，而非蝦子本身就是刺身。
+
+### grammar | let us tasting -> let us taste them
+規則：let 後接原形動詞 (base verb)。
+
+### grammar | l want to buy -> I wanted to buy
+規則：描述過去發生的事情使用過去式。
+
+### grammar | only sale big box -> only sold big boxes
+規則：使用動詞 "sell" (過去式 "sold")，而非名詞 "sale"。
+
+### grammar | bring to the restaurant to require for cook -> brought them to a restaurant and asked them to cook it for us
+規則：使用過去式 "brought"，且請求服務時用 "ask" 比 "require" 更自然。
+
+### grammar | Doesn't it have interesting idiom you want to share to me? -> Do you have any interesting idioms you want to share with me?
+規則：修正疑問句結構以及搭配詞 "share with"。
+
+### grammar | shrimps -> shrimp
+規則：shrimp 的單複數同形，通常不加 s。
+
+### grammar | were not much fresh -> weren't very fresh / weren't that fresh
+規則：在否定句中，修飾形容詞建議用 "very" 或 "that"。
+
+### grammar | I will go there next time for the fresher shrimp -> I'll go back next time for fresher shrimp
+規則：回到某地慣用 "go back"。
