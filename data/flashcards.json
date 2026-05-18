@@ -1,38 +1,450 @@
 [
-  { "id": 1, "wrong": "Don't need to posing", "correct": "You don't need to pose", "rule": "need to 後面接原形動詞 (base verb)，不是動名詞", "date": "2026-05-11" },
-  { "id": 2, "wrong": "Be perfectly candid, I think...", "correct": "To be perfectly candid, I think...", "rule": "開頭引導語要用不定詞片語 (infinitive phrase)，不是原形動詞", "date": "2026-05-11" },
-  { "id": 3, "wrong": "It's really close (直譯)", "correct": "Oh, it's so close! / That was almost it!", "rule": "表達「差一點點」時，母語者會用更生動的反應句", "date": "2026-05-11" },
-  { "id": 4, "wrong": "I have an example to using", "correct": "I have an example of how to use", "rule": "example 後面接 of + how to + 動詞，不能直接用 to + V-ing", "date": "2026-05-11" },
-  { "id": 5, "wrong": "It conbine", "correct": "It combines", "rule": "第三人稱單數 (it) 後面動詞要加 s / es", "date": "2026-05-11" },
-  { "id": 6, "wrong": "I'd go to sleep (表示將要)", "correct": "I'm going to go to sleep / I'm heading to bed", "rule": "I'd 是 I would（假設語氣），不是「我將要」; 表達打算用 I'm going to", "date": "2026-05-11" },
-  { "id": 7, "wrong": "Pioneer of the AI", "correct": "Pioneers in AI / a pioneer in the field of AI", "rule": "表示「某領域的先驅者」，慣用 pioneer in + 領域", "date": "2026-05-13" },
-  { "id": 8, "wrong": "Study AI topics during working", "correct": "Study AI topics during work hours / while working", "rule": "during 後面接名詞 (work hours)，while 後面才接 V-ing", "date": "2026-05-13" },
-  { "id": 9, "wrong": "It's ok to me", "correct": "It's okay with me / I'm fine with it", "rule": "表達「沒問題」時，慣用 okay with me", "date": "2026-05-13" },
-  { "id": 10, "wrong": "Provide to others collgues", "correct": "Provide it to my other colleagues / share it with my colleagues", "rule": "修正拼寫 (colleagues) 並補上正確受詞", "date": "2026-05-13" },
-  { "id": 11, "wrong": "Makes work conveniently", "correct": "Makes work more convenient / makes work easier", "rule": "使役動詞 make + 受詞 + 形容詞 (convenient)，而非副詞 (conveniently)", "date": "2026-05-13" },
-  { "id": 12, "wrong": "Write a letter with English", "correct": "Write a letter in English", "rule": "語言介質一律使用介系詞 in", "date": "2026-05-13" },
-  { "id": 13, "wrong": "Meet the formal mail's format", "correct": "Follow a formal email format / match the required format", "rule": "格式建議用 follow 或 match，而不是 meet", "date": "2026-05-13" },
-  { "id": 14, "wrong": "The key to make presentation better is streamline", "correct": "The key to making a presentation better is to streamline / streamlining", "rule": "The key to 後方必須接 V-ing 或名詞", "date": "2026-05-13" },
-  { "id": 15, "wrong": "It's so many things happen today", "correct": "So many things happened today", "rule": "描述今天發生的事，使用過去式 happened，不需要 It's 開頭", "date": "2026-05-14" },
-  { "id": 16, "wrong": "I let my colleague do me a favor", "correct": "I asked my colleague for a favor", "rule": "請求幫忙慣用 ask someone for a favor", "date": "2026-05-14" },
-  { "id": 17, "wrong": "I felt he is frustration", "correct": "I could tell he was frustrated", "rule": "描述感覺應使用形容詞 frustrated，而非名詞 frustration", "date": "2026-05-14" },
-  { "id": 18, "wrong": "Asked him if he is sad", "correct": "Asked him if he was upset", "rule": "職場情境用 upset（不悅）比 sad（悲傷）更自然", "date": "2026-05-14" },
-  { "id": 19, "wrong": "The word sounds not patience", "correct": "The words sounded impatient", "rule": "描述說話方式用形容詞 impatient（不耐煩的）", "date": "2026-05-14" },
-  { "id": 20, "wrong": "I learned a class", "correct": "I learned a lesson", "rule": "學到「教訓」用 learn a lesson；class 僅指課程", "date": "2026-05-14" },
-  { "id": 21, "wrong": "Then I use '~' in the end of the sentence", "correct": "Now I use '~' at the end of my sentences", "rule": "描述目前習慣用現在式，at the end of 是固定搭配", "date": "2026-05-14" },
-  { "id": 22, "wrong": "The most challenge thing", "correct": "The most challenging thing", "rule": "形容「具挑戰性的事物」用形容詞 challenging", "date": "2026-05-14" },
-  { "id": 23, "wrong": "The opposite team also have some statements", "correct": "The opposing team also had some arguments", "rule": "辯論對手用 opposing team；論點用 arguments 或 points", "date": "2026-05-14" },
-  { "id": 24, "wrong": "Your family are not always by your side", "correct": "Your family isn't always by your side", "rule": "family 在此作為單數整體，搭配 isn't", "date": "2026-05-14" },
-  { "id": 25, "wrong": "Convience apps", "correct": "Convenient apps", "rule": "使用形容詞 convenient 修飾名詞", "date": "2026-05-14" },
-  { "id": 26, "wrong": "The most impress statement", "correct": "The most impressive point / most impactful argument", "rule": "用形容詞 impressive 描述令人印象深刻的內容", "date": "2026-05-14" },
-  { "id": 27, "wrong": "If factory has some issue", "correct": "If the factory has an issue", "rule": "加上定冠詞 the，issue 是可數名詞，用 an issue", "date": "2026-05-14" },
-  { "id": 28, "wrong": "I refute the statement that we are not slave", "correct": "I refuted: 'We are not slaves!'", "rule": "使用過去式 refuted；slave 應使用複數 slaves", "date": "2026-05-14" },
-  { "id": 29, "wrong": "Pretend someone call me", "correct": "Pretended someone was calling me", "rule": "描述過去動作使用過去式 pretended", "date": "2026-05-14" },
-  { "id": 30, "wrong": "Release the tense vibe", "correct": "Break the tension / lighten the mood", "rule": "慣用語為 break the tension 或 lighten the mood", "date": "2026-05-14" },
-  { "id": 31, "wrong": "I just want to share the day to you", "correct": "I just wanted to share my day with you", "rule": "固定搭配 share ... with someone", "date": "2026-05-14" },
-  { "id": 32, "wrong": "Hope the work is smoothly", "correct": "I hope work goes smoothly / everything goes smoothly", "rule": "smoothly 是副詞，必須接在動詞 (goes) 之後", "date": "2026-05-14" },
-  { "id": 33, "wrong": "I got the acclaim by the colleague", "correct": "My colleagues praised me today / I got some praise", "rule": "acclaim 用於極大成就；日常讚美用 praise 更自然", "date": "2026-05-15" },
-  { "id": 34, "wrong": "There was a issue", "correct": "There was an issue", "rule": "issue 以元音開頭，使用冠詞 an", "date": "2026-05-15" },
-  { "id": 35, "wrong": "The text may shows error cause it's simpled Chinese", "correct": "The text showed errors because it was in Simplified Chinese", "rule": "修正時態 showed，正確術語 Simplified Chinese", "date": "2026-05-15" },
-  { "id": 36, "wrong": "I share to my colleagues", "correct": "I shared it with my colleagues", "rule": "修正時態 shared，搭配介詞 with", "date": "2026-05-15" }
+  {
+    "id": 1,
+    "wrong": "Don't need to posing",
+    "correct": "You don't need to pose",
+    "rule": "need to 後面接原形動詞 (base verb)，不是動名詞",
+    "date": "2026-05-11"
+  },
+  {
+    "id": 2,
+    "wrong": "Be perfectly candid, I think...",
+    "correct": "To be perfectly candid, I think...",
+    "rule": "開頭引導語要用不定詞片語 (infinitive phrase)，不是原形動詞",
+    "date": "2026-05-11"
+  },
+  {
+    "id": 3,
+    "wrong": "It's really close (直譯)",
+    "correct": "Oh, it's so close! / That was almost it!",
+    "rule": "表達「差一點點」時，母語者會用更生動的反應句",
+    "date": "2026-05-11"
+  },
+  {
+    "id": 4,
+    "wrong": "I have an example to using",
+    "correct": "I have an example of how to use",
+    "rule": "example 後面接 of + how to + 動詞，不能直接用 to + V-ing",
+    "date": "2026-05-11"
+  },
+  {
+    "id": 5,
+    "wrong": "It conbine",
+    "correct": "It combines",
+    "rule": "第三人稱單數 (it) 後面動詞要加 s / es",
+    "date": "2026-05-11"
+  },
+  {
+    "id": 6,
+    "wrong": "I'd go to sleep (表示將要)",
+    "correct": "I'm going to go to sleep / I'm heading to bed",
+    "rule": "I'd 是 I would（假設語氣），不是「我將要」; 表達打算用 I'm going to",
+    "date": "2026-05-11"
+  },
+  {
+    "id": 7,
+    "wrong": "Pioneer of the AI",
+    "correct": "Pioneers in AI / a pioneer in the field of AI",
+    "rule": "表示「某領域的先驅者」，慣用 pioneer in + 領域",
+    "date": "2026-05-13"
+  },
+  {
+    "id": 8,
+    "wrong": "Study AI topics during working",
+    "correct": "Study AI topics during work hours / while working",
+    "rule": "during 後面接名詞 (work hours)，while 後面才接 V-ing",
+    "date": "2026-05-13"
+  },
+  {
+    "id": 9,
+    "wrong": "It's ok to me",
+    "correct": "It's okay with me / I'm fine with it",
+    "rule": "表達「沒問題」時，慣用 okay with me",
+    "date": "2026-05-13"
+  },
+  {
+    "id": 10,
+    "wrong": "Provide to others collgues",
+    "correct": "Provide it to my other colleagues / share it with my colleagues",
+    "rule": "修正拼寫 (colleagues) 並補上正確受詞",
+    "date": "2026-05-13"
+  },
+  {
+    "id": 11,
+    "wrong": "Makes work conveniently",
+    "correct": "Makes work more convenient / makes work easier",
+    "rule": "使役動詞 make + 受詞 + 形容詞 (convenient)，而非副詞 (conveniently)",
+    "date": "2026-05-13"
+  },
+  {
+    "id": 12,
+    "wrong": "Write a letter with English",
+    "correct": "Write a letter in English",
+    "rule": "語言介質一律使用介系詞 in",
+    "date": "2026-05-13"
+  },
+  {
+    "id": 13,
+    "wrong": "Meet the formal mail's format",
+    "correct": "Follow a formal email format / match the required format",
+    "rule": "格式建議用 follow 或 match，而不是 meet",
+    "date": "2026-05-13"
+  },
+  {
+    "id": 14,
+    "wrong": "The key to make presentation better is streamline",
+    "correct": "The key to making a presentation better is to streamline / streamlining",
+    "rule": "The key to 後方必須接 V-ing 或名詞",
+    "date": "2026-05-13"
+  },
+  {
+    "id": 15,
+    "wrong": "It's so many things happen today",
+    "correct": "So many things happened today",
+    "rule": "描述今天發生的事，使用過去式 happened，不需要 It's 開頭",
+    "date": "2026-05-14"
+  },
+  {
+    "id": 16,
+    "wrong": "I let my colleague do me a favor",
+    "correct": "I asked my colleague for a favor",
+    "rule": "請求幫忙慣用 ask someone for a favor",
+    "date": "2026-05-14"
+  },
+  {
+    "id": 17,
+    "wrong": "I felt he is frustration",
+    "correct": "I could tell he was frustrated",
+    "rule": "描述感覺應使用形容詞 frustrated，而非名詞 frustration",
+    "date": "2026-05-14"
+  },
+  {
+    "id": 18,
+    "wrong": "Asked him if he is sad",
+    "correct": "Asked him if he was upset",
+    "rule": "職場情境用 upset（不悅）比 sad（悲傷）更自然",
+    "date": "2026-05-14"
+  },
+  {
+    "id": 19,
+    "wrong": "The word sounds not patience",
+    "correct": "The words sounded impatient",
+    "rule": "描述說話方式用形容詞 impatient（不耐煩的）",
+    "date": "2026-05-14"
+  },
+  {
+    "id": 20,
+    "wrong": "I learned a class",
+    "correct": "I learned a lesson",
+    "rule": "學到「教訓」用 learn a lesson；class 僅指課程",
+    "date": "2026-05-14"
+  },
+  {
+    "id": 21,
+    "wrong": "Then I use '~' in the end of the sentence",
+    "correct": "Now I use '~' at the end of my sentences",
+    "rule": "描述目前習慣用現在式，at the end of 是固定搭配",
+    "date": "2026-05-14"
+  },
+  {
+    "id": 22,
+    "wrong": "The most challenge thing",
+    "correct": "The most challenging thing",
+    "rule": "形容「具挑戰性的事物」用形容詞 challenging",
+    "date": "2026-05-14"
+  },
+  {
+    "id": 23,
+    "wrong": "The opposite team also have some statements",
+    "correct": "The opposing team also had some arguments",
+    "rule": "辯論對手用 opposing team；論點用 arguments 或 points",
+    "date": "2026-05-14"
+  },
+  {
+    "id": 24,
+    "wrong": "Your family are not always by your side",
+    "correct": "Your family isn't always by your side",
+    "rule": "family 在此作為單數整體，搭配 isn't",
+    "date": "2026-05-14"
+  },
+  {
+    "id": 25,
+    "wrong": "Convience apps",
+    "correct": "Convenient apps",
+    "rule": "使用形容詞 convenient 修飾名詞",
+    "date": "2026-05-14"
+  },
+  {
+    "id": 26,
+    "wrong": "The most impress statement",
+    "correct": "The most impressive point / most impactful argument",
+    "rule": "用形容詞 impressive 描述令人印象深刻的內容",
+    "date": "2026-05-14"
+  },
+  {
+    "id": 27,
+    "wrong": "If factory has some issue",
+    "correct": "If the factory has an issue",
+    "rule": "加上定冠詞 the，issue 是可數名詞，用 an issue",
+    "date": "2026-05-14"
+  },
+  {
+    "id": 28,
+    "wrong": "I refute the statement that we are not slave",
+    "correct": "I refuted: 'We are not slaves!'",
+    "rule": "使用過去式 refuted；slave 應使用複數 slaves",
+    "date": "2026-05-14"
+  },
+  {
+    "id": 29,
+    "wrong": "Pretend someone call me",
+    "correct": "Pretended someone was calling me",
+    "rule": "描述過去動作使用過去式 pretended",
+    "date": "2026-05-14"
+  },
+  {
+    "id": 30,
+    "wrong": "Release the tense vibe",
+    "correct": "Break the tension / lighten the mood",
+    "rule": "慣用語為 break the tension 或 lighten the mood",
+    "date": "2026-05-14"
+  },
+  {
+    "id": 31,
+    "wrong": "I just want to share the day to you",
+    "correct": "I just wanted to share my day with you",
+    "rule": "固定搭配 share ... with someone",
+    "date": "2026-05-14"
+  },
+  {
+    "id": 32,
+    "wrong": "Hope the work is smoothly",
+    "correct": "I hope work goes smoothly / everything goes smoothly",
+    "rule": "smoothly 是副詞，必須接在動詞 (goes) 之後",
+    "date": "2026-05-14"
+  },
+  {
+    "id": 33,
+    "wrong": "I got the acclaim by the colleague",
+    "correct": "My colleagues praised me today / I got some praise",
+    "rule": "acclaim 用於極大成就；日常讚美用 praise 更自然",
+    "date": "2026-05-15"
+  },
+  {
+    "id": 34,
+    "wrong": "There was a issue",
+    "correct": "There was an issue",
+    "rule": "issue 以元音開頭，使用冠詞 an",
+    "date": "2026-05-15"
+  },
+  {
+    "id": 35,
+    "wrong": "The text may shows error cause it's simpled Chinese",
+    "correct": "The text showed errors because it was in Simplified Chinese",
+    "rule": "修正時態 showed，正確術語 Simplified Chinese",
+    "date": "2026-05-15"
+  },
+  {
+    "id": 36,
+    "wrong": "I share to my colleagues",
+    "correct": "I shared it with my colleagues",
+    "rule": "修正時態 shared，搭配介詞 with",
+    "date": "2026-05-15"
+  },
+  {
+    "wrong": "it's really close",
+    "correct": "Oh, it's so close! / That was almost it!",
+    "rule": "表達「差一點點」時，母語者會用更生動的反應句，而不是直譯",
+    "date": "2026-05-11",
+    "id": 37
+  },
+  {
+    "wrong": "I'd go to sleep",
+    "correct": "I,m going to go to sleep / I'm heading to bed",
+    "rule": "I'd 是 I would 的縮寫（表示假設或過去習慣），不是「我將要」的意思",
+    "date": "2026-05-11",
+    "id": 38
+  },
+  {
+    "wrong": "pioneer of the AI",
+    "correct": "pioneers in AI / a pioneer in the field of AI",
+    "rule": "修正搭配詞，使用 \"pioneer in [field]\" 更為自然。",
+    "date": "2026-05-13",
+    "id": 39
+  },
+  {
+    "wrong": "study AI topics during working",
+    "correct": "study AI topics during work hours / while working",
+    "rule": "修正時間表達，\"during working\" 並非標準用法。",
+    "date": "2026-05-13",
+    "id": 40
+  },
+  {
+    "wrong": "it's ok to me",
+    "correct": "it's okay with me / I'm fine with it",
+    "rule": "表達同意或沒問題時，慣用 \"okay with me\"。",
+    "date": "2026-05-13",
+    "id": 41
+  },
+  {
+    "wrong": "provide to others collgues",
+    "correct": "provide it to my other colleagues / share it with my colleagues",
+    "rule": "修正拼寫 (colleagues) 並補上受詞。",
+    "date": "2026-05-13",
+    "id": 42
+  },
+  {
+    "wrong": "makes work conveniently",
+    "correct": "makes work more convenient / makes work easier",
+    "rule": "使役動詞 make + 受詞 + 形容詞 (convenient)，而非副詞 (conveniently)。",
+    "date": "2026-05-13",
+    "id": 43
+  },
+  {
+    "wrong": "write a letter with English",
+    "correct": "write a letter in English",
+    "rule": "語言介質一律使用介系詞 \"in\"。",
+    "date": "2026-05-13",
+    "id": 44
+  },
+  {
+    "wrong": "meet the formal mail's format",
+    "correct": "follow a formal email format / match the required formal format",
+    "rule": "格式建議使用 \"follow\" 或 \"match\"，而非 \"meet\"。",
+    "date": "2026-05-13",
+    "id": 45
+  },
+  {
+    "wrong": "asked him if he is sad",
+    "correct": "asked him if he was upset",
+    "rule": "在職場情境中，用 \"upset\" (不悅/生氣) 比 \"sad\" (悲傷) 更自然。",
+    "date": "2026-05-14",
+    "id": 46
+  },
+  {
+    "wrong": "the word sounds not patience",
+    "correct": "the words sounded impatient",
+    "rule": "描述說話方式應使用形容詞 \"impatient\" (不耐煩的)。",
+    "date": "2026-05-14",
+    "id": 47
+  },
+  {
+    "wrong": "Then I use \"~\" in the end of the sentence",
+    "correct": "Now I use \"~\" at the end of my sentences",
+    "rule": "描述目前習慣使用現在式。",
+    "date": "2026-05-14",
+    "id": 48
+  },
+  {
+    "wrong": "the most challenge thing",
+    "correct": "the most challenging thing",
+    "rule": "形容「具挑戰性的事物」應使用形容詞 \"challenging\"。",
+    "date": "2026-05-14",
+    "id": 49
+  },
+  {
+    "wrong": "your family are not always by your side",
+    "correct": "your family isn't always by your side",
+    "rule": "family 在此作為單數整體，使用 isn't。",
+    "date": "2026-05-14",
+    "id": 50
+  },
+  {
+    "wrong": "convience apps",
+    "correct": "convenient apps",
+    "rule": "使用形容詞 \"convenient\" 修飾名詞。",
+    "date": "2026-05-14",
+    "id": 51
+  },
+  {
+    "wrong": "if factory has some issue",
+    "correct": "if the factory has an issue",
+    "rule": "加上定冠詞 \"the\" 且 issue 是可數名詞，用 \"an issue\"。",
+    "date": "2026-05-14",
+    "id": 52
+  },
+  {
+    "wrong": "pretend someone call me",
+    "correct": "pretended someone was calling me",
+    "rule": "描述過去發生的動作，使用過去式 \"pretended\"。",
+    "date": "2026-05-14",
+    "id": 53
+  },
+  {
+    "wrong": "release the tense vibe",
+    "correct": "break the tension / lighten the mood",
+    "rule": "慣用語為 \"break the tension\"。",
+    "date": "2026-05-14",
+    "id": 54
+  },
+  {
+    "wrong": "the text may shows error cause it's simpled Chinese",
+    "correct": "the text showed errors because it was in Simplified Chinese",
+    "rule": "修正時態 (showed) 以及正確的術語 (Simplified Chinese)。",
+    "date": "2026-05-15",
+    "id": 55
+  },
+  {
+    "wrong": "sweet shrimp that can be sashimi",
+    "correct": "sweet shrimp that can be eaten as sashimi",
+    "rule": "澄清蝦子是被食用作為刺身，而非蝦子本身就是刺身。",
+    "date": "2026-05-16",
+    "id": 56
+  },
+  {
+    "wrong": "let us tasting",
+    "correct": "let us taste them",
+    "rule": "let 後接原形動詞 (base verb)。",
+    "date": "2026-05-16",
+    "id": 57
+  },
+  {
+    "wrong": "l want to buy",
+    "correct": "I wanted to buy",
+    "rule": "描述過去發生的事情使用過去式。",
+    "date": "2026-05-16",
+    "id": 58
+  },
+  {
+    "wrong": "only sale big box",
+    "correct": "only sold big boxes",
+    "rule": "使用動詞 \"sell\" (過去式 \"sold\")，而非名詞 \"sale\"。",
+    "date": "2026-05-16",
+    "id": 59
+  },
+  {
+    "wrong": "bring to the restaurant to require for cook",
+    "correct": "brought them to a restaurant and asked them to cook it for us",
+    "rule": "使用過去式 \"brought\"，且請求服務時用 \"ask\" 比 \"require\" 更自然。",
+    "date": "2026-05-16",
+    "id": 60
+  },
+  {
+    "wrong": "Doesn't it have interesting idiom you want to share to me?",
+    "correct": "Do you have any interesting idioms you want to share with me?",
+    "rule": "修正疑問句結構以及搭配詞 \"share with\"。",
+    "date": "2026-05-16",
+    "id": 61
+  },
+  {
+    "wrong": "shrimps",
+    "correct": "shrimp",
+    "rule": "shrimp 的單複數同形，通常不加 s。",
+    "date": "2026-05-16",
+    "id": 62
+  },
+  {
+    "wrong": "were not much fresh",
+    "correct": "weren't very fresh / weren't that fresh",
+    "rule": "在否定句中，修飾形容詞建議用 \"very\" 或 \"that\"。",
+    "date": "2026-05-16",
+    "id": 63
+  },
+  {
+    "wrong": "I will go there next time for the fresher shrimp",
+    "correct": "I'll go back next time for fresher shrimp",
+    "rule": "回到某地慣用 \"go back\"。",
+    "date": "2026-05-16",
+    "id": 64
+  }
 ]
