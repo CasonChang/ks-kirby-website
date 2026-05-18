@@ -446,5 +446,47 @@
     "rule": "回到某地慣用 \"go back\"。",
     "date": "2026-05-16",
     "id": 64
+  },
+  {
+    "wrong": "it became wet and get sticky",
+    "correct": "it got mushy and sticky",
+    "rule": "描述過熟水果建議使用 mushy，且時態需統一為過去式。",
+    "date": "2026-05-18",
+    "id": 65
+  },
+  {
+    "wrong": "I left the company on time",
+    "correct": "I left work on time / I got off work on time",
+    "rule": "表達下班離開公司，慣用 \"leave work\" 或 \"get off work\"。",
+    "date": "2026-05-18",
+    "id": 66
+  },
+  {
+    "wrong": "take out the trash",
+    "correct": "took out the trash",
+    "rule": "描述今天已完成的動作，使用過去式。",
+    "date": "2026-05-18",
+    "id": 67
+  },
+  {
+    "wrong": "Why it's hit the nail on the head?",
+    "correct": "Why is it 'hit the nail on the head'?",
+    "rule": "疑問句結構應為 \"Why is it [phrase]?\"。",
+    "date": "2026-05-18",
+    "id": 68
+  },
+  {
+    "wrong": "do the aerobic exercise",
+    "correct": "do some cardio",
+    "rule": "在健身房情境中，習慣用 \"cardio\" 代替 \"aerobic exercise\"。",
+    "date": "2026-05-18",
+    "id": 69
+  },
+  {
+    "wrong": "train of the chest or back",
+    "correct": "train chest or back / do a chest or back workout",
+    "rule": "train 後直接接身體部位，不需加 \"of the\"。",
+    "date": "2026-05-18",
+    "id": 70
   }
 ]

@@ -189,3 +189,31 @@
 
 ### grammar | I will go there next time for the fresher shrimp → I'll go back next time for fresher shrimp
 規則：回到某地慣用 "go back"。
+
+## 2026-05-18
+
+### expression | hit the nail on the head
+準確地說中要害 / 正確地描述情況
+> You hit the nail on the head when you said that the manager wants everything yesterday!
+
+### vocabulary | mushy (adj.)
+意思：(水果等) 過熟而變得軟爛的
+> 記憶技巧：聯想 banana 熟過頭變成泥狀的感覺。例句: "The banana got mushy and sticky after a couple of days."
+
+### grammar | it became wet and get sticky → it got mushy and sticky
+規則：描述過熟水果建議使用 mushy，且時態需統一為過去式。
+
+### grammar | I left the company on time → I left work on time / I got off work on time
+規則：表達下班離開公司，慣用 "leave work" 或 "get off work"。
+
+### grammar | take out the trash → took out the trash
+規則：描述今天已完成的動作，使用過去式。
+
+### grammar | Why it's hit the nail on the head? → Why is it 'hit the nail on the head'?
+規則：疑問句結構應為 "Why is it [phrase]?"。
+
+### grammar | do the aerobic exercise → do some cardio
+規則：在健身房情境中，習慣用 "cardio" 代替 "aerobic exercise"。
+
+### grammar | train of the chest or back → train chest or back / do a chest or back workout
+規則：train 後直接接身體部位，不需加 "of the"。
