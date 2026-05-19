@@ -488,5 +488,68 @@
     "rule": "train 後直接接身體部位，不需加 \"of the\"。",
     "date": "2026-05-18",
     "id": 70
+  },
+  {
+    "wrong": "There is a new dental opening",
+    "correct": "A new dental clinic opened recently",
+    "rule": "用 \"clinic opened\" 描述診所開業更自然。",
+    "date": "2026-05-19",
+    "id": 71
+  },
+  {
+    "wrong": "an activity that no registration fee",
+    "correct": "a promotion with no registration fee",
+    "rule": "優惠活動使用 \"promotion\" 或 \"offer\"。",
+    "date": "2026-05-19",
+    "id": 72
+  },
+  {
+    "wrong": "It been long time since I do the teeth cleaning last time",
+    "correct": "It's been a long time since I last had my teeth cleaned",
+    "rule": "使用現在完成式 \"It's been\" 且 teeth cleaning 是被動動作 (had ... cleaned)。",
+    "date": "2026-05-19",
+    "id": 73
+  },
+  {
+    "wrong": "go to do a registration",
+    "correct": "go and register / sign up",
+    "rule": "登記或報名使用 \"register\" 或 \"sign up\"。",
+    "date": "2026-05-19",
+    "id": 74
+  },
+  {
+    "wrong": "the conversation is a little bit awkward",
+    "correct": "the conversation was a little bit awkward",
+    "rule": "描述過去發生的對話使用過去式。",
+    "date": "2026-05-19",
+    "id": 75
+  },
+  {
+    "wrong": "asked me when was available to me",
+    "correct": "asked me when I was available",
+    "rule": "間接問句不需要倒裝 (when I was available)。",
+    "date": "2026-05-19",
+    "id": 76
+  },
+  {
+    "wrong": "every workdays night",
+    "correct": "every weekday evening",
+    "rule": "工作日用 \"weekday\"，晚上用 \"evening\"。",
+    "date": "2026-05-19",
+    "id": 77
+  },
+  {
+    "wrong": "found I will go abroad",
+    "correct": "found out I'll be going abroad",
+    "rule": "發現某事使用 \"found out\"。",
+    "date": "2026-05-19",
+    "id": 78
+  },
+  {
+    "wrong": "Finally I have booking next Friday",
+    "correct": "Finally, I booked it for next Friday / I have an appointment next Friday",
+    "rule": "預約使用 \"book\" 或 \"appointment\"。",
+    "date": "2026-05-19",
+    "id": 79
   }
 ]

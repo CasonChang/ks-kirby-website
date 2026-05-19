@@ -190,30 +190,40 @@
 ### grammar | I will go there next time for the fresher shrimp → I'll go back next time for fresher shrimp
 規則：回到某地慣用 "go back"。
 
-## 2026-05-18
 
-### expression | hit the nail on the head
-準確地說中要害 / 正確地描述情況
-> You hit the nail on the head when you said that the manager wants everything yesterday!
+## 2026-05-19
 
-### vocabulary | mushy (adj.)
-意思：(水果等) 過熟而變得軟爛的
-> 記憶技巧：聯想 banana 熟過頭變成泥狀的感覺。例句: "The banana got mushy and sticky after a couple of days."
+### expression | go back and forth
+來回反覆地討論/協調 (通常指在兩個選項或時間之間猶豫/調整)
+> We went back and forth on the dates for an hour before we finally found a time that worked!
 
-### grammar | it became wet and get sticky → it got mushy and sticky
-規則：描述過熟水果建議使用 mushy，且時態需統一為過去式。
+### vocabulary | dental check-up (n.)
+意思：牙科檢查
+> 記憶技巧：check-up 指的是例行性的健康檢查。例句: "I'm overdue for a dental check-up!"
 
-### grammar | I left the company on time → I left work on time / I got off work on time
-規則：表達下班離開公司，慣用 "leave work" 或 "get off work"。
+### grammar | There is a new dental opening → A new dental clinic opened recently
+規則：用 "clinic opened" 描述診所開業更自然。
 
-### grammar | take out the trash → took out the trash
-規則：描述今天已完成的動作，使用過去式。
+### grammar | an activity that no registration fee → a promotion with no registration fee
+規則：優惠活動使用 "promotion" 或 "offer"。
 
-### grammar | Why it's hit the nail on the head? → Why is it 'hit the nail on the head'?
-規則：疑問句結構應為 "Why is it [phrase]?"。
+### grammar | It been long time since I do the teeth cleaning last time → It's been a long time since I last had my teeth cleaned
+規則：使用現在完成式 "It's been" 且 teeth cleaning 是被動動作 (had ... cleaned)。
 
-### grammar | do the aerobic exercise → do some cardio
-規則：在健身房情境中，習慣用 "cardio" 代替 "aerobic exercise"。
+### grammar | go to do a registration → go and register / sign up
+規則：登記或報名使用 "register" 或 "sign up"。
 
-### grammar | train of the chest or back → train chest or back / do a chest or back workout
-規則：train 後直接接身體部位，不需加 "of the"。
+### grammar | the conversation is a little bit awkward → the conversation was a little bit awkward
+規則：描述過去發生的對話使用過去式。
+
+### grammar | asked me when was available to me → asked me when I was available
+規則：間接問句不需要倒裝 (when I was available)。
+
+### grammar | every workdays night → every weekday evening
+規則：工作日用 "weekday"，晚上用 "evening"。
+
+### grammar | found I will go abroad → found out I'll be going abroad
+規則：發現某事使用 "found out"。
+
+### grammar | Finally I have booking next Friday → Finally, I booked it for next Friday / I have an appointment next Friday
+規則：預約使用 "book" 或 "appointment"。

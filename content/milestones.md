@@ -110,7 +110,12 @@ category: growth
 展現驚人的持之以恆與走路習慣，達成千萬步的運動里程碑，激勵人心的成就！
 tags: #Achievement #Habit
 
-## 2026-05-14 | ⚠️ 修正總結推送路由
-category: error
-發現 `sessions_send` 導致總結變成自我對話，將交付流程修正為直接使用 `final` 標籤推送至前台。
-tags: #Routing #BugFix #Delivery
+
+## 2026-05-18 | 🎯 英文總結與同步全鏈路打通
+category: tech
+成功優化英文總結流程並建立 Python 格式驗證機制，且同步打通至個人網站的自動上傳路徑。從「精準總結」到「自動部署」全流程運行正確，達成高品質內容的閉環。
+tags: #English #Automation #WebSync #QualityControl
+## 2026-05-19 | 🖼️ LINE 圖片傳輸協議打通
+category: tech
+克服 LINE 電腦版對外部網域的嚴格封鎖，經歷多次圖床嘗試（Catbox, Cloudinary）後，確立以獨立 Public GitHub Repo (`ks-kirby-assets`) 搭配 Raw URL 的最穩傳輸路徑。成功實現手機與電腦版 LINE 的 100% 圖片顯示兼容。
+tags: #LINE #GitHub #Integration #UserExperience
