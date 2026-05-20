@@ -6,6 +6,14 @@
 # 🎯 學到的事：...
 # tags: #Tag1 #Tag2
 
+## 2026-05-20 | 🗄️ 靜態網站 → Supabase 動態資料庫大遷移
+category: data
+將複習卡 (review.html) 和英文學習頁面 (english.html) 從本地 JSON/Markdown 檔案改為從 Supabase PostgreSQL 動態讀取。建立 4+1 張表（users/cards/review_state/review_logs/english_entries），79 張複習卡與 66 筆學習記錄全部匯入。導入 anon key + RLS policy 讓前端安全讀取，service_role key 供 Bot/後端寫入。
+🎯 學到的事：Supabase 的 PostgREST 會自動產生 REST API，前端只需 supabase.from('cards').select('*') 就能拿資料，完全不用寫後端 API Server。跨裝置同步、即時更新全部迎刃而解。
+🎯 學到的事：Sandbox 環境無法直連 PostgreSQL port，但可以透過 REST API (port 443) 操作資料，DDL 則需手動在 SQL Editor 執行。
+🎯 學到的事：RLS policy 預設拒絕 anon key 存取，必須手動 CREATE POLICY ... USING (true) 才能開放公開讀取。
+tags: #Supabase #PostgreSQL #Database #Migration
+
 ## 2026-05-13 | 🏗️ Next.js + Tailwind CSS 專案初始化
 category: nextjs
 使用 create-next-app 建立專案（TypeScript + Tailwind + App Router）。發現 Tailwind CSS 已升級到 v4，最大的變化是：不再使用 tailwind.config.ts 設定檔。
