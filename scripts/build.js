@@ -6,6 +6,7 @@ const OUT = path.join(__dirname, "..");
 
 // ─── Tailwind CDN & shared styles ──────────────────────────────────
 const CDN_SCRIPT = `<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>tailwind.config={theme:{extend:{colors:{'kirby-bg':'#FFF0F3','kirby-pink-light':'#FFB7C5','kirby-pink-main':'#FF8FAB','kirby-pink-dark':'#E06C84','kirby-white':'#FFFFFF'}}}}</script>`;
 
 const ANIM_STYLE = `<style>
@@ -635,14 +636,9 @@ function buildEnglish() {
 //  STEP 6: REVIEW — Flashcard Flip-to-Reveal Page
 // =====================================================================
 function buildReview() {
-  const file = path.join(__dirname, "..", "data", "flashcards.json");
-  if (!fs.existsSync(file)) {
-    console.log("⚠️  data/flashcards.json not found, skipping review.html");
-    return "";
-  }
-  const cards = JSON.parse(fs.readFileSync(file, "utf-8"));
-  const total = cards.length;
-  const dataJSON = JSON.stringify(cards);
+  // Cards are now fetched from Supabase at runtime — no more local JSON
+  const SUPABASE_URL = "https://ccxvgozrxtqatjwebjsa.supabase.co";
+  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNjeHZnb3pyeHRxYXRqd2VianNhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkyNTUzNDUsImV4cCI6MjA5NDgzMTM0NX0.RS3Jsa9FgeIYq70dX24InJIqVlHWh6rWlZ0a-xfW-W0";
 
   const html = `
 <style>
@@ -787,16 +783,26 @@ function buildReview() {
 
 <!-- Stats -->
 <div class="mt-10 text-center text-xs text-kirby-pink-dark/30">
-  共 <span id="total-count">${total}</span> 張卡片 · 隨機出題
+  共 <span id="total-count">-</span> 張卡片 · 隨機出題
 </div>
 
 <script>
 (function(){
-  var cards = ${dataJSON};
-  var total = cards.length;
+  var supabase = window.supabase.createClient("${SUPABASE_URL}", "${SUPABASE_ANON_KEY}");
+  var cards = [];
+  var total = 0;
   var currentId = null;
 
-  document.getElementById('total-count').textContent = total;
+  // Map Supabase field names to what the UI expects
+  function mapCard(c){
+    return {
+      id: c.card_id,
+      wrong: c.original,
+      correct: c.corrected,
+      rule: c.analysis,
+      date: c.created_at ? c.created_at.substring(0, 10) : ''
+    };
+  }
 
   function pickRandom(){
     var idx = Math.floor(Math.random() * cards.length);
@@ -814,15 +820,16 @@ function buildReview() {
 
   function renderCard(card){
     currentId = card.id;
+    document.getElementById('wrong-text').textContent = card.wrong;
+    document.getElementById('correct-text').textContent = card.correct;
+    document.getElementById('wrong-date').textContent = card.date;
+    document.getElementById('correct-date').textContent = card.date;
+    document.getElementById('rule-text').textContent = '💡 ' + card.rule;
 
-    var wrongText = document.getElementById('wrong-text');
-    var correctText = document.getElementById('correct-text');
-    var wrongDate = document.getElementById('wrong-date');
-    var correctDate = document.getElementById('correct-date');
-    var ruleText = document.getElementById('rule-text');
-    var counter = document.getElementById('counter');
+    var idx = cards.findIndex(function(c){ return c.id === card.id; });
+    document.getElementById('counter').textContent = '#' + (idx + 1) + ' / ' + total;
 
-    // Animate with slide-in
+    // Animate
     document.getElementById('wrong-card').classList.add('slide-in');
     document.getElementById('correct-card').classList.add('slide-in');
     setTimeout(function(){
@@ -830,29 +837,23 @@ function buildReview() {
       document.getElementById('correct-card').classList.remove('slide-in');
     }, 350);
 
-    // Reset flip (hide correction)
-    var correctCard = document.getElementById('correct-card');
-    correctCard.classList.remove('revealed');
-
-    // Fill data
-    wrongText.textContent = card.wrong;
-    correctText.textContent = card.correct;
-    wrongDate.textContent = card.date;
-    correctDate.textContent = card.date;
-    ruleText.textContent = '💡 ' + card.rule;
-
-    // Counter
-    var idx = cards.findIndex(function(c){ return c.id === card.id; });
-    counter.textContent = '#' + (idx + 1) + ' / ' + total;
+    // Reset flip
+    document.getElementById('correct-card').classList.remove('revealed');
   }
 
-  document.getElementById('shuffle-btn').addEventListener('click', function(){
-    var card = ensureDifferent();
-    renderCard(card);
+  // Fetch cards from Supabase
+  supabase.from('cards').select('*').order('created_at', { ascending: false }).then(function(res){
+    if(res.error){ console.error(res.error); return; }
+    cards = res.data.map(mapCard);
+    total = cards.length;
+    document.getElementById('total-count').textContent = total;
+    if(cards.length > 0) renderCard(pickRandom());
   });
 
-  // Initial random
-  renderCard(pickRandom());
+  document.getElementById('shuffle-btn').addEventListener('click', function(){
+    if(cards.length === 0) return;
+    renderCard(ensureDifferent());
+  });
 })();
 </script>`;
   return wrap("複習卡", "/review", html);
