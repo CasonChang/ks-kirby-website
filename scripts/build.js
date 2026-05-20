@@ -3,6 +3,8 @@ const path = require("path");
 
 const BASE = "/ks-kirby-website";
 const OUT = path.join(__dirname, "..");
+const SUPABASE_URL = "https://ccxvgozrxtqatjwebjsa.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNjeHZnb3pyeHRxYXRqd2VianNhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkyNTUzNDUsImV4cCI6MjA5NDgzMTM0NX0.RS3Jsa9FgeIYq70dX24InJIqVlHWh6rWlZ0a-xfW-W0";
 
 // ─── Tailwind CDN & shared styles ──────────────────────────────────
 const CDN_SCRIPT = `<script src="https://cdn.tailwindcss.com"></script>
@@ -391,47 +393,7 @@ function buildDevNotes(blocks) {
 //  STEP 5: ENGLISH — Month/Date + Category Filters + Prev/Next
 // =====================================================================
 function buildEnglish() {
-  const file = path.join(__dirname, "..", "content", "english.md");
-  const text = fs.readFileSync(file, "utf-8");
-  const lines = text.split("\n");
-
-  const dates = [];
-  let currentDate = null;
-  let currentEntry = null;
-
-  for (const line of lines) {
-    const h2 = line.match(/^## (\d{4}-\d{2}-\d{2})/);
-    if (h2) {
-      if (currentDate) dates.push(currentDate);
-      currentDate = { date: h2[1], entries: [] };
-      currentEntry = null;
-      continue;
-    }
-    const h3 = line.match(/^### (\w+) \| (.+)/);
-    if (h3 && currentDate) {
-      currentEntry = { type: h3[1], title: h3[2], desc: "", example: "" };
-      currentDate.entries.push(currentEntry);
-      continue;
-    }
-    if (currentEntry && line.startsWith("> ")) {
-      currentEntry.example = line.replace(/^> /, "");
-      continue;
-    }
-    if (currentEntry && line.trim() && !line.startsWith("#")) {
-      currentEntry.desc += (currentEntry.desc ? " " : "") + line.trim();
-    }
-  }
-  if (currentDate) dates.push(currentDate);
-
-  // Sort by date descending
-  dates.sort((a, b) => b.date.localeCompare(a.date));
-
-  const dateKeys = dates.map((d) => d.date);
-  const months = [...new Set(dateKeys.map((d) => d.substring(0, 7)))].sort((a, b) => b.localeCompare(a));
-
-  const dataJSON = JSON.stringify(dates);
-  const monthOpts = months.map((m) => `<option value="${m}">${m}</option>`).join("\n");
-  const dateOpts = dateKeys.map((d) => `<option value="${d}">${d}</option>`).join("\n");
+  // English entries are now fetched from Supabase at runtime — no more local markdown
 
   const html = `
 <header class="text-center mb-8 fade-in fade-1">
@@ -453,14 +415,12 @@ function buildEnglish() {
     <label class="text-sm font-semibold text-kirby-pink-dark whitespace-nowrap">📅 月份</label>
     <select id="english-month" class="bg-kirby-white/60 border border-kirby-pink-light/50 rounded-lg px-3 py-2 text-sm text-kirby-pink-dark">
       <option value="all">全部月份</option>
-      ${monthOpts}
     </select>
   </div>
   <div class="flex items-center gap-2 shrink-0">
     <label class="text-sm font-semibold text-kirby-pink-dark whitespace-nowrap">📆 日期</label>
     <select id="english-date" class="bg-kirby-white/60 border border-kirby-pink-light/50 rounded-lg px-3 py-2 text-sm text-kirby-pink-dark">
       <option value="all">全部日期</option>
-      ${dateOpts}
     </select>
   </div>
   <button id="en-next-btn" class="nav-btn bg-kirby-pink-light/40 text-kirby-pink-dark px-3 py-2 rounded-full text-sm font-bold transition-all shrink-0" title="下一頁">→</button>
@@ -479,11 +439,36 @@ function buildEnglish() {
 
 <script>
 (function(){
-  var dates = ${dataJSON};
+  var supabase = window.supabase.createClient("${SUPABASE_URL}", "${SUPABASE_ANON_KEY}");
+  var rawEntries = [];
+  var dates = [];
   var currentCat = 'all';
   var currentIdx = 0;
 
   function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  function groupByDate(entries){
+    var map = {};
+    for(var i=0; i<entries.length; i++){
+      var e = entries[i];
+      if(!map[e.date]) map[e.date] = { date: e.date, entries: [] };
+      map[e.date].entries.push({ type: e.type, title: e.title, desc: e.description, example: e.example });
+    }
+    var result = Object.values(map);
+    result.sort(function(a,b){ return b.date.localeCompare(a.date); });
+    return result;
+  }
+
+  function populateSelectors(){
+    var allDates = dates.map(function(d){ return d.date; });
+    var months = [...new Set(allDates.map(function(d){ return d.substring(0,7); }))].sort(function(a,b){ return b.localeCompare(a); });
+    var monthSel = document.getElementById('english-month');
+    monthSel.innerHTML = '<option value="all">全部月份</option>' + months.map(function(m){ return '<option value="'+m+'">'+m+'</option>'; }).join('');
+    var dateSel = document.getElementById('english-date');
+    dateSel.innerHTML = '<option value="all">全部日期</option>' + allDates.map(function(d){ return '<option value="'+d+'">'+d+'</option>'; }).join('');
+    if(months.length > 0) monthSel.value = months[0];
+    if(allDates.length > 0) dateSel.value = allDates[0];
+  }
 
   function getVisibleDates(){
     var m = document.getElementById('english-month').value;
@@ -495,29 +480,22 @@ function buildEnglish() {
     var monthVal = document.getElementById('english-month').value;
     var dateVal = document.getElementById('english-date').value;
     var list = document.getElementById('english-list');
-
     var parts = [];
     for(var di=0; di<dates.length; di++){
       var d = dates[di];
       if(dateVal !== 'all' && d.date !== dateVal) continue;
       if(monthVal !== 'all' && d.date.substring(0,7) !== monthVal) continue;
-
-      var vocab = [];
-      var grammars = [];
+      var vocab = [], grammars = [];
       for(var ei=0; ei<d.entries.length; ei++){
         var e = d.entries[ei];
         if(e.type === 'expression' || e.type === 'vocabulary') vocab.push(e);
         else if(e.type === 'grammar') grammars.push(e);
       }
-
       var hasVocab = currentCat === 'all' || currentCat === 'vocab';
       var hasGram = currentCat === 'all' || currentCat === 'grammar';
-
       if((!hasVocab || vocab.length === 0) && (!hasGram || grammars.length === 0)) continue;
-
       parts.push('<section class="mb-12 fade-in">');
       parts.push('<div class="flex items-center gap-3 mb-6"><span class="text-sm font-bold text-kirby-white bg-kirby-pink-main px-3 py-1 rounded-full">📅 '+d.date+'</span></div>');
-
       if(hasVocab && vocab.length > 0){
         parts.push('<div class="bg-kirby-white/60 rounded-2xl p-6 shadow-sm border border-kirby-pink-light/30 mb-6">');
         parts.push('<h2 class="text-lg font-bold text-kirby-pink-main mb-4">🌟 表達與單字</h2><div class="space-y-4">');
@@ -531,7 +509,6 @@ function buildEnglish() {
         }
         parts.push('</div></div>');
       }
-
       if(hasGram && grammars.length > 0){
         parts.push('<div class="bg-kirby-white/60 rounded-2xl p-6 shadow-sm border border-kirby-pink-light/30">');
         parts.push('<h2 class="text-lg font-bold text-kirby-pink-main mb-4">🛠️ 文法修正筆記</h2><div class="space-y-3">');
@@ -547,86 +524,52 @@ function buildEnglish() {
         }
         parts.push('</div></div>');
       }
-
       parts.push('</section>');
     }
-
-    // Nav info & button states
     var vdates = getVisibleDates();
-    if(dateVal !== 'all' && vdates.length > 0){
-      currentIdx = vdates.indexOf(dateVal);
-      if(currentIdx < 0) currentIdx = 0;
-    } else {
-      currentIdx = 0;
-    }
-
-    var prevBtn = document.getElementById('en-prev-btn');
-    var nextBtn = document.getElementById('en-next-btn');
-    if(dateVal !== 'all'){
-      prevBtn.disabled = (currentIdx >= vdates.length - 1);
-      nextBtn.disabled = (currentIdx <= 0);
-    } else {
-      prevBtn.disabled = true;
-      nextBtn.disabled = true;
-    }
-
-    if(parts.length === 0){
-      list.innerHTML = '<p class="text-center text-kirby-pink-dark/40 py-12">尚無符合條件的學習記錄 🩷</p>';
-    } else {
-      list.innerHTML = parts.join('');
-    }
+    if(dateVal !== 'all' && vdates.length > 0){ currentIdx = vdates.indexOf(dateVal); if(currentIdx < 0) currentIdx = 0; }
+    else { currentIdx = 0; }
+    var prevBtn = document.getElementById('en-prev-btn'), nextBtn = document.getElementById('en-next-btn');
+    if(dateVal !== 'all'){ prevBtn.disabled = (currentIdx >= vdates.length - 1); nextBtn.disabled = (currentIdx <= 0); }
+    else { prevBtn.disabled = true; nextBtn.disabled = true; }
+    list.innerHTML = parts.length === 0 ? '<p class="text-center text-kirby-pink-dark/40 py-12">尚無符合條件的學習記錄 🩷</p>' : parts.join('');
   }
 
-  // Category filter buttons
-  var btns = document.querySelectorAll('#english-filters .cat-btn');
-  for(var i=0; i<btns.length; i++){
-    btns[i].addEventListener('click', function(){
-      for(var j=0; j<btns.length; j++){ btns[j].classList.remove('active','bg-kirby-pink-main','text-white'); btns[j].classList.add('bg-kirby-white/60','text-kirby-pink-dark'); }
-      this.classList.remove('bg-kirby-white/60','text-kirby-pink-dark');
-      this.classList.add('active','bg-kirby-pink-main','text-white');
-      currentCat = this.dataset.cat;
+  function setupListeners(){
+    var btns = document.querySelectorAll('#english-filters .cat-btn');
+    for(var i=0; i<btns.length; i++){
+      btns[i].addEventListener('click', function(){
+        for(var j=0; j<btns.length; j++){ btns[j].classList.remove('active','bg-kirby-pink-main','text-white'); btns[j].classList.add('bg-kirby-white/60','text-kirby-pink-dark'); }
+        this.classList.remove('bg-kirby-white/60','text-kirby-pink-dark');
+        this.classList.add('active','bg-kirby-pink-main','text-white');
+        currentCat = this.dataset.cat;
+        render();
+      });
+    }
+    document.getElementById('en-prev-btn').addEventListener('click', function(){
+      var vdates = getVisibleDates();
+      if(currentIdx < vdates.length - 1){ currentIdx++; document.getElementById('english-date').value = vdates[currentIdx]; render(); }
+    });
+    document.getElementById('en-next-btn').addEventListener('click', function(){
+      if(currentIdx > 0){ currentIdx--; document.getElementById('english-date').value = getVisibleDates()[currentIdx]; render(); }
+    });
+    document.getElementById('english-month').addEventListener('change', function(){ currentIdx = 0; document.getElementById('english-date').value = 'all'; render(); });
+    document.getElementById('english-date').addEventListener('change', function(){
+      var vdates = getVisibleDates(), dv = this.value;
+      currentIdx = dv === 'all' ? 0 : vdates.indexOf(dv);
       render();
     });
   }
 
-  // Prev/Next navigation
-  document.getElementById('en-prev-btn').addEventListener('click', function(){
-    var vdates = getVisibleDates();
-    if(currentIdx < vdates.length - 1){
-      currentIdx++;
-      document.getElementById('english-date').value = vdates[currentIdx];
-      render();
-    }
-  });
-  document.getElementById('en-next-btn').addEventListener('click', function(){
-    if(currentIdx > 0){
-      currentIdx--;
-      document.getElementById('english-date').value = getVisibleDates()[currentIdx];
-      render();
-    }
-  });
-
-  document.getElementById('english-month').addEventListener('change', function(){
-    currentIdx = 0;
-    document.getElementById('english-date').value = 'all';
+  // Fetch from Supabase
+  supabase.from('english_entries').select('*').order('date', { ascending: false }).then(function(res){
+    if(res.error){ console.error(res.error); return; }
+    rawEntries = res.data;
+    dates = groupByDate(rawEntries);
+    populateSelectors();
+    setupListeners();
     render();
   });
-  document.getElementById('english-date').addEventListener('change', function(){
-    var vdates = getVisibleDates();
-    var dv = this.value;
-    currentIdx = dv === 'all' ? 0 : vdates.indexOf(dv);
-    render();
-  });
-
-  var months = [...new Set(dates.map(function(d){ return d.date.substring(0,7); }))].sort(function(a,b){ return b.localeCompare(a); });
-  // Default to latest
-  if (months && months.length > 0) {
-    document.getElementById('english-month').value = months[0];
-  }
-  if (dates && dates.length > 0) {
-    document.getElementById('english-date').value = dates[0].date;
-  }
-  render();
 })();
 </script>`;
   return wrap("英文學習", "/english", html);
@@ -636,9 +579,7 @@ function buildEnglish() {
 //  STEP 6: REVIEW — Flashcard Flip-to-Reveal Page
 // =====================================================================
 function buildReview() {
-  // Cards are now fetched from Supabase at runtime — no more local JSON
-  const SUPABASE_URL = "https://ccxvgozrxtqatjwebjsa.supabase.co";
-  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNjeHZnb3pyeHRxYXRqd2VianNhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkyNTUzNDUsImV4cCI6MjA5NDgzMTM0NX0.RS3Jsa9FgeIYq70dX24InJIqVlHWh6rWlZ0a-xfW-W0";
+  // Cards are fetched from Supabase at runtime — no more local JSON
 
   const html = `
 <style>
