@@ -299,8 +299,12 @@ function buildDevNotes(blocks) {
         }
       }
     } else {
-      // Show all dates, oldest first (better reading order)
-      visible = notes.slice().sort(function(a, b) { return a.date.localeCompare(b.date); });
+      visible = notes;
+    }
+
+    // If showing all dates, sort oldest first for reading order
+    if(dateVal === 'all'){
+      visible.sort(function(a, b) { return a.date.localeCompare(b.date); });
     }
 
     // Update nav & button states
