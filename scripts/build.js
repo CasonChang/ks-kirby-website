@@ -300,7 +300,7 @@ function buildDevNotes(blocks) {
       }
     } else {
       // Show all dates, oldest first (better reading order)
-      visible = notes.slice().reverse();
+      visible = notes.slice().sort(function(a, b) { return a.date.localeCompare(b.date); });
     }
 
     // Update nav & button states
