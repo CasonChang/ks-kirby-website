@@ -1,233 +1,550 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>英文複習卡 - 森之卡比</title><script src="https://cdn.tailwindcss.com"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-<script>tailwind.config={theme:{extend:{colors:{'kirby-bg':'#FFF0F3','kirby-pink-light':'#FFB7C5','kirby-pink-main':'#FF8FAB','kirby-pink-dark':'#E06C84','kirby-white':'#FFFFFF'}}}}</script><style>
-@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-.fade-in{animation:fadeIn .5s ease-out forwards;opacity:0}
-.fade-1{animation-delay:.1s}.fade-2{animation-delay:.2s}.fade-3{animation-delay:.3s}.fade-4{animation-delay:.4s}.fade-5{animation-delay:.5s}.fade-6{animation-delay:.6s}.fade-7{animation-delay:.7s}.fade-8{animation-delay:.8s}.fade-9{animation-delay:.9s}
-.badge{display:inline-block;padding:4px 16px;border-radius:9999px;font-size:.75rem;font-weight:700;margin-bottom:1rem}
-.incorrect{text-decoration:line-through;color:#E06C84}.correct{color:#2d8a56;font-weight:600}
-.cat-btn{transition:all .2s}.cat-btn.active{background-color:#FF8FAB!important;color:#fff!important}
-select:focus{outline:none;border-color:#FF8FAB!important;box-shadow:0 0 0 2px rgba(255,143,171,.3)}
-.nav-btn:disabled{opacity:.3;cursor:not-allowed}.nav-btn:not(:disabled):hover{opacity:1;background-color:#FFB7C5}
-</style></head>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>SRS 複習卡 - 森之卡比</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'kirby-bg': '#FFF0F3',
+            'kirby-pink-light': '#FFB7C5',
+            'kirby-pink-main': '#FF8FAB',
+            'kirby-pink-dark': '#E06C84',
+            'kirby-white': '#FFFFFF'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .fade-in { animation: fadeIn 0.5s ease-out forwards; opacity: 0; }
+    .fade-1 { animation-delay: 0.1s; } .fade-2 { animation-delay: 0.2s; } .fade-3 { animation-delay: 0.3s; } .fade-4 { animation-delay: 0.4s; }
+
+    /* ── Flip Card ── */
+    .flip-card { perspective: 1200px; width: 100%; max-width: 400px; height: 320px; }
+    .flip-card-inner {
+      position: relative; width: 100%; height: 100%;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-style: preserve-3d;
+    }
+    .flip-card.revealed .flip-card-inner { transform: rotateY(180deg); }
+    .flip-card-front, .flip-card-back {
+      position: absolute; width: 100%; height: 100%;
+      backface-visibility: hidden; -webkit-backface-visibility: hidden;
+      border-radius: 1.25rem; display: flex; flex-direction: column;
+      align-items: center; padding: 1.5rem;
+      box-shadow: 0 4px 20px rgba(224, 108, 132, 0.15);
+    }
+    .flip-card-front {
+      background: linear-gradient(135deg, #FFF0F3, #FFE4EC);
+      border: 2px solid #FFB7C5;
+      justify-content: space-between;
+    }
+    .flip-card-back {
+      background: linear-gradient(135deg, #f0faf4, #e0f5e8);
+      border: 2px solid #2d8a56;
+      transform: rotateY(180deg);
+      justify-content: space-between;
+    }
+    .card-tag {
+      font-size: 0.65rem; font-weight: 700;
+      padding: 0.2rem 0.6rem; border-radius: 9999px;
+    }
+    @keyframes pulseHint {
+      0%, 100% { transform: scale(1); opacity: 0.6; }
+      50% { transform: scale(1.05); opacity: 0.9; }
+    }
+    .pulse { animation: pulseHint 2s ease-in-out infinite; }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(30px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    .slide-in { animation: slideIn 0.35s ease-out; }
+
+    /* ── Rating Buttons ── */
+    .rate-btn {
+      width: 44px; height: 44px; border-radius: 50%;
+      font-size: 1.1rem; font-weight: 700; border: none; cursor: pointer;
+      transition: all 0.2s; display: flex; align-items: center; justify-content: center;
+    }
+    .rate-btn:hover { transform: scale(1.15); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+    .rate-btn:active { transform: scale(0.95); }
+    .rate-1 { background: #fecaca; color: #991b1b; }
+    .rate-2 { background: #fed7aa; color: #9a3412; }
+    .rate-3 { background: #fde68a; color: #854d0e; }
+    .rate-4 { background: #bbf7d0; color: #166534; }
+    .rate-5 { background: #86efac; color: #14532d; }
+
+    /* ── Stats Modal ── */
+    .stats-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.4);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 50; backdrop-filter: blur(4px);
+    }
+    .stats-card {
+      background: white; border-radius: 1.5rem; padding: 2rem;
+      max-width: 400px; width: 90%; text-align: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    }
+    .stat-number {
+      font-size: 2.5rem; font-weight: 800;
+      background: linear-gradient(135deg, #FF8FAB, #E06C84);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+  </style>
+</head>
 <body class="bg-kirby-bg text-kirby-pink-dark font-sans min-h-screen flex flex-col">
-<nav class="w-full max-w-4xl mx-auto px-6 py-4 flex justify-start md:justify-center gap-3 overflow-x-auto no-scrollbar whitespace-nowrap"><a class="px-4 py-2 rounded-full text-sm md:text-base font-medium transition-all shrink-0 bg-kirby-white/60 text-kirby-pink-dark hover:bg-kirby-pink-light/40" href="/ks-kirby-website/">🏠 首頁</a><a class="px-4 py-2 rounded-full text-sm md:text-base font-medium transition-all shrink-0 bg-kirby-white/60 text-kirby-pink-dark hover:bg-kirby-pink-light/40" href="/ks-kirby-website/milestones">🏆 里程碑</a><a class="px-4 py-2 rounded-full text-sm md:text-base font-medium transition-all shrink-0 bg-kirby-white/60 text-kirby-pink-dark hover:bg-kirby-pink-light/40" href="/ks-kirby-website/dev-notes">📝 開發筆記</a><a class="px-4 py-2 rounded-full text-sm md:text-base font-medium transition-all shrink-0 bg-kirby-white/60 text-kirby-pink-dark hover:bg-kirby-pink-light/40" href="/ks-kirby-website/english">📖 英文學習</a><a class="px-4 py-2 rounded-full text-sm md:text-base font-medium transition-all shrink-0 bg-kirby-pink-main text-white shadow-md" href="/ks-kirby-website/review">🃏 英文複習卡</a></nav>
-<main class="max-w-4xl mx-auto px-4 py-8 sm:px-6 sm:py-12 w-full overflow-x-hidden">
-<style>
-.flip-card {
-  perspective: 1200px;
-  width: 100%;
-  max-width: 360px;
-  height: 280px;
-}
-.flip-card-back {
-  justify-content: space-between;
-}
-.flip-card-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  transform-style: preserve-3d;
-}
-.flip-card.revealed .flip-card-inner {
-  transform: rotateY(180deg);
-}
-.flip-card-front, .flip-card-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  border-radius: 1.25rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 1.5rem;
-  box-shadow: 0 4px 20px rgba(224, 108, 132, 0.15);
-}
-.flip-card-front {
-  background: linear-gradient(135deg, #FFF0F3, #FFE4EC);
-  border: 2px solid #FFB7C5;
-}
-.flip-card-back {
-  background: linear-gradient(135deg, #f0faf4, #e0f5e8);
-  border: 2px solid #2d8a56;
-  transform: rotateY(180deg);
-}
-.card-tag {
-  position: absolute;
-  top: 0.75rem;
-  left: 0.75rem;
-  font-size: 0.65rem;
-  font-weight: 700;
-  padding: 0.2rem 0.6rem;
-  border-radius: 9999px;
-}
-.card-date-tag {
-  position: absolute;
-  bottom: 0.75rem;
-  right: 0.75rem;
-  font-size: 0.6rem;
-  color: #E06C84;
-  opacity: 0.5;
-}
-.flip-hint {
-  font-size: 0.9rem;
-  color: #E06C84;
-  opacity: 0.6;
-  letter-spacing: 0.05em;
-}
-.flip-card-back .card-tag {
-  background: #2d8a56;
-  color: #fff;
-}
-@keyframes pulseHint {
-  0%, 100% { transform: scale(1); opacity: 0.6; }
-  50% { transform: scale(1.05); opacity: 0.9; }
-}
-.pulse {
-  animation: pulseHint 2s ease-in-out infinite;
-}
-@keyframes slideIn {
-  from { opacity: 0; transform: translateX(30px); }
-  to { opacity: 1; transform: translateX(0); }
-}
-.slide-in {
-  animation: slideIn 0.35s ease-out;
-}
-</style>
 
-<header class="text-center mb-6 fade-in fade-1">
-  <h1 class="text-4xl md:text-5xl font-bold text-kirby-pink-main mb-2">🃏 英文複習卡</h1>
-  <p class="text-kirby-pink-dark/60 text-lg">點擊右邊卡片，檢查你的文法記憶！</p>
-</header>
+<!-- Nav -->
+<nav class="w-full max-w-4xl mx-auto px-6 py-4 flex justify-start md:justify-center gap-3 overflow-x-auto whitespace-nowrap">
+  <a class="px-4 py-2 rounded-full text-sm md:text-base font-medium bg-kirby-white/60 text-kirby-pink-dark hover:bg-kirby-pink-light/40" href="/ks-kirby-website/">🏠 首頁</a>
+  <a class="px-4 py-2 rounded-full text-sm md:text-base font-medium bg-kirby-white/60 text-kirby-pink-dark hover:bg-kirby-pink-light/40" href="/ks-kirby-website/milestones">🏆 里程碑</a>
+  <a class="px-4 py-2 rounded-full text-sm md:text-base font-medium bg-kirby-white/60 text-kirby-pink-dark hover:bg-kirby-pink-light/40" href="/ks-kirby-website/dev-notes">📝 開發筆記</a>
+  <a class="px-4 py-2 rounded-full text-sm md:text-base font-medium bg-kirby-white/60 text-kirby-pink-dark hover:bg-kirby-pink-light/40" href="/ks-kirby-website/english">📖 英文學習</a>
+  <a class="px-4 py-2 rounded-full text-sm md:text-base font-medium bg-kirby-pink-main text-white shadow-md" href="/ks-kirby-website/review">🃏 SRS 複習</a>
+</nav>
 
-<!-- Controls -->
-<div class="flex items-center justify-center gap-4 mb-8">
-  <button id="shuffle-btn" class="bg-kirby-pink-main text-white px-6 py-2 rounded-full text-sm font-bold shadow-md hover:shadow-lg hover:bg-kirby-pink-dark transition-all flex items-center gap-2">
-    🎲 下一題
-  </button>
-  <span id="counter" class="text-sm text-kirby-pink-dark/50 font-medium min-w-[80px] text-center"></span>
-</div>
+<main class="max-w-2xl mx-auto px-4 py-8 sm:px-6 sm:py-12 w-full flex flex-col items-center">
 
-<!-- Cards -->
-<div class="flex flex-col md:flex-row items-center justify-center gap-6 mb-8">
-  <!-- Wrong Card (always visible) -->
-  <div class="flip-card" id="wrong-card">
-    <div class="flip-card-inner">
-      <div class="flip-card-front">
-        <span class="card-tag bg-kirby-pink-dark text-white">✏️ 請修正</span>
-        <p class="text-xs text-kirby-pink-dark/50 mb-1">需要被糾正的句子</p>
-        <p id="wrong-text" class="text-lg md:text-xl font-bold text-kirby-pink-dark text-center leading-relaxed"></p>
-        <span class="card-date-tag" id="wrong-date"></span>
-      </div>
-      <div class="flip-card-back">
-        <span class="card-tag">❌ 錯誤</span>
-        <p class="text-lg md:text-xl font-bold text-kirby-pink-dark text-center leading-relaxed"></p>
-      </div>
+  <!-- Header -->
+  <header class="text-center mb-6 fade-in fade-1">
+    <h1 class="text-4xl md:text-5xl font-bold text-kirby-pink-main mb-2">🃏 SRS 複習卡</h1>
+    <p class="text-kirby-pink-dark/60 text-lg">間隔重複記憶法 · 10 張一組</p>
+  </header>
+
+  <!-- Progress Bar -->
+  <div id="progress-area" class="w-full max-w-sm mb-6 hidden">
+    <div class="flex items-center justify-between mb-2">
+      <span id="progress-label" class="text-sm font-bold text-kirby-pink-dark">第 1 張 / 10</span>
+      <span id="round-label" class="text-xs text-kirby-pink-dark/50"></span>
+    </div>
+    <div class="w-full bg-kirby-pink-light/30 rounded-full h-2">
+      <div id="progress-fill" class="bg-kirby-pink-main h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
     </div>
   </div>
 
-  <!-- Correct Card (flip to reveal) -->
-  <div class="flip-card cursor-pointer" id="correct-card" onclick="this.classList.toggle('revealed')">
-    <div class="flip-card-inner">
-      <div class="flip-card-front" style="background: linear-gradient(135deg, #ffe8ed, #ffd4de);">
-        <span class="card-tag bg-kirby-pink-light text-kirby-pink-dark">✅ 修正</span>
-        <div class="flex flex-col items-center gap-3">
-          <span class="flip-hint pulse">✋ Click to reveal</span>
-        </div>
-      </div>
-      <div class="flip-card-back">
-        <span class="card-tag">✅ 修正</span>
-        <div class="flex-1 flex flex-col items-center justify-center">
-          <p id="correct-text" class="text-lg md:text-xl font-bold text-green-700 text-center leading-relaxed"></p>
-          <div class="mt-4 bg-green-50/80 rounded-xl px-4 py-3 border border-green-200 max-w-[280px]">
-            <p class="text-xs text-green-700/70 leading-relaxed" id="rule-text"></p>
+  <!-- Flip Card -->
+  <div id="card-area" class="flex flex-col items-center gap-6 mb-4 hidden">
+    <div class="flip-card cursor-pointer" id="flip-card" onclick="revealCard()">
+      <div class="flip-card-inner">
+        <!-- Front: Wrong sentence -->
+        <div class="flip-card-front">
+          <div class="self-start">
+            <span class="card-tag bg-kirby-pink-dark text-white">✏️ 請修正</span>
+          </div>
+          <div class="flex-1 flex flex-col items-center justify-center gap-2">
+            <p class="text-xs text-kirby-pink-dark/50">需要被糾正的句子</p>
+            <p id="wrong-text" class="text-xl md:text-2xl font-bold text-kirby-pink-dark text-center leading-relaxed"></p>
+          </div>
+          <div class="flex flex-col items-center gap-1">
+            <span class="flip-hint pulse text-sm text-kirby-pink-dark/40">✋ 點擊翻牌看答案</span>
+            <span id="card-meta" class="text-xs text-kirby-pink-dark/30"></span>
           </div>
         </div>
-        <span class="card-date-tag" style="color:#2d8a56;" id="correct-date"></span>
+        <!-- Back: Correct answer -->
+        <div class="flip-card-back">
+          <div class="self-start">
+            <span class="card-tag bg-green-700 text-white">✅ 標準答案</span>
+          </div>
+          <div class="flex-1 flex flex-col items-center justify-center gap-3">
+            <p id="correct-text" class="text-xl md:text-2xl font-bold text-green-700 text-center leading-relaxed"></p>
+            <div class="bg-green-50/80 rounded-xl px-4 py-3 border border-green-200 max-w-[300px]">
+              <p id="rule-text" class="text-xs text-green-700/70 leading-relaxed"></p>
+            </div>
+          </div>
+          <span class="text-xs text-green-600/40" id="card-difficulty"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Rating Buttons (appear after reveal) -->
+    <div id="rating-area" class="hidden flex-col items-center gap-3">
+      <p class="text-sm text-kirby-pink-dark/60 font-medium">你記得多少？</p>
+      <div class="flex items-center gap-3">
+        <button class="rate-btn rate-1" onclick="rateCard(1)" title="完全忘記">1</button>
+        <button class="rate-btn rate-2" onclick="rateCard(2)" title="記得一點點">2</button>
+        <button class="rate-btn rate-3" onclick="rateCard(3)" title="有印象但不確定">3</button>
+        <button class="rate-btn rate-4" onclick="rateCard(4)" title="答對了但想了一下">4</button>
+        <button class="rate-btn rate-5" onclick="rateCard(5)" title="完全記得！">5</button>
+      </div>
+      <div class="flex justify-between w-full max-w-[320px] text-[10px] text-kirby-pink-dark/40 px-1">
+        <span>忘記</span><span>模糊</span><span>不確定</span><span>有印象</span><span>完美</span>
+      </div>
+      <p id="graduate-hint" class="text-xs text-kirby-pink-main font-semibold hidden">
+        🎓 評分 4 或 5 即可畢業！
+      </p>
+    </div>
+  </div>
+
+  <!-- Empty State (no due cards) -->
+  <div id="empty-state" class="text-center py-16 hidden fade-in fade-1">
+    <p class="text-5xl mb-4">🎉</p>
+    <p class="text-xl font-bold text-kirby-pink-main mb-2">今天沒有待複習的卡片！</p>
+    <p class="text-kirby-pink-dark/50 mb-6">所有卡片都在排程中，等時間到再回來吧～</p>
+    <button onclick="initReview()" class="bg-kirby-pink-main text-white px-8 py-3 rounded-full font-bold shadow-md hover:shadow-lg hover:bg-kirby-pink-dark transition-all">
+      🔄 重新整理
+    </button>
+  </div>
+
+  <!-- Start Screen -->
+  <div id="start-screen" class="text-center py-12 fade-in fade-1">
+    <p class="text-5xl mb-4">🧠</p>
+    <p id="due-count-text" class="text-lg text-kirby-pink-dark/70 mb-2">載入中...</p>
+    <button id="start-btn" onclick="startRound()" class="bg-kirby-pink-main text-white px-8 py-3 rounded-full font-bold text-lg shadow-md hover:shadow-lg hover:bg-kirby-pink-dark transition-all disabled:opacity-40 disabled:cursor-not-allowed" disabled>
+      🚀 開始複習
+    </button>
+    <p class="text-xs text-kirby-pink-dark/40 mt-3">每次 10 張，完成後顯示統計</p>
+  </div>
+
+  <!-- Round Stats Modal -->
+  <div id="stats-overlay" class="stats-overlay hidden">
+    <div class="stats-card" id="stats-card">
+      <p class="text-3xl mb-2" id="stats-emoji">🎉</p>
+      <h2 class="text-2xl font-bold text-kirby-pink-main mb-4">本輪完成！</h2>
+      <div class="grid grid-cols-2 gap-4 mb-6">
+        <div class="bg-kirby-bg rounded-xl p-3">
+          <p class="stat-number" id="stat-reviewed">10</p>
+          <p class="text-xs text-kirby-pink-dark/50">複習張數</p>
+        </div>
+        <div class="bg-kirby-bg rounded-xl p-3">
+          <p class="stat-number" id="stat-avg">4.2</p>
+          <p class="text-xs text-kirby-pink-dark/50">平均分數</p>
+        </div>
+        <div class="bg-green-50 rounded-xl p-3">
+          <p class="text-2xl font-extrabold text-green-600" id="stat-graduated">3</p>
+          <p class="text-xs text-green-600/60">🎓 畢業</p>
+        </div>
+        <div class="bg-amber-50 rounded-xl p-3">
+          <p class="text-2xl font-extrabold text-amber-600" id="stat-review">7</p>
+          <p class="text-xs text-amber-600/60">🔁 待複習</p>
+        </div>
+      </div>
+      <div id="stat-detail" class="text-xs text-kirby-pink-dark/40 mb-6"></div>
+      <div class="flex flex-col gap-3">
+        <button onclick="startRound()" class="bg-kirby-pink-main text-white px-8 py-3 rounded-full font-bold shadow-md hover:shadow-lg hover:bg-kirby-pink-dark transition-all">
+          🔄 下一組（10 張）
+        </button>
+        <button onclick="closeStats()" class="text-sm text-kirby-pink-dark/50 hover:text-kirby-pink-dark transition-colors">
+          查看總覽
+        </button>
       </div>
     </div>
   </div>
-</div>
 
-<!-- Stats -->
-<div class="mt-10 text-center text-xs text-kirby-pink-dark/30">
-  共 <span id="total-count">-</span> 張卡片 · 隨機出題
-</div>
+</main>
 
 <script>
-(function(){
-  var supabase = window.supabase.createClient("https://ccxvgozrxtqatjwebjsa.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNjeHZnb3pyeHRxYXRqd2VianNhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkyNTUzNDUsImV4cCI6MjA5NDgzMTM0NX0.RS3Jsa9FgeIYq70dX24InJIqVlHWh6rWlZ0a-xfW-W0");
-  var cards = [];
-  var total = 0;
-  var currentId = null;
+(function() {
+  'use strict';
 
-  // Map Supabase field names to what the UI expects
-  function mapCard(c){
+  // ── Supabase ──
+  const SB_URL = 'https://ccxvgozrxtqatjwebjsa.supabase.co';
+  const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNjeHZnb3pyeHRxYXRqd2VianNhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkyNTUzNDUsImV4cCI6MjA5NDgzMTM0NX0.RS3Jsa9FgeIYq70dX24InJIqVlHWh6rWlZ0a-xfW-W0';
+  const sb = window.supabase.createClient(SB_URL, SB_KEY);
+
+  // ── State ──
+  const BATCH_SIZE = 10;
+  let allDueCards = [];      // All due cards from DB
+  let roundCards = [];       // Current batch (up to 10)
+  let currentIndex = 0;      // Position in roundCards
+  let roundStats = [];       // [{card_id, score, graduated}]
+  let isRevealed = false;
+  let currentCardSrs = null; // SRS record for current card
+
+  // ── DOM refs ──
+  const $ = id => document.getElementById(id);
+
+  // ── SM-2 Algorithm ──
+  function applySM2(srs, score) {
+    const ef = srs.ease_factor || 2.5;
+    const reps = srs.repetitions || 0;
+    const prevInterval = srs.interval_days || 0;
+    let interval;
+
+    if (score >= 3) {
+      if (reps === 0)      interval = 1;
+      else if (reps === 1) interval = 6;
+      else                 interval = Math.round(prevInterval * ef);
+    } else {
+      interval = 1;
+    }
+
+    // Ease factor update (standard SM-2 formula)
+    const quality = score; // 1-5
+    const newEf = ef + (0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02));
+
+    const nextDate = new Date();
+    nextDate.setDate(nextDate.getDate() + interval);
+
+    const newReps = score >= 3 ? reps + 1 : 0;
+    const graduated = score > 3; // ">3" → 4 or 5
+
     return {
-      id: c.card_id,
-      wrong: c.original,
-      correct: c.corrected,
-      rule: c.analysis,
-      date: c.created_at ? c.created_at.substring(0, 10) : ''
+      card_id: srs.card_id,
+      ease_factor: Math.max(1.3, parseFloat(newEf.toFixed(2))),
+      repetitions: newReps,
+      interval_days: interval,
+      next_review: nextDate.toISOString(),
+      graduated: graduated,
+      total_reviews: (srs.total_reviews || 0) + 1,
+      total_successes: (srs.total_successes || 0) + (score >= 3 ? 1 : 0),
+      last_score: score,
+      last_reviewed: new Date().toISOString(),
+      updated_at: new Date().toISOString()
     };
   }
 
-  function pickRandom(){
-    var idx = Math.floor(Math.random() * cards.length);
-    return cards[idx];
+  function intervalText(srs) {
+    const d = srs.interval_days || 0;
+    if (d === 0) return '今天';
+    if (d === 1) return '明天';
+    if (d < 7)  return d + ' 天後';
+    if (d < 30) return Math.floor(d/7) + ' 週後';
+    return Math.floor(d/30) + ' 個月後';
   }
 
-  function ensureDifferent(){
-    if(cards.length <= 1) return pickRandom();
-    var card = pickRandom();
-    while(card.id === currentId){
-      card = pickRandom();
+  // ── Load due cards ──
+  async function loadDueCards() {
+    const now = new Date().toISOString();
+    // Join cards with card_srs, only where next_review <= now
+    const { data, error } = await sb
+      .from('card_srs')
+      .select('*, cards(*)')
+      .lte('next_review', now)
+      .order('next_review', { ascending: true });
+
+    if (error) {
+      console.error('Failed to load cards:', error);
+      return [];
     }
-    return card;
+
+    return (data || []).map(row => ({
+      srs: {
+        id: row.id,
+        card_id: row.card_id,
+        ease_factor: row.ease_factor,
+        repetitions: row.repetitions,
+        interval_days: row.interval_days,
+        next_review: row.next_review,
+        graduated: row.graduated,
+        total_reviews: row.total_reviews,
+        total_successes: row.total_successes,
+        last_score: row.last_score,
+        last_reviewed: row.last_reviewed
+      },
+      card: row.cards
+    }));
   }
 
-  function renderCard(card){
-    currentId = card.id;
-    document.getElementById('wrong-text').textContent = card.wrong;
-    document.getElementById('correct-text').textContent = card.correct;
-    document.getElementById('wrong-date').textContent = card.date;
-    document.getElementById('correct-date').textContent = card.date;
-    document.getElementById('rule-text').textContent = '💡 ' + card.rule;
+  // ── Initialize ──
+  async function initReview() {
+    $('start-screen').classList.remove('hidden');
+    $('card-area').classList.add('hidden');
+    $('empty-state').classList.add('hidden');
+    $('progress-area').classList.add('hidden');
+    $('stats-overlay').classList.add('hidden');
 
-    var idx = cards.findIndex(function(c){ return c.id === card.id; });
-    document.getElementById('counter').textContent = '#' + (idx + 1) + ' / ' + total;
+    allDueCards = await loadDueCards();
+    const count = allDueCards.length;
+    $('due-count-text').textContent =
+      count === 0
+        ? '🎉 沒有待複習的卡片！'
+        : `目前有 ${count} 張卡片待複習`;
+    $('start-btn').disabled = count === 0;
 
-    // Animate
-    document.getElementById('wrong-card').classList.add('slide-in');
-    document.getElementById('correct-card').classList.add('slide-in');
-    setTimeout(function(){
-      document.getElementById('wrong-card').classList.remove('slide-in');
-      document.getElementById('correct-card').classList.remove('slide-in');
-    }, 350);
-
-    // Reset flip
-    document.getElementById('correct-card').classList.remove('revealed');
+    // Show empty state if nothing due
+    if (count === 0) {
+      $('start-screen').classList.add('hidden');
+      $('empty-state').classList.remove('hidden');
+    }
   }
 
-  // Fetch cards from Supabase
-  supabase.from('cards').select('*').order('created_at', { ascending: true }).then(function(res){
-    if(res.error){ console.error(res.error); return; }
-    cards = res.data.map(mapCard);
-    total = cards.length;
-    document.getElementById('total-count').textContent = total;
-    if(cards.length > 0) renderCard(pickRandom());
-  });
+  // ── Start a round ──
+  function startRound() {
+    $('stats-overlay').classList.add('hidden');
+    $('start-screen').classList.add('hidden');
+    $('empty-state').classList.add('hidden');
 
-  document.getElementById('shuffle-btn').addEventListener('click', function(){
-    if(cards.length === 0) return;
-    renderCard(ensureDifferent());
-  });
+    if (allDueCards.length === 0) {
+      initReview();
+      return;
+    }
+
+    // Take next BATCH_SIZE cards
+    roundCards = allDueCards.splice(0, BATCH_SIZE);
+    currentIndex = 0;
+    roundStats = [];
+    isRevealed = false;
+
+    $('progress-area').classList.remove('hidden');
+    $('card-area').classList.remove('hidden');
+    $('round-label').textContent = '還剩 ' + allDueCards.length + ' 張待複習';
+
+    showCard(0);
+  }
+
+  // ── Show card ──
+  function showCard(index) {
+    if (index >= roundCards.length) {
+      finishRound();
+      return;
+    }
+
+    currentIndex = index;
+    isRevealed = false;
+    const item = roundCards[index];
+    currentCardSrs = item.srs;
+    const card = item.card;
+
+    // Update progress
+    $('progress-label').textContent = '第 ' + (index + 1) + ' 張 / ' + roundCards.length;
+    $('progress-fill').style.width = (index / roundCards.length * 100) + '%';
+
+    // Fill content
+    $('wrong-text').textContent = card.original;
+    $('correct-text').textContent = card.corrected;
+    $('rule-text').textContent = '💡 ' + card.analysis;
+
+    // Card meta
+    const srs = item.srs;
+    let metaParts = [];
+    if (srs.total_reviews > 0) {
+      metaParts.push('複習 ' + srs.total_reviews + ' 次');
+    }
+    if (srs.ease_factor) {
+      metaParts.push('EF: ' + srs.ease_factor.toFixed(1));
+    }
+    if (srs.graduated) {
+      metaParts.push('🎓');
+    }
+    $('card-meta').textContent = metaParts.join(' · ');
+    $('card-difficulty').textContent = '下次複習：' + intervalText(srs);
+
+    // Reset UI
+    $('flip-card').classList.remove('revealed');
+    $('rating-area').classList.add('hidden');
+    $('graduate-hint').classList.add('hidden');
+
+    // Animation
+    $('flip-card').classList.add('slide-in');
+    setTimeout(() => $('flip-card').classList.remove('slide-in'), 350);
+  }
+
+  // ── Reveal answer ──
+  function revealCard() {
+    if (isRevealed) return;
+    isRevealed = true;
+    $('flip-card').classList.add('revealed');
+    $('rating-area').classList.remove('hidden');
+    $('graduate-hint').classList.remove('hidden');
+    setTimeout(() => $('rating-area').classList.add('fade-in', 'fade-1'), 100);
+  }
+
+  // ── Rate & advance ──
+  async function rateCard(score) {
+    if (!isRevealed) return;
+    if (!currentCardSrs) return;
+
+    // Apply SM-2
+    const updatedSrs = applySM2(currentCardSrs, score);
+
+    // Save to Supabase
+    const { error } = await sb
+      .from('card_srs')
+      .upsert(updatedSrs, { onConflict: 'card_id' });
+
+    if (error) {
+      console.error('Failed to save SRS state:', error);
+    }
+
+    // Track stats
+    roundStats.push({
+      card_id: currentCardSrs.card_id,
+      score: score,
+      graduated: updatedSrs.graduated,
+      interval: updatedSrs.interval_days
+    });
+
+    // Show brief feedback before next card
+    const feedbackEl = $('graduate-hint');
+    feedbackEl.classList.remove('hidden');
+    if (score > 3) {
+      feedbackEl.textContent = '🎓 畢業！下次複習：' + intervalText(updatedSrs);
+      feedbackEl.className = 'text-xs text-green-600 font-semibold mt-1';
+    } else if (score === 3) {
+      feedbackEl.textContent = '👍 還差一點～下次複習：' + intervalText(updatedSrs);
+      feedbackEl.className = 'text-xs text-amber-600 font-semibold mt-1';
+    } else {
+      feedbackEl.textContent = '💪 沒關係，明天再來！';
+      feedbackEl.className = 'text-xs text-red-500 font-semibold mt-1';
+    }
+
+    // Advance after short delay
+    await new Promise(r => setTimeout(r, 600));
+    showCard(currentIndex + 1);
+  }
+
+  // ── Finish round: show stats ──
+  function finishRound() {
+    $('card-area').classList.add('hidden');
+    $('progress-area').classList.add('hidden');
+    $('progress-fill').style.width = '100%';
+
+    const n = roundStats.length;
+    if (n === 0) {
+      initReview();
+      return;
+    }
+
+    const avg = (roundStats.reduce((s, r) => s + r.score, 0) / n).toFixed(1);
+    const graduated = roundStats.filter(r => r.graduated).length;
+    const needsReview = n - graduated;
+
+    // Update stats UI
+    $('stat-reviewed').textContent = n;
+    $('stat-avg').textContent = avg;
+    $('stat-graduated').textContent = graduated;
+    $('stat-review').textContent = needsReview;
+
+    // Emoji based on performance
+    if (graduated >= 8)       $('stats-emoji').textContent = '🔥';
+    else if (graduated >= 5)  $('stats-emoji').textContent = '🎉';
+    else if (graduated >= 3)  $('stats-emoji').textContent = '👍';
+    else                      $('stats-emoji').textContent = '💪';
+
+    // Detail line
+    const intervals = roundStats.map(r => r.interval + 'd');
+    $('stat-detail').textContent =
+      '評分分布：' + roundStats.map(r => r.score).join(', ') +
+      ' ｜ 間隔：' + intervals.join(', ');
+
+    // Show overlay
+    $('stats-overlay').classList.remove('hidden');
+
+    // Update the "next round" button based on remaining
+    const nextRoundBtn = $('stats-overlay').querySelector('button:first-of-type');
+    if (allDueCards.length === 0) {
+      nextRoundBtn.textContent = '🎉 全部完成！重整卡片';
+    } else {
+      nextRoundBtn.textContent = '🔄 下一組（尚餘 ' + allDueCards.length + ' 張）';
+    }
+  }
+
+  function closeStats() {
+    $('stats-overlay').classList.add('hidden');
+    $('start-screen').classList.remove('hidden');
+    initReview();
+  }
+
+  // ── Boot ──
+  initReview();
 })();
-</script></main>
-</body></html>
+</script>
+</body>
+</html>
