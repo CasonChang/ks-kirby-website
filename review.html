@@ -163,16 +163,16 @@
     </div>
 
     <!-- Rating Buttons (appear after reveal) -->
-    <div id="rating-area" class="hidden flex-col items-center gap-3 w-full">
+    <div id="rating-area" class="hidden flex-col items-center gap-3 w-full fade-in fade-1">
       <p class="text-sm text-kirby-pink-dark/60 font-medium">你記得多少？</p>
-      <div class="flex items-center justify-center gap-3 flex-wrap">
+      <div class="flex items-center justify-center gap-2 sm:gap-3 flex-wrap">
         <button class="rate-btn rate-1" onclick="rateCard(1)" title="完全忘記">1</button>
         <button class="rate-btn rate-2" onclick="rateCard(2)" title="記得一點點">2</button>
         <button class="rate-btn rate-3" onclick="rateCard(3)" title="有印象但不確定">3</button>
         <button class="rate-btn rate-4" onclick="rateCard(4)" title="答對了但想了一下">4</button>
         <button class="rate-btn rate-5" onclick="rateCard(5)" title="完全記得！">5</button>
       </div>
-      <div class="flex justify-between w-full max-w-[320px] text-[10px] text-kirby-pink-dark/40 px-1">
+      <div class="flex justify-between w-full max-w-[340px] text-[10px] text-kirby-pink-dark/40 px-1">
         <span>忘記</span><span>模糊</span><span>不確定</span><span>有印象</span><span>完美</span>
       </div>
       <p id="graduate-hint" class="text-xs text-kirby-pink-main font-semibold hidden">
@@ -446,7 +446,6 @@
     $('correct-card').classList.add('revealed');
     $('rating-area').classList.remove('hidden');
     $('graduate-hint').classList.remove('hidden');
-    setTimeout(() => $('rating-area').classList.add('fade-in', 'fade-1'), 100);
   }
 
   // ── Rate & advance ──
@@ -493,6 +492,7 @@
 
     // Advance after short delay
     await new Promise(r => setTimeout(r, 600));
+    feedbackEl.classList.add('hidden');
     showCard(currentIndex + 1);
   }
 
