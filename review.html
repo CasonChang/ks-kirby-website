@@ -26,31 +26,34 @@
     .fade-in { animation: fadeIn 0.5s ease-out forwards; opacity: 0; }
     .fade-1 { animation-delay: 0.1s; } .fade-2 { animation-delay: 0.2s; } .fade-3 { animation-delay: 0.3s; } .fade-4 { animation-delay: 0.4s; }
 
-    /* ── Flip Card ── */
-    .flip-card { perspective: 1200px; width: 100%; max-width: 400px; height: 320px; }
-    .flip-card-inner {
-      position: relative; width: 100%; height: 100%;
-      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-      transform-style: preserve-3d;
+    /* ── Two-Card Layout ── */
+    .review-card {
+      width: 100%; max-width: 460px; min-height: 200px;
+      border-radius: 1.25rem; padding: 1.5rem;
+      display: flex; flex-direction: column;
+      box-shadow: 0 4px 20px rgba(224, 108, 132, 0.12);
     }
-    .flip-card.revealed .flip-card-inner { transform: rotateY(180deg); }
-    .flip-card-front, .flip-card-back {
-      position: absolute; width: 100%; height: 100%;
-      backface-visibility: hidden; -webkit-backface-visibility: hidden;
-      border-radius: 1.25rem; display: flex; flex-direction: column;
-      align-items: center; padding: 1.5rem;
-      box-shadow: 0 4px 20px rgba(224, 108, 132, 0.15);
-    }
-    .flip-card-front {
+    .review-card.wrong-card {
       background: linear-gradient(135deg, #FFF0F3, #FFE4EC);
       border: 2px solid #FFB7C5;
-      justify-content: space-between;
     }
-    .flip-card-back {
+    .review-card.correct-card {
       background: linear-gradient(135deg, #f0faf4, #e0f5e8);
       border: 2px solid #2d8a56;
-      transform: rotateY(180deg);
-      justify-content: space-between;
+      cursor: pointer; position: relative; overflow: hidden;
+      transition: background 0.3s;
+    }
+    .correct-card .cover {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, #ffe8ed, #ffd4de);
+      border: 2px solid #FFB7C5; border-radius: 1.25rem;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 0.5rem;
+      transition: opacity 0.4s, visibility 0.4s;
+      z-index: 2;
+    }
+    .correct-card.revealed .cover {
+      opacity: 0; visibility: hidden; pointer-events: none;
     }
     .card-tag {
       font-size: 0.65rem; font-weight: 700;
@@ -110,7 +113,7 @@
   <a class="px-4 py-2 rounded-full text-sm md:text-base font-medium bg-kirby-pink-main text-white shadow-md" href="/ks-kirby-website/review">🃏 SRS 複習</a>
 </nav>
 
-<main class="max-w-2xl mx-auto px-4 py-8 sm:px-6 sm:py-12 w-full flex flex-col items-center">
+<main class="max-w-3xl mx-auto px-4 py-8 sm:px-6 sm:py-12 w-full flex flex-col items-center">
 
   <!-- Header -->
   <header class="text-center mb-6 fade-in fade-1">
@@ -129,44 +132,40 @@
     </div>
   </div>
 
-  <!-- Flip Card -->
-  <div id="card-area" class="flex flex-col items-center gap-6 mb-4 hidden">
-    <div class="flip-card cursor-pointer" id="flip-card" onclick="revealCard()">
-      <div class="flip-card-inner">
-        <!-- Front: Wrong sentence -->
-        <div class="flip-card-front">
-          <div class="self-start">
-            <span class="card-tag bg-kirby-pink-dark text-white">✏️ 請修正</span>
-          </div>
-          <div class="flex-1 flex flex-col items-center justify-center gap-2">
-            <p class="text-xs text-kirby-pink-dark/50">需要被糾正的句子</p>
-            <p id="wrong-text" class="text-xl md:text-2xl font-bold text-kirby-pink-dark text-center leading-relaxed"></p>
-          </div>
-          <div class="flex flex-col items-center gap-1">
-            <span class="flip-hint pulse text-sm text-kirby-pink-dark/40">✋ 點擊翻牌看答案</span>
-            <span id="card-meta" class="text-xs text-kirby-pink-dark/30"></span>
-          </div>
-        </div>
-        <!-- Back: Correct answer -->
-        <div class="flip-card-back">
-          <div class="self-start">
-            <span class="card-tag bg-green-700 text-white">✅ 標準答案</span>
-          </div>
-          <div class="flex-1 flex flex-col items-center justify-center gap-3">
-            <p id="correct-text" class="text-xl md:text-2xl font-bold text-green-700 text-center leading-relaxed"></p>
-            <div class="bg-green-50/80 rounded-xl px-4 py-3 border border-green-200 max-w-[300px]">
-              <p id="rule-text" class="text-xs text-green-700/70 leading-relaxed"></p>
-            </div>
-          </div>
-          <span class="text-xs text-green-600/40" id="card-difficulty"></span>
+  <!-- Two Cards -->
+  <div id="card-area" class="flex flex-col items-center gap-4 mb-4 hidden w-full">
+    <!-- Wrong Card (always visible) -->
+    <div class="review-card wrong-card slide-in" id="wrong-card">
+      <div class="self-start mb-2">
+        <span class="card-tag bg-kirby-pink-dark text-white">✏️ 請修正</span>
+      </div>
+      <p class="text-xs text-kirby-pink-dark/50 mb-2">下列句子哪裡錯？</p>
+      <p id="wrong-text" class="text-xl md:text-2xl font-bold text-kirby-pink-dark text-center leading-relaxed flex-1 flex items-center"></p>
+      <span id="card-meta" class="text-xs text-kirby-pink-dark/30 text-right mt-2"></span>
+    </div>
+
+    <!-- Correct Card (click to reveal) -->
+    <div class="review-card correct-card" id="correct-card" onclick="revealCard()">
+      <div class="cover">
+        <span class="card-tag bg-kirby-pink-light text-kirby-pink-dark">✅ 答案</span>
+        <span class="flip-hint pulse text-sm text-kirby-pink-dark/40">✋ 點擊顯示答案</span>
+      </div>
+      <div class="self-start mb-2">
+        <span class="card-tag bg-green-700 text-white">✅ 標準答案</span>
+      </div>
+      <div class="flex-1 flex flex-col items-center justify-center gap-3">
+        <p id="correct-text" class="text-xl md:text-2xl font-bold text-green-700 text-center leading-relaxed"></p>
+        <div class="bg-green-50/80 rounded-xl px-4 py-3 border border-green-200 w-full">
+          <p id="rule-text" class="text-xs text-green-700/70 leading-relaxed"></p>
         </div>
       </div>
+      <span class="text-xs text-green-600/40 text-right mt-2" id="card-difficulty"></span>
     </div>
 
     <!-- Rating Buttons (appear after reveal) -->
-    <div id="rating-area" class="hidden flex-col items-center gap-3">
+    <div id="rating-area" class="hidden flex-col items-center gap-3 w-full">
       <p class="text-sm text-kirby-pink-dark/60 font-medium">你記得多少？</p>
-      <div class="flex items-center gap-3">
+      <div class="flex items-center justify-center gap-3 flex-wrap">
         <button class="rate-btn rate-1" onclick="rateCard(1)" title="完全忘記">1</button>
         <button class="rate-btn rate-2" onclick="rateCard(2)" title="記得一點點">2</button>
         <button class="rate-btn rate-3" onclick="rateCard(3)" title="有印象但不確定">3</button>
@@ -177,7 +176,7 @@
         <span>忘記</span><span>模糊</span><span>不確定</span><span>有印象</span><span>完美</span>
       </div>
       <p id="graduate-hint" class="text-xs text-kirby-pink-main font-semibold hidden">
-        🎓 評分 4 或 5 即可畢業！
+        🎓 需連續兩次 4 分以上才能畢業！
       </p>
     </div>
   </div>
@@ -282,7 +281,8 @@
     nextDate.setDate(nextDate.getDate() + interval);
 
     const newReps = score >= 3 ? reps + 1 : 0;
-    const graduated = score > 3; // ">3" → 4 or 5
+    // Graduate: score > 3 AND successfully reviewed at least 2 times in a row
+    const graduated = score > 3 && newReps >= 2;
 
     return {
       card_id: srs.card_id,
@@ -426,20 +426,24 @@
     $('card-difficulty').textContent = '下次複習：' + intervalText(srs);
 
     // Reset UI
-    $('flip-card').classList.remove('revealed');
+    $('correct-card').classList.remove('revealed');
     $('rating-area').classList.add('hidden');
     $('graduate-hint').classList.add('hidden');
 
     // Animation
-    $('flip-card').classList.add('slide-in');
-    setTimeout(() => $('flip-card').classList.remove('slide-in'), 350);
+    $('wrong-card').classList.add('slide-in');
+    $('correct-card').classList.add('slide-in');
+    setTimeout(() => {
+      $('wrong-card').classList.remove('slide-in');
+      $('correct-card').classList.remove('slide-in');
+    }, 350);
   }
 
   // ── Reveal answer ──
   function revealCard() {
     if (isRevealed) return;
     isRevealed = true;
-    $('flip-card').classList.add('revealed');
+    $('correct-card').classList.add('revealed');
     $('rating-area').classList.remove('hidden');
     $('graduate-hint').classList.remove('hidden');
     setTimeout(() => $('rating-area').classList.add('fade-in', 'fade-1'), 100);
@@ -473,9 +477,12 @@
     // Show brief feedback before next card
     const feedbackEl = $('graduate-hint');
     feedbackEl.classList.remove('hidden');
-    if (score > 3) {
+    if (updatedSrs.graduated) {
       feedbackEl.textContent = '🎓 畢業！下次複習：' + intervalText(updatedSrs);
       feedbackEl.className = 'text-xs text-green-600 font-semibold mt-1';
+    } else if (score > 3 && updatedSrs.repetitions >= 1) {
+      feedbackEl.textContent = '✅ 對了！再對一次就畢業～下次：' + intervalText(updatedSrs);
+      feedbackEl.className = 'text-xs text-green-500 font-semibold mt-1';
     } else if (score === 3) {
       feedbackEl.textContent = '👍 還差一點～下次複習：' + intervalText(updatedSrs);
       feedbackEl.className = 'text-xs text-amber-600 font-semibold mt-1';
