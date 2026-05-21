@@ -143,6 +143,31 @@ async function main() {
       const original = arrowParts[0]?.trim() || "";
       const corrected = arrowParts[1]?.trim() || "";
 
+      // 1) Insert into english_entries (for English learning page)
+      const eeKey = `${e.date}|${e.title}`;
+      if (!eeSet.has(eeKey)) {
+        const eeRes = await fetch(`${SUPABASE_URL}/rest/v1/english_entries`, {
+          method: "POST",
+          headers: {
+            apikey: SERVICE_KEY,
+            Authorization: `Bearer ${SERVICE_KEY}`,
+            "Content-Type": "application/json",
+            Prefer: "return=minimal",
+          },
+          body: JSON.stringify({
+            user_id: USER_ID,
+            date: e.date,
+            type: "grammar",
+            title: e.title,
+            description: e.description,
+            example: null,
+          }),
+        });
+        if (eeRes.ok) { eeAdded++; eeSet.add(eeKey); }
+        else console.error(`  ❌ Failed english_entry (grammar): ${e.title} — ${await eeRes.text()}`);
+      }
+
+      // 2) Insert into cards (for review page)
       if (cSet.has(original)) {
         skipped++;
         continue;
