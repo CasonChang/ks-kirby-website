@@ -240,10 +240,9 @@
 </main>
 
 <script>
-(function() {
-  'use strict';
+'use strict';
 
-  // ── Supabase ──
+// ── Supabase ──
   const SB_URL = 'https://ccxvgozrxtqatjwebjsa.supabase.co';
   const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNjeHZnb3pyeHRxYXRqd2VianNhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkyNTUzNDUsImV4cCI6MjA5NDgzMTM0NX0.RS3Jsa9FgeIYq70dX24InJIqVlHWh6rWlZ0a-xfW-W0';
   const sb = window.supabase.createClient(SB_URL, SB_KEY);
@@ -542,9 +541,8 @@
     initReview();
   }
 
-  // ── Boot ──
-  initReview();
-})();
+// ── Boot ──
+initReview();
 </script>
 </body>
 </html>
