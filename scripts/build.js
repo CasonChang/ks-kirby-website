@@ -29,7 +29,7 @@ function nav(active) {
     ["/milestones", "🏆 里程碑"],
     ["/dev-notes", "📝 開發筆記"],
     ["/english", "📖 英文學習"],
-    ["/review", "🃏 複習卡"],
+    ["/review", "🃏 英文複習卡"],
   ];
   return `<nav class="w-full max-w-4xl mx-auto px-6 py-4 flex justify-start md:justify-center gap-3 overflow-x-auto no-scrollbar whitespace-nowrap">${links
     .map(
@@ -299,7 +299,8 @@ function buildDevNotes(blocks) {
         }
       }
     } else {
-      visible = notes;
+      // Show all dates, oldest first (better reading order)
+      visible = notes.slice().reverse();
     }
 
     // Update nav & button states
@@ -669,7 +670,7 @@ function buildReview() {
 </style>
 
 <header class="text-center mb-6 fade-in fade-1">
-  <h1 class="text-4xl md:text-5xl font-bold text-kirby-pink-main mb-2">🃏 複習卡</h1>
+  <h1 class="text-4xl md:text-5xl font-bold text-kirby-pink-main mb-2">🃏 英文複習卡</h1>
   <p class="text-kirby-pink-dark/60 text-lg">點擊右邊卡片，檢查你的文法記憶！</p>
 </header>
 
@@ -783,7 +784,7 @@ function buildReview() {
   }
 
   // Fetch cards from Supabase
-  supabase.from('cards').select('*').order('created_at', { ascending: false }).then(function(res){
+  supabase.from('cards').select('*').order('created_at', { ascending: true }).then(function(res){
     if(res.error){ console.error(res.error); return; }
     cards = res.data.map(mapCard);
     total = cards.length;
@@ -797,7 +798,7 @@ function buildReview() {
   });
 })();
 </script>`;
-  return wrap("複習卡", "/review", html);
+  return wrap("英文複習卡", "/review", html);
 }
 
 // ─── Main ────────────────────────────────────────────────────────────
