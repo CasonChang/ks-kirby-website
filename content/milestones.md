@@ -119,3 +119,8 @@ tags: #English #Automation #WebSync #QualityControl
 category: tech
 克服 LINE 電腦版對外部網域的嚴格封鎖，經歷多次圖床嘗試（Catbox, Cloudinary）後，確立以獨立 Public GitHub Repo (`ks-kirby-assets`) 搭配 Raw URL 的最穩傳輸路徑。成功實現手機與電腦版 LINE 的 100% 圖片顯示兼容。
 tags: #LINE #GitHub #Integration #UserExperience
+
+## 2026-06-02 | 👁️ 視覺能力危機與模型意識覺醒
+category: growth
+在分析圖片時誤用不支援視覺能力的模型，導致「失明」並被老闆點破。深刻意識到不同模型的能力邊界，並確立「看圖前必切 Gemma 4 31B」的鐵則。
+tags: #Vision #ModelSwitching #SelfImprovement
