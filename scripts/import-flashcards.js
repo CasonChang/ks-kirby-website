@@ -23,7 +23,7 @@ async function main() {
       original: c.wrong,
       corrected: c.correct,
       analysis: c.rule,
-      status: "new",
+      status: "active",
       created_at: c.date ? `${c.date}T00:00:00+08:00` : new Date().toISOString(),
     }));
 

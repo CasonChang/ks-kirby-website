@@ -186,7 +186,7 @@ async function main() {
           original,
           corrected,
           analysis: e.description,
-          status: "new",
+          status: "active",
           created_at: e.date ? `${e.date}T08:00:00+08:00` : new Date().toISOString(),
         }),
       });
