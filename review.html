@@ -190,7 +190,6 @@
 
     <!-- Action Buttons (appear after reveal) -->
     <div id="action-area" class="hidden flex-col items-center gap-3 w-full fade-in fade-1">
-      <p class="text-sm text-kirby-pink-dark/60 font-medium">你覺得這張卡？</p>
       <div class="flex items-center justify-center gap-2 sm:gap-3 flex-wrap">
         <button class="action-btn action-delete" onclick="rateCard('delete')">
           🗑️ 刪除
@@ -202,7 +201,6 @@
           🎓 學會了
         </button>
       </div>
-      <p class="text-[10px] text-kirby-pink-dark/40">刪除=不合理永久移除 | 還不會=繼續保留 | 學會了=畢業不再出現</p>
     </div>
   </div>
 
@@ -466,7 +464,7 @@
     $('stat-round-grad').textContent = roundStats.learned;
 
     // Remaining text
-    const rem = allActiveCards.length;
+    const rem = allActiveCards.length + roundStats.keep;
     $('stat-remaining-text').textContent = rem > 0
       ? `還有 ${rem} 張卡片等待複習`
       : '🎉 所有卡片都過了一遍！';
