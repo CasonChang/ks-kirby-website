@@ -124,3 +124,8 @@ tags: #LINE #GitHub #Integration #UserExperience
 category: growth
 在分析圖片時誤用不支援視覺能力的模型，導致「失明」並被老闆點破。深刻意識到不同模型的能力邊界，並確立「看圖前必切 Gemma 4 31B」的鐵則。
 tags: #Vision #ModelSwitching #SelfImprovement
+
+## 2026-06-05 | 🚀 英文學習工作流搬遷至 Telegram
+category: tech
+成功將每日對話、美食挑戰與學習總結之路徑由 LINE 遷移至 Telegram，優化 API 額度使用並提升管理效率。
+tags: #EnglishLearning #Optimization #TelegramMigration
