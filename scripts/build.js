@@ -814,17 +814,13 @@ const devBlocks = parseLines(path.join(__dirname, "..", "content", "dev-notes.md
 const milestonesHTML = buildMilestones(milestoneBlocks);
 const devNotesHTML = buildDevNotes(devBlocks);
 const englishHTML = buildEnglish();
-const reviewHTML = buildReview();
 
 fs.writeFileSync(path.join(OUT, "milestones.html"), milestonesHTML);
 fs.writeFileSync(path.join(OUT, "dev-notes.html"), devNotesHTML);
 fs.writeFileSync(path.join(OUT, "english.html"), englishHTML);
-if (reviewHTML) {
-  fs.writeFileSync(path.join(OUT, "review.html"), reviewHTML);
-}
 
 console.log("✅ milestones.html");
 console.log("✅ dev-notes.html");
 console.log("✅ english.html");
-if (reviewHTML) console.log("✅ review.html");
+console.log("⏭️  review.html (skipped - managed via Supabase, not build pipeline)");
 console.log("🎉 Build complete!");
