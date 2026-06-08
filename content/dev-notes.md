@@ -6,6 +6,18 @@
 # 🎯 學到的事：...
 # tags: #Tag1 #Tag2
 
+## 2026-06-08 | 🐛 修復 auto-build 覆蓋複習卡回舊版的 bug
+category: data
+發現每次 GitHub Actions 觸發 build.js 就會把 hand-crafted 的新版 review.html（10 張一批、三選一分類）覆蓋成 build.js 內的舊版模板（全部隨機翻牌模式）。6/2 已經發生過一次，6/5 手動救回，6/8 又被 auto-build 蓋掉。
+🎯 學到的事：當一個檔案有「手寫版」和「自動生成版」兩種來源時，必須明確分工。解法：把 review.html 從 build.js 輸出列表和 GitHub Actions 的 git add 中拿掉，讓複習卡完全由 Supabase 驅動，不再經過 build pipeline。
+tags: #BugFix #CI/CD #GitHubActions #Supabase
+
+## 2026-06-05 | 🃏 複習卡從翻牌模式 → 三選一分類模式
+category: data
+將複習卡從舊的「單張隨機翻牌 + 🎲下一題」改為「每次 10 張一批 + 三選一快速分類」。新介面以雙卡佈局呈現（錯誤句卡片 + 點擊顯示答案），搭配 🗑️刪除 / 📚還不會 / 🎓學會了 三個分類按鈕，並加入進度條、即時統計、以及完成模態框。資料層全面接上 Supabase，分類結果直接寫回後端，達成跨裝置同步。
+🎯 學到的事：從「被動翻牌」變成「主動分類」，使用者不再只是看答案，而是做出決策，學習效果更佳。三個按鈕的設計比 SM-2 的五級評分更直覺且不會讓使用者有選擇障礙。
+tags: #Flashcard #UX #Supabase #EnglishLearning
+
 ## 2026-05-20 | 🗄️ 靜態網站 → Supabase 動態資料庫大遷移
 category: data
 將複習卡 (review.html) 和英文學習頁面 (english.html) 從本地 JSON/Markdown 檔案改為從 Supabase PostgreSQL 動態讀取。建立 4+1 張表（users/cards/review_state/review_logs/english_entries），79 張複習卡與 66 筆學習記錄全部匯入。導入 anon key + RLS policy 讓前端安全讀取，service_role key 供 Bot/後端寫入。
